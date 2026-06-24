@@ -1,6 +1,12 @@
-import { useColorScheme } from "react-native";
+import { SplashScreen, Stack } from "expo-router";
+import { useEffect } from "react";
 
-export default function TabLayout() {
-  const colorScheme = useColorScheme();
-  return <></>;
+SplashScreen.preventAutoHideAsync();
+
+export default function RootLayout() {
+  useEffect(() => {
+    SplashScreen.hideAsync();
+  }, []);
+
+  return <Stack screenOptions={{ headerShown: false }} />;
 }
