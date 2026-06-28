@@ -1,7 +1,6 @@
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import {
-  Dimensions,
   Image,
   NativeScrollEvent,
   NativeSyntheticEvent,
@@ -9,6 +8,7 @@ import {
   ScrollView,
   StyleSheet,
   Text,
+  useWindowDimensions,
   View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -21,12 +21,15 @@ import {
   RECIPES_ROUTE,
 } from "../constants/Constants";
 
-const { width: screenWidth } = Dimensions.get("window");
-
 export default function OnboardingPage() {
   const router = useRouter();
+  const { width: screenWidth } = useWindowDimensions();
   const [activeIndex, setActiveIndex] = useState(0);
   const isLastSlide = activeIndex === ONBOARDING_SLIDES.length - 1;
+  const isDesktop = screenWidth >= 768;
+  const illustrationHeight = isDesktop
+    ? Math.min(Math.max(screenWidth * 0.32, 280), 420)
+    : 220;
 
   const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
     const nextIndex = Math.round(
@@ -55,13 +58,21 @@ export default function OnboardingPage() {
           contentContainerStyle={styles.sliderContent}
         >
           {ONBOARDING_SLIDES.map((slide) => (
-            <View key={slide.title} style={styles.slide}>
+            <View
+              key={slide.title}
+              style={[styles.slide, { width: screenWidth }]}
+            >
               <View style={styles.card}>
-                <View style={styles.illustration}>
+                <View
+                  style={[styles.illustration, { height: illustrationHeight }]}
+                >
                   <Image
                     source={slide.imageSource}
-                    style={styles.illustrationImage}
-                    resizeMode="stretch"
+                    style={[
+                      styles.illustrationImage,
+                      isDesktop ? styles.illustrationImageDesktop : null,
+                    ]}
+                    resizeMode="contain"
                   />
                 </View>
                 <Text style={styles.slideTitle}>{slide.title}</Text>
@@ -141,7 +152,6 @@ const styles = StyleSheet.create({
     paddingVertical: 28,
   },
   slide: {
-    width: screenWidth,
     paddingHorizontal: 24,
   },
   card: {
@@ -157,7 +167,6 @@ const styles = StyleSheet.create({
     elevation: 4,
   },
   illustration: {
-    height: 220,
     borderRadius: 24,
     backgroundColor: "transparent",
     overflow: "hidden",
@@ -168,6 +177,10 @@ const styles = StyleSheet.create({
   illustrationImage: {
     width: "100%",
     height: "100%",
+  },
+  illustrationImageDesktop: {
+    width: "82%",
+    alignSelf: "center",
   },
   slideTitle: {
     color: COLORS.brandColor,
