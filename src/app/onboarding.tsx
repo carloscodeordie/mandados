@@ -2,6 +2,7 @@ import { useRouter } from "expo-router";
 import { useState } from "react";
 import {
   Dimensions,
+  Image,
   NativeScrollEvent,
   NativeSyntheticEvent,
   Pressable,
@@ -11,31 +12,21 @@ import {
   View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import {
+  APPLICATION_NAME,
+  APPLICATION_SLOGAN,
+  COLORS,
+  ONBOARDING_SLIDES,
+  PRODUCTS_ROUTE,
+  RECIPES_ROUTE,
+} from "../constants/Constants";
 
 const { width: screenWidth } = Dimensions.get("window");
-
-const slides = [
-  {
-    title: "Track every request",
-    description:
-      "Keep every mandado organized with clear status updates and one place to review what is pending.",
-  },
-  {
-    title: "Coordinate in seconds",
-    description:
-      "Share the important details fast so the right person can pick up the task without back and forth.",
-  },
-  {
-    title: "Stay in control",
-    description:
-      "Review progress, confirm details, and move to the next step when you are ready.",
-  },
-];
 
 export default function OnboardingPage() {
   const router = useRouter();
   const [activeIndex, setActiveIndex] = useState(0);
-  const isLastSlide = activeIndex === slides.length - 1;
+  const isLastSlide = activeIndex === ONBOARDING_SLIDES.length - 1;
 
   const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
     const nextIndex = Math.round(
@@ -48,11 +39,9 @@ export default function OnboardingPage() {
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
-        <View style={styles.header}>
-          <Text style={styles.eyebrow}>Mandados</Text>
-          <Text style={styles.title}>
-            A quick look at what the app helps you do
-          </Text>
+        <View style={styles.headerContainer}>
+          <Text style={styles.applicationTitle}>{APPLICATION_NAME}</Text>
+          <Text style={styles.headerTitle}>{APPLICATION_SLOGAN}</Text>
         </View>
 
         <ScrollView
@@ -65,12 +54,15 @@ export default function OnboardingPage() {
           scrollEventThrottle={16}
           contentContainerStyle={styles.sliderContent}
         >
-          {slides.map((slide) => (
+          {ONBOARDING_SLIDES.map((slide) => (
             <View key={slide.title} style={styles.slide}>
               <View style={styles.card}>
                 <View style={styles.illustration}>
-                  <View style={styles.illustrationAccent} />
-                  <View style={styles.illustrationAccentSmall} />
+                  <Image
+                    source={slide.imageSource}
+                    style={styles.illustrationImage}
+                    resizeMode="stretch"
+                  />
                 </View>
                 <Text style={styles.slideTitle}>{slide.title}</Text>
                 <Text style={styles.slideDescription}>{slide.description}</Text>
@@ -83,18 +75,18 @@ export default function OnboardingPage() {
           <View style={styles.actions}>
             <Pressable
               style={[styles.button, styles.secondaryButton]}
-              onPress={() => router.push("/sign-in")}
+              onPress={() => router.push(RECIPES_ROUTE)}
             >
               <Text style={[styles.buttonText, styles.secondaryButtonText]}>
-                Sign in
+                Recetas
               </Text>
             </Pressable>
 
             <Pressable
               style={[styles.button, styles.primaryButton]}
-              onPress={() => router.push("/sign-up")}
+              onPress={() => router.push(PRODUCTS_ROUTE)}
             >
-              <Text style={styles.buttonText}>Create account</Text>
+              <Text style={styles.buttonText}>Productos</Text>
             </Pressable>
           </View>
         ) : (
@@ -103,7 +95,7 @@ export default function OnboardingPage() {
 
         <View style={styles.footer}>
           <View style={styles.pagination}>
-            {slides.map((slide, index) => (
+            {ONBOARDING_SLIDES.map((slide, index) => (
               <View
                 key={slide.title}
                 style={[
@@ -122,27 +114,27 @@ export default function OnboardingPage() {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: "#F5EFE6",
+    backgroundColor: COLORS.defaultBackground,
   },
   container: {
     flex: 1,
-    backgroundColor: "#F5EFE6",
+    backgroundColor: COLORS.defaultBackground,
     paddingVertical: 24,
   },
-  header: {
+  headerContainer: {
     paddingHorizontal: 24,
     gap: 12,
   },
-  eyebrow: {
-    color: "#A85C36",
-    fontSize: 13,
-    fontWeight: "700",
+  applicationTitle: {
+    color: COLORS.primaryColor,
+    fontSize: 32,
+    fontFamily: "Poppins_700Bold",
     letterSpacing: 2,
   },
-  title: {
-    color: "#1F2937",
-    fontSize: 34,
-    fontWeight: "800",
+  headerTitle: {
+    color: COLORS.secondaryColor,
+    fontSize: 24,
+    fontFamily: "Poppins_800ExtraBold",
     lineHeight: 40,
   },
   sliderContent: {
@@ -155,10 +147,10 @@ const styles = StyleSheet.create({
   card: {
     flex: 1,
     borderRadius: 32,
-    backgroundColor: "#FFFDF8",
+    backgroundColor: COLORS.surfaceColor,
     padding: 28,
     justifyContent: "space-between",
-    shadowColor: "#6B4F3B",
+    shadowColor: COLORS.secondaryColor,
     shadowOpacity: 0.08,
     shadowRadius: 18,
     shadowOffset: { width: 0, height: 10 },
@@ -167,37 +159,25 @@ const styles = StyleSheet.create({
   illustration: {
     height: 220,
     borderRadius: 24,
-    backgroundColor: "#D9F4E6",
+    backgroundColor: "transparent",
     overflow: "hidden",
     justifyContent: "center",
     alignItems: "center",
     marginBottom: 28,
   },
-  illustrationAccent: {
-    width: 148,
-    height: 148,
-    borderRadius: 999,
-    backgroundColor: "#22C55E",
-    opacity: 0.18,
-  },
-  illustrationAccentSmall: {
-    position: "absolute",
-    width: 84,
-    height: 84,
-    borderRadius: 999,
-    backgroundColor: "#F97316",
-    right: 32,
-    bottom: 28,
-    opacity: 0.26,
+  illustrationImage: {
+    width: "100%",
+    height: "100%",
   },
   slideTitle: {
-    color: "#111827",
+    color: COLORS.brandColor,
     fontSize: 28,
-    fontWeight: "800",
+    fontFamily: "Poppins_800ExtraBold",
     marginBottom: 12,
   },
   slideDescription: {
-    color: "#4B5563",
+    color: COLORS.secondaryColor,
+    fontFamily: "Poppins_400Regular",
     fontSize: 16,
     lineHeight: 24,
   },
@@ -214,15 +194,10 @@ const styles = StyleSheet.create({
     width: 10,
     height: 10,
     borderRadius: 999,
-    backgroundColor: "#D6CFC5",
+    backgroundColor: COLORS.secondaryColor,
   },
   dotActive: {
-    backgroundColor: "#1F7A4C",
-  },
-  helperText: {
-    color: "#6B7280",
-    fontSize: 15,
-    textAlign: "center",
+    backgroundColor: COLORS.brandColor,
   },
   actions: {
     flexDirection: "row",
@@ -237,19 +212,19 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   primaryButton: {
-    backgroundColor: "#1F7A4C",
+    backgroundColor: COLORS.brandColor,
   },
   secondaryButton: {
-    backgroundColor: "#FFFFFF",
+    backgroundColor: COLORS.defaultBackground,
     borderWidth: 1,
-    borderColor: "#D6CFC5",
+    borderColor: COLORS.secondaryColor,
   },
   buttonText: {
-    color: "#FFFFFF",
+    color: COLORS.defaultBackground,
+    fontFamily: "Poppins_700Bold",
     fontSize: 16,
-    fontWeight: "700",
   },
   secondaryButtonText: {
-    color: "#1F2937",
+    color: COLORS.primaryColor,
   },
 });
