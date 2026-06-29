@@ -37,4 +37,4 @@ export const ONBOARDING_SLIDES = [
 export const RECIPES_ROUTE: Href = "/recipes";
 export const PRODUCTS_ROUTE: Href = "/products";
 
-export const SPLASH_SCREEN_DURATION = 1500;
+export const SPLASH_SCREEN_DURATION = 3000;
