@@ -1,5 +1,5 @@
 import { useRouter } from "expo-router";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import {
   Image,
   NativeScrollEvent,
@@ -30,13 +30,23 @@ export default function OnboardingPage() {
     ? Math.min(Math.max(screenWidth * 0.32, 280), 420)
     : 220;
 
-  const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
-    const nextIndex = Math.round(
-      event.nativeEvent.contentOffset.x / screenWidth,
-    );
+  const handleScrollEnd = useCallback(
+    (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+      const nextIndex = Math.round(
+        event.nativeEvent.contentOffset.x / screenWidth,
+      );
 
-    setActiveIndex(nextIndex);
-  };
+      const clampedIndex = Math.max(
+        0,
+        Math.min(nextIndex, ONBOARDING_SLIDES.length - 1),
+      );
+
+      setActiveIndex((currentIndex) =>
+        currentIndex === clampedIndex ? currentIndex : clampedIndex,
+      );
+    },
+    [screenWidth],
+  );
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -49,11 +59,13 @@ export default function OnboardingPage() {
           <View style={styles.pagination}>
             {ONBOARDING_SLIDES.map((slide, index) => (
               <View
-                key={slide.title}
+                key={`${slide.title}-${index}`}
                 style={[
                   styles.dot,
                   index === activeIndex ? styles.dotActive : null,
                 ]}
+                accessibilityRole="image"
+                accessibilityLabel={`Paso ${index + 1} de ${ONBOARDING_SLIDES.length}`}
               />
             ))}
           </View>
@@ -63,15 +75,15 @@ export default function OnboardingPage() {
           horizontal
           pagingEnabled
           showsHorizontalScrollIndicator={false}
-          onScroll={handleScroll}
-          onScrollEndDrag={handleScroll}
-          onMomentumScrollEnd={handleScroll}
+          onScroll={handleScrollEnd}
+          onMomentumScrollEnd={handleScrollEnd}
+          onScrollEndDrag={handleScrollEnd}
           scrollEventThrottle={16}
           contentContainerStyle={styles.sliderContainer}
         >
-          {ONBOARDING_SLIDES.map((slide) => (
+          {ONBOARDING_SLIDES.map((slide, index) => (
             <View
-              key={slide.title}
+              key={`${slide.title}-${index}`}
               style={[styles.slide, { width: screenWidth }]}
             >
               <View style={styles.card}>
@@ -91,6 +103,7 @@ export default function OnboardingPage() {
                       isDesktop ? styles.illustrationImageDesktop : null,
                     ]}
                     resizeMode="contain"
+                    accessibilityLabel={slide.title}
                   />
                 </View>
               </View>
@@ -99,10 +112,19 @@ export default function OnboardingPage() {
         </ScrollView>
 
         {isLastSlide ? (
-          <View style={styles.actions}>
+          <View
+            style={[styles.actions, isDesktop ? styles.actionsDesktop : null]}
+          >
             <Pressable
-              style={[styles.button, styles.secondaryButton]}
+              style={[
+                styles.button,
+                styles.secondaryButton,
+                isDesktop ? styles.buttonDesktop : null,
+              ]}
               onPress={() => router.push(RECIPES_ROUTE)}
+              accessibilityRole="button"
+              accessibilityLabel="Ir a recetas"
+              accessibilityHint="Abre la pantalla de recetas"
             >
               <Text style={[styles.buttonText, styles.secondaryButtonText]}>
                 Recetas
@@ -110,15 +132,20 @@ export default function OnboardingPage() {
             </Pressable>
 
             <Pressable
-              style={[styles.button, styles.primaryButton]}
+              style={[
+                styles.button,
+                styles.primaryButton,
+                isDesktop ? styles.buttonDesktop : null,
+              ]}
               onPress={() => router.push(PRODUCTS_ROUTE)}
+              accessibilityRole="button"
+              accessibilityLabel="Ir a productos"
+              accessibilityHint="Abre la pantalla de productos"
             >
               <Text style={styles.buttonText}>Productos</Text>
             </Pressable>
           </View>
-        ) : (
-          <></>
-        )}
+        ) : null}
       </View>
     </SafeAreaView>
   );
@@ -153,6 +180,7 @@ const styles = StyleSheet.create({
   },
   slide: {
     paddingHorizontal: 24,
+    alignItems: "center",
   },
   slideTitle: {
     color: COLORS.brandColor,
@@ -182,6 +210,8 @@ const styles = StyleSheet.create({
   },
   card: {
     flex: 1,
+    width: "100%",
+    maxWidth: 880,
     borderRadius: 32,
     backgroundColor: COLORS.surfaceColor,
     padding: 28,
@@ -215,6 +245,11 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     gap: 12,
     marginBottom: 36,
+    paddingHorizontal: 24,
+  },
+  actionsDesktop: {
+    flexDirection: "column",
+    alignSelf: "center",
   },
   button: {
     flex: 1,
@@ -222,6 +257,11 @@ const styles = StyleSheet.create({
     borderRadius: 18,
     alignItems: "center",
     justifyContent: "center",
+  },
+  buttonDesktop: {
+    flex: 0,
+    width: 260,
+    height: 56,
   },
   primaryButton: {
     backgroundColor: COLORS.brandColor,
