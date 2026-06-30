@@ -1,3 +1,4 @@
+import { OnboardingActions } from "@/components/OnboardingActions";
 import { OnboardingCard } from "@/components/OnboardingCard";
 import { PaginationDot } from "@/components/PaginationDot";
 import { useRouter } from "expo-router";
@@ -5,7 +6,6 @@ import { useCallback, useState } from "react";
 import {
   NativeScrollEvent,
   NativeSyntheticEvent,
-  Pressable,
   ScrollView,
   StyleSheet,
   Text,
@@ -17,10 +17,6 @@ import {
   APPLICATION_NAME,
   COLORS,
   ONBOARDING_SLIDES,
-  PRODUCTS_ROUTE,
-  PRODUCTS_TEXT,
-  RECIPES_ROUTE,
-  RECIPES_TEXT,
 } from "../../constants/Constants";
 
 export default function OnboardingPage() {
@@ -96,43 +92,7 @@ export default function OnboardingPage() {
           ))}
         </ScrollView>
 
-        {isLastSlide ? (
-          <View
-            style={[styles.actions, isDesktop ? styles.actionsDesktop : null]}
-          >
-            <Pressable
-              style={[
-                styles.button,
-                styles.secondaryButton,
-                isDesktop ? styles.buttonDesktop : null,
-              ]}
-              onPress={() => router.push(RECIPES_ROUTE)}
-              accessibilityRole="button"
-              accessibilityLabel="Ir a recetas"
-              accessibilityHint="Abre la pantalla de recetas"
-            >
-              <Text style={[styles.buttonText, styles.secondaryButtonText]}>
-                {RECIPES_TEXT.toUpperCase()}
-              </Text>
-            </Pressable>
-
-            <Pressable
-              style={[
-                styles.button,
-                styles.primaryButton,
-                isDesktop ? styles.buttonDesktop : null,
-              ]}
-              onPress={() => router.push(PRODUCTS_ROUTE)}
-              accessibilityRole="button"
-              accessibilityLabel="Ir a productos"
-              accessibilityHint="Abre la pantalla de productos"
-            >
-              <Text style={styles.buttonText}>
-                {PRODUCTS_TEXT.toUpperCase()}
-              </Text>
-            </Pressable>
-          </View>
-        ) : null}
+        {isLastSlide ? <OnboardingActions isDesktop={isDesktop} /> : null}
       </View>
     </SafeAreaView>
   );
@@ -169,43 +129,5 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     gap: 10,
-  },
-  actions: {
-    flexDirection: "row",
-    gap: 12,
-    marginBottom: 36,
-    paddingHorizontal: 24,
-  },
-  actionsDesktop: {
-    flexDirection: "column",
-    alignSelf: "center",
-  },
-  button: {
-    flex: 1,
-    minHeight: 56,
-    borderRadius: 18,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  buttonDesktop: {
-    flex: 0,
-    width: 260,
-    height: 56,
-  },
-  primaryButton: {
-    backgroundColor: COLORS.brandColor,
-  },
-  secondaryButton: {
-    backgroundColor: COLORS.defaultBackground,
-    borderWidth: 1,
-    borderColor: COLORS.secondaryColor,
-  },
-  buttonText: {
-    color: COLORS.defaultBackground,
-    fontFamily: "Poppins_700Bold",
-    fontSize: 16,
-  },
-  secondaryButtonText: {
-    color: COLORS.primaryColor,
   },
 });
