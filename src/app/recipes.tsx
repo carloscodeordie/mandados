@@ -1,9 +1,23 @@
-import { COLORS, RECIPE_FILTERS } from "@/constants/Constants";
+import { RecipeCard } from "@/components/RecipeCard";
+import { COLORS, RECIPE_FILTERS, RECIPES } from "@/constants/Constants";
+
 import { useState } from "react";
-import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
+import {
+  FlatList,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 
 export default function RecipesPage() {
   const [activeFilter, setActiveFilter] = useState(RECIPE_FILTERS[0]);
+
+  const filteredRecipes =
+    activeFilter === "Todos"
+      ? RECIPES
+      : RECIPES.filter((recipe) => recipe.category === activeFilter);
 
   return (
     <View style={styles.container}>
@@ -34,6 +48,16 @@ export default function RecipesPage() {
           );
         })}
       </ScrollView>
+
+      <FlatList
+        data={filteredRecipes}
+        keyExtractor={(item) => item.id}
+        numColumns={2}
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={styles.recipesContent}
+        columnWrapperStyle={styles.recipesRow}
+        renderItem={({ item }) => <RecipeCard recipe={item} />}
+      />
     </View>
   );
 }
@@ -42,7 +66,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: COLORS.surfaceColor,
-    padding: 24,
+    paddingHorizontal: 24,
+    paddingTop: 24,
   },
   filtersContainer: {
     maxHeight: 56,
@@ -80,5 +105,12 @@ const styles = StyleSheet.create({
   },
   filterTextActive: {
     color: "#FFFFFF",
+  },
+  recipesContent: {
+    paddingVertical: 20,
+    gap: 16,
+  },
+  recipesRow: {
+    gap: 16,
   },
 });
