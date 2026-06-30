@@ -1,3 +1,4 @@
+import { PaginationDot } from "@/components/PaginationDot";
 import { useRouter } from "expo-router";
 import { useCallback, useState } from "react";
 import {
@@ -60,14 +61,12 @@ export default function OnboardingPage() {
         <View style={styles.paginationContainer}>
           <View style={styles.pagination}>
             {ONBOARDING_SLIDES.map((slide, index) => (
-              <View
+              <PaginationDot
+                activeIndex={activeIndex}
                 key={`${slide.title}-${index}`}
-                style={[
-                  styles.dot,
-                  index === activeIndex ? styles.dotActive : null,
-                ]}
-                accessibilityRole="image"
-                accessibilityLabel={`Paso ${index + 1} de ${ONBOARDING_SLIDES.length}`}
+                index={index}
+                title={slide.title}
+                totalIndexes={ONBOARDING_SLIDES.length}
               />
             ))}
           </View>
@@ -204,15 +203,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     gap: 10,
-  },
-  dot: {
-    width: 40,
-    height: 10,
-    borderRadius: 999,
-    backgroundColor: COLORS.secondaryColor,
-  },
-  dotActive: {
-    backgroundColor: COLORS.brandColor,
   },
   card: {
     flex: 1,
