@@ -20,7 +20,7 @@ import {
   PRODUCTS_TEXT,
   RECIPES_ROUTE,
   RECIPES_TEXT,
-} from "../constants/Constants";
+} from "../../constants/Constants";
 
 export default function OnboardingPage() {
   const router = useRouter();
