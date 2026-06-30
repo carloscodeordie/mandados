@@ -17,7 +17,9 @@ import {
   COLORS,
   ONBOARDING_SLIDES,
   PRODUCTS_ROUTE,
+  PRODUCTS_TEXT,
   RECIPES_ROUTE,
+  RECIPES_TEXT,
 } from "../constants/Constants";
 
 export default function OnboardingPage() {
@@ -88,7 +90,9 @@ export default function OnboardingPage() {
             >
               <View style={styles.card}>
                 <View style={styles.cardHeader}>
-                  <Text style={styles.slideTitle}>{slide.title}</Text>
+                  <Text style={styles.slideTitle}>
+                    {slide.title.toUpperCase()}
+                  </Text>
                   <Text style={styles.slideDescription}>
                     {slide.description}
                   </Text>
@@ -127,7 +131,7 @@ export default function OnboardingPage() {
               accessibilityHint="Abre la pantalla de recetas"
             >
               <Text style={[styles.buttonText, styles.secondaryButtonText]}>
-                Recetas
+                {RECIPES_TEXT.toUpperCase()}
               </Text>
             </Pressable>
 
@@ -142,7 +146,9 @@ export default function OnboardingPage() {
               accessibilityLabel="Ir a productos"
               accessibilityHint="Abre la pantalla de productos"
             >
-              <Text style={styles.buttonText}>Productos</Text>
+              <Text style={styles.buttonText}>
+                {PRODUCTS_TEXT.toUpperCase()}
+              </Text>
             </Pressable>
           </View>
         ) : null}
@@ -183,7 +189,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   slideTitle: {
-    color: COLORS.brandColor,
+    color: COLORS.primaryColor,
     fontSize: 28,
     fontFamily: "Poppins_800ExtraBold",
     marginBottom: 12,
