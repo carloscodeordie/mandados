@@ -1,14 +1,13 @@
+import { Header } from "@/components/Header";
 import { OnboardingActions } from "@/components/OnboardingActions";
 import { OnboardingCard } from "@/components/OnboardingCard";
 import { PaginationDot } from "@/components/PaginationDot";
-import { useRouter } from "expo-router";
 import { useCallback, useState } from "react";
 import {
   NativeScrollEvent,
   NativeSyntheticEvent,
   ScrollView,
   StyleSheet,
-  Text,
   useWindowDimensions,
   View,
 } from "react-native";
@@ -20,7 +19,6 @@ import {
 } from "../../constants/Constants";
 
 export default function OnboardingPage() {
-  const router = useRouter();
   const { width: screenWidth } = useWindowDimensions();
   const [activeIndex, setActiveIndex] = useState(0);
   const isLastSlide = activeIndex === ONBOARDING_SLIDES.length - 1;
@@ -50,9 +48,7 @@ export default function OnboardingPage() {
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
-        <View style={styles.headerContainer}>
-          <Text style={styles.headerTitle}>{APPLICATION_NAME}</Text>
-        </View>
+        <Header title={APPLICATION_NAME} />
 
         <View style={styles.paginationContainer}>
           <View style={styles.pagination}>
@@ -76,7 +72,7 @@ export default function OnboardingPage() {
           onMomentumScrollEnd={handleScrollEnd}
           onScrollEndDrag={handleScrollEnd}
           scrollEventThrottle={16}
-          contentContainerStyle={styles.sliderSection}
+          contentContainerStyle={styles.sliderContainer}
         >
           {ONBOARDING_SLIDES.map((slide, index) => (
             <OnboardingCard
@@ -108,26 +104,16 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.defaultBackground,
     paddingVertical: 24,
   },
-  headerContainer: {
-    paddingHorizontal: 24,
-    marginBottom: 16,
-  },
-  headerTitle: {
-    color: COLORS.secondaryColor,
-    fontSize: 24,
-    fontFamily: "Poppins_800ExtraBold",
-    lineHeight: 40,
-  },
   paginationContainer: {
     paddingHorizontal: 24,
     marginBottom: 36,
-  },
-  sliderSection: {
-    marginBottom: 16,
   },
   pagination: {
     flexDirection: "row",
     justifyContent: "center",
     gap: 10,
+  },
+  sliderContainer: {
+    marginBottom: 16,
   },
 });
