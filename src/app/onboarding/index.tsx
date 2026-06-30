@@ -1,8 +1,8 @@
+import { OnboardingCard } from "@/components/OnboardingCard";
 import { PaginationDot } from "@/components/PaginationDot";
 import { useRouter } from "expo-router";
 import { useCallback, useState } from "react";
 import {
-  Image,
   NativeScrollEvent,
   NativeSyntheticEvent,
   Pressable,
@@ -80,37 +80,19 @@ export default function OnboardingPage() {
           onMomentumScrollEnd={handleScrollEnd}
           onScrollEndDrag={handleScrollEnd}
           scrollEventThrottle={16}
-          contentContainerStyle={styles.sliderContainer}
+          contentContainerStyle={styles.sliderSection}
         >
           {ONBOARDING_SLIDES.map((slide, index) => (
-            <View
+            <OnboardingCard
               key={`${slide.title}-${index}`}
-              style={[styles.slide, { width: screenWidth }]}
-            >
-              <View style={styles.card}>
-                <View style={styles.cardHeader}>
-                  <Text style={styles.slideTitle}>
-                    {slide.title.toUpperCase()}
-                  </Text>
-                  <Text style={styles.slideDescription}>
-                    {slide.description}
-                  </Text>
-                </View>
-                <View
-                  style={[styles.illustration, { height: illustrationHeight }]}
-                >
-                  <Image
-                    source={slide.imageSource}
-                    style={[
-                      styles.illustrationImage,
-                      isDesktop ? styles.illustrationImageDesktop : null,
-                    ]}
-                    resizeMode="contain"
-                    accessibilityLabel={slide.title}
-                  />
-                </View>
-              </View>
-            </View>
+              description={slide.description}
+              isDesktop={isDesktop}
+              illustrationHeight={illustrationHeight}
+              imageSource={slide.imageSource}
+              index={index}
+              screenWidth={screenWidth}
+              title={slide.title}
+            />
           ))}
         </ScrollView>
 
@@ -180,62 +162,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
     marginBottom: 36,
   },
-  sliderContainer: {
+  sliderSection: {
     marginBottom: 16,
-  },
-  slide: {
-    paddingHorizontal: 24,
-    alignItems: "center",
-  },
-  slideTitle: {
-    color: COLORS.primaryColor,
-    fontSize: 28,
-    fontFamily: "Poppins_800ExtraBold",
-    marginBottom: 12,
-  },
-  slideDescription: {
-    color: COLORS.secondaryColor,
-    fontFamily: "Poppins_400Regular",
-    fontSize: 16,
-    lineHeight: 24,
   },
   pagination: {
     flexDirection: "row",
     justifyContent: "center",
     gap: 10,
-  },
-  card: {
-    flex: 1,
-    width: "100%",
-    maxWidth: 880,
-    borderRadius: 32,
-    backgroundColor: COLORS.surfaceColor,
-    padding: 28,
-    justifyContent: "space-between",
-    shadowColor: COLORS.secondaryColor,
-    shadowOpacity: 0.08,
-    shadowRadius: 18,
-    shadowOffset: { width: 0, height: 10 },
-    elevation: 4,
-    minHeight: 470,
-  },
-  cardHeader: {
-    marginBottom: 24,
-  },
-  illustration: {
-    borderRadius: 24,
-    backgroundColor: "transparent",
-    overflow: "hidden",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  illustrationImage: {
-    width: "100%",
-    height: "100%",
-  },
-  illustrationImageDesktop: {
-    width: "82%",
-    alignSelf: "center",
   },
   actions: {
     flexDirection: "row",
