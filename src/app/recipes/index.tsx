@@ -1,6 +1,12 @@
 import { Header } from "@/components/Header";
 import { RecipeCard } from "@/components/RecipeCard";
-import { COLORS, RECIPE_FILTERS, RECIPES_TEXT } from "@/constants/Constants";
+import {
+  COLORS,
+  RECIPE_FILTERS,
+  RECIPES_DESKTOP_COLUMN_COUNT,
+  RECIPES_MOBILE_COLUMN_COUNT,
+  RECIPES_TEXT,
+} from "@/constants/Constants";
 import { RECIPES } from "@/constants/Mock";
 
 import { useState } from "react";
@@ -18,7 +24,9 @@ export default function RecipesPage() {
   const [activeFilter, setActiveFilter] = useState(RECIPE_FILTERS[0]);
   const { width } = useWindowDimensions();
   const isDesktop = width >= 1024;
-  const numColumns = isDesktop ? 4 : 2;
+  const numColumns = isDesktop
+    ? RECIPES_DESKTOP_COLUMN_COUNT
+    : RECIPES_MOBILE_COLUMN_COUNT;
 
   const filteredRecipes =
     activeFilter === "Todos"

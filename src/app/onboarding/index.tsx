@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: COLORS.defaultBackground,
-    paddingVertical: 24,
+    padding: 24,
   },
   paginationContainer: {
     paddingHorizontal: 24,

@@ -13,12 +13,14 @@ export const COLORS = {
   surfaceColor: "#F1F5F9",
 };
 
-export const RECIPE_FILTERS = ["Todos", "Desayuno", "Almuerzo", "Cena"];
-
-export const RECIPES_ROUTE: Href = "/recipes";
-export const RECIPES_TEXT = "Recetas";
-
 export const PRODUCTS_ROUTE: Href = "/products";
 export const PRODUCTS_TEXT = "Productos";
+
+export const RECIPE_FILTERS = ["Todos", "Desayuno", "Almuerzo", "Cena"];
+
+export const RECIPES_DESKTOP_COLUMN_COUNT = 4;
+export const RECIPES_MOBILE_COLUMN_COUNT = 2;
+export const RECIPES_ROUTE: Href = "/recipes";
+export const RECIPES_TEXT = "Recetas";
 
 export const SPLASH_SCREEN_DURATION = 3000;
