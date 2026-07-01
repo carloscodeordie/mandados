@@ -3,7 +3,7 @@ import { OnboardingActions } from "@/components/OnboardingActions";
 import { OnboardingCard } from "@/components/OnboardingCard";
 import { PaginationDot } from "@/components/PaginationDot";
 import { ONBOARDING_SLIDES } from "@/constants/Mock";
-import { useCallback, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import {
   NativeScrollEvent,
   NativeSyntheticEvent,
@@ -17,6 +17,8 @@ import { APPLICATION_NAME, COLORS } from "../../constants/Constants";
 
 export default function OnboardingPage() {
   const { width: screenWidth } = useWindowDimensions();
+  const scrollViewRef = useRef<ScrollView | null>(null);
+  const isProgrammaticScroll = useRef(false);
   const [activeIndex, setActiveIndex] = useState(0);
   const isLastSlide = activeIndex === ONBOARDING_SLIDES.length - 1;
   const isDesktop = screenWidth >= 768;
@@ -24,7 +26,7 @@ export default function OnboardingPage() {
     ? Math.min(Math.max(screenWidth * 0.32, 280), 420)
     : 220;
 
-  const handleScrollEnd = useCallback(
+  const updateActiveIndexFromScroll = useCallback(
     (event: NativeSyntheticEvent<NativeScrollEvent>) => {
       const nextIndex = Math.round(
         event.nativeEvent.contentOffset.x / screenWidth,
@@ -42,6 +44,37 @@ export default function OnboardingPage() {
     [screenWidth],
   );
 
+  const handleScroll = useCallback(
+    (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+      if (isProgrammaticScroll.current) {
+        return;
+      }
+
+      updateActiveIndexFromScroll(event);
+    },
+    [updateActiveIndexFromScroll],
+  );
+
+  const handleScrollEnd = useCallback(
+    (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+      updateActiveIndexFromScroll(event);
+      isProgrammaticScroll.current = false;
+    },
+    [updateActiveIndexFromScroll],
+  );
+
+  const handlePaginationPress = useCallback(
+    (index: number) => {
+      isProgrammaticScroll.current = true;
+      setActiveIndex(index);
+      scrollViewRef.current?.scrollTo({
+        x: index * screenWidth,
+        animated: true,
+      });
+    },
+    [screenWidth],
+  );
+
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
@@ -54,7 +87,7 @@ export default function OnboardingPage() {
                 activeIndex={activeIndex}
                 key={`${slide.title}-${index}`}
                 index={index}
-                title={slide.title}
+                onPress={handlePaginationPress}
                 totalIndexes={ONBOARDING_SLIDES.length}
               />
             ))}
@@ -62,12 +95,12 @@ export default function OnboardingPage() {
         </View>
 
         <ScrollView
+          ref={scrollViewRef}
           horizontal
           pagingEnabled
           showsHorizontalScrollIndicator={false}
-          onScroll={handleScrollEnd}
+          onScroll={handleScroll}
           onMomentumScrollEnd={handleScrollEnd}
-          onScrollEndDrag={handleScrollEnd}
           scrollEventThrottle={16}
           contentContainerStyle={styles.sliderContainer}
         >

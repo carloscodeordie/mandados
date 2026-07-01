@@ -1,7 +1,7 @@
 type PaginationDotProps = {
   activeIndex: number;
   index: number;
-  title: string;
+  onPress: (index: number) => void;
   totalIndexes: number;
 };
 
