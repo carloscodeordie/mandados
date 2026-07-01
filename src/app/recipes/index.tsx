@@ -78,11 +78,11 @@ const styles = StyleSheet.create({
     paddingTop: 24,
   },
   filtersContainer: {
-    maxHeight: 56,
     backgroundColor: COLORS.defaultBackground,
     borderRadius: 999,
     borderColor: COLORS.surfaceColor,
     borderWidth: 1,
+    maxHeight: 48,
     shadowColor: COLORS.primaryColor,
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.08,
@@ -99,6 +99,8 @@ const styles = StyleSheet.create({
     borderColor: COLORS.surfaceColor,
     borderRadius: 999,
     backgroundColor: COLORS.surfaceColor,
+    minHeight: 36,
+    justifyContent: "center",
     paddingHorizontal: 16,
     paddingVertical: 10,
   },
@@ -109,6 +111,7 @@ const styles = StyleSheet.create({
   filterText: {
     color: "#374151",
     fontSize: 14,
+    lineHeight: 18,
     fontWeight: "700",
   },
   filterTextActive: {
