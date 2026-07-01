@@ -98,6 +98,7 @@ export default function OnboardingPage() {
 
         <ScrollView
           ref={scrollViewRef}
+          style={[styles.slider, isLastSlide ? styles.sliderWithActions : null]}
           horizontal
           pagingEnabled
           showsHorizontalScrollIndicator={false}
@@ -120,7 +121,11 @@ export default function OnboardingPage() {
           ))}
         </ScrollView>
 
-        {isLastSlide ? <OnboardingActions isDesktop={isDesktop} /> : null}
+        {isLastSlide ? (
+          <View style={styles.actionsContainer}>
+            <OnboardingActions isDesktop={isDesktop} />
+          </View>
+        ) : null}
       </View>
     </SafeAreaView>
   );
@@ -148,7 +153,20 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     gap: 10,
   },
+  slider: {
+    flex: 1,
+  },
+  sliderWithActions: {
+    marginBottom: 110,
+  },
   sliderContainer: {
     marginBottom: 16,
+  },
+  actionsContainer: {
+    position: "absolute",
+    left: 0,
+    right: 0,
+    bottom: 0,
+    zIndex: 1,
   },
 });
