@@ -9,7 +9,7 @@ function RecipeCard({ recipe }: RecipeCardProps) {
         <Image source={{ uri: recipe.image }} style={styles.recipeImage} />
 
         <View style={styles.cookTimeBadge}>
-          <Text style={styles.cookTimeText}>{recipe.cookTime}</Text>
+          <Text style={styles.cookTimeText}>{recipe.cookTime} min</Text>
         </View>
 
         <Pressable style={styles.addButton}>
@@ -22,7 +22,7 @@ function RecipeCard({ recipe }: RecipeCardProps) {
           {recipe.name}
         </Text>
         <Text numberOfLines={1} style={styles.recipeIngredients}>
-          {recipe.ingredients}
+          {recipe.ingredients.map((ingredient) => ingredient.name).join(", ")}
         </Text>
       </View>
     </View>
