@@ -51,6 +51,9 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "500",
     lineHeight: 24,
+    textAlign: "center",
+    textAlignVertical: "center",
+    includeFontPadding: false,
   },
   cookTimeBadge: {
     position: "absolute",
