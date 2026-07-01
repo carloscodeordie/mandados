@@ -1,12 +1,28 @@
 import { COLORS } from "@/constants/Constants";
 import { HeaderProps } from "@/types/HeaderProps";
 import { Ionicons } from "@expo/vector-icons";
-import { StyleSheet, Text, View } from "react-native";
+import { useRouter } from "expo-router";
+import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 
-function Header({ title, isCartDisplayed }: HeaderProps) {
+function Header({ title, isCartDisplayed, isLogoDisplayed }: HeaderProps) {
+  const router = useRouter();
+
+  const handleLogoPress = () => {
+    router.push("/products");
+  };
+
   return (
     <View style={styles.headerContainer}>
       <Text style={styles.headerTitle}>{title}</Text>
+      {isLogoDisplayed ? (
+        <Pressable onPress={handleLogoPress}>
+          <Image
+            source={require("@/assets/images/logo.png")}
+            style={styles.logoIcon}
+            resizeMode="contain"
+          />
+        </Pressable>
+      ) : null}
       {isCartDisplayed ? (
         <Ionicons
           name="cart-outline"
@@ -35,6 +51,11 @@ const styles = StyleSheet.create({
   },
   cartIcon: {
     marginLeft: 12,
+  },
+  logoIcon: {
+    width: 50,
+    height: 50,
+    cursor: "pointer",
   },
 });
 

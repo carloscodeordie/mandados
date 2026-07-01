@@ -8,7 +8,7 @@ function Splash() {
     <View style={styles.container}>
       <Animated.View entering={FadeIn.duration(1000)}>
         <Image
-          source={require("../../assets/images/splash-icon.png")}
+          source={require("../../assets/images/logo.png")}
           style={styles.splashLogo}
           contentFit="contain"
         />
