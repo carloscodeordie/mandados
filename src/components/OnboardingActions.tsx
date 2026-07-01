@@ -18,7 +18,7 @@ function OnboardingActions({ isDesktop }: OnboardingActionsProps) {
         style={[
           styles.button,
           styles.secondaryButton,
-          isDesktop ? styles.buttonDesktop : null,
+          isDesktop ? styles.buttonDesktop : styles.buttonMobile,
         ]}
         onPress={() => router.push(RECIPES_ROUTE)}
         accessibilityRole="button"
@@ -34,7 +34,7 @@ function OnboardingActions({ isDesktop }: OnboardingActionsProps) {
         style={[
           styles.button,
           styles.primaryButton,
-          isDesktop ? styles.buttonDesktop : null,
+          isDesktop ? styles.buttonDesktop : styles.buttonMobile,
         ]}
         onPress={() => router.push(PRODUCTS_ROUTE)}
         accessibilityRole="button"
@@ -49,25 +49,31 @@ function OnboardingActions({ isDesktop }: OnboardingActionsProps) {
 
 const styles = StyleSheet.create({
   actions: {
-    flexDirection: "row",
+    flexDirection: "column",
     gap: 12,
     marginBottom: 36,
     paddingHorizontal: 24,
   },
   actionsDesktop: {
-    flexDirection: "column",
-    alignSelf: "center",
+    flexDirection: "row",
+    width: "100%",
+    justifyContent: "center",
+    alignItems: "center",
   },
   button: {
-    flex: 1,
     minHeight: 56,
     borderRadius: 18,
     alignItems: "center",
     justifyContent: "center",
   },
-  buttonDesktop: {
+  buttonMobile: {
     flex: 0,
-    width: 260,
+    width: "100%",
+    height: 56,
+  },
+  buttonDesktop: {
+    flexShrink: 0,
+    width: 220,
     height: 56,
   },
   primaryButton: {
