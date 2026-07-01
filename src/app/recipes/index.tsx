@@ -10,11 +10,15 @@ import {
   ScrollView,
   StyleSheet,
   Text,
+  useWindowDimensions,
   View,
 } from "react-native";
 
 export default function RecipesPage() {
   const [activeFilter, setActiveFilter] = useState(RECIPE_FILTERS[0]);
+  const { width } = useWindowDimensions();
+  const isDesktop = width >= 1024;
+  const numColumns = isDesktop ? 4 : 2;
 
   const filteredRecipes =
     activeFilter === "Todos"
@@ -25,38 +29,71 @@ export default function RecipesPage() {
     <View style={styles.container}>
       <Header title={RECIPES_TEXT} isCartDisplayed />
 
-      <ScrollView
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        contentContainerStyle={styles.filtersContent}
-        style={styles.filtersContainer}
-      >
-        {RECIPE_FILTERS.map((filter) => {
-          const isActive = activeFilter === filter;
+      {isDesktop ? (
+        <View style={styles.filtersDesktopContainer}>
+          {RECIPE_FILTERS.map((filter) => {
+            const isActive = activeFilter === filter;
 
-          return (
-            <Pressable
-              key={filter}
-              onPress={() => setActiveFilter(filter)}
-              style={[
-                styles.filterButton,
-                isActive && styles.filterButtonActive,
-              ]}
-            >
-              <Text
-                style={[styles.filterText, isActive && styles.filterTextActive]}
+            return (
+              <Pressable
+                key={filter}
+                onPress={() => setActiveFilter(filter)}
+                style={[
+                  styles.filterButton,
+                  isActive && styles.filterButtonActive,
+                ]}
               >
-                {filter}
-              </Text>
-            </Pressable>
-          );
-        })}
-      </ScrollView>
+                <Text
+                  style={[
+                    styles.filterText,
+                    isActive && styles.filterTextActive,
+                  ]}
+                >
+                  {filter}
+                </Text>
+              </Pressable>
+            );
+          })}
+        </View>
+      ) : (
+        <View style={styles.filtersContainer}>
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={styles.filtersContent}
+          >
+            {RECIPE_FILTERS.map((filter) => {
+              const isActive = activeFilter === filter;
+
+              return (
+                <Pressable
+                  key={filter}
+                  onPress={() => setActiveFilter(filter)}
+                  style={[
+                    styles.filterButton,
+                    isActive && styles.filterButtonActive,
+                  ]}
+                >
+                  <Text
+                    style={[
+                      styles.filterText,
+                      isActive && styles.filterTextActive,
+                    ]}
+                  >
+                    {filter}
+                  </Text>
+                </Pressable>
+              );
+            })}
+          </ScrollView>
+        </View>
+      )}
 
       <FlatList
+        key={numColumns}
         data={filteredRecipes}
         keyExtractor={(item) => item.id}
-        numColumns={2}
+        numColumns={numColumns}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.recipesContent}
         columnWrapperStyle={styles.recipesRow}
@@ -84,6 +121,13 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.08,
     shadowRadius: 4,
     elevation: 2,
+  },
+  filtersDesktopContainer: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "center",
+    gap: 10,
+    padding: 12,
   },
   filtersContent: {
     alignItems: "center",
