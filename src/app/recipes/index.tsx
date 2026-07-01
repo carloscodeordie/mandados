@@ -1,5 +1,11 @@
+import { Header } from "@/components/Header";
 import { RecipeCard } from "@/components/RecipeCard";
-import { COLORS, RECIPE_FILTERS, RECIPES } from "@/constants/Constants";
+import {
+  COLORS,
+  RECIPE_FILTERS,
+  RECIPES,
+  RECIPES_TEXT,
+} from "@/constants/Constants";
 
 import { useState } from "react";
 import {
@@ -21,6 +27,8 @@ export default function RecipesPage() {
 
   return (
     <View style={styles.container}>
+      <Header title={RECIPES_TEXT} isCartDisplayed />
+
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
