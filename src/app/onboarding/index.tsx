@@ -2,6 +2,7 @@ import { Header } from "@/components/Header";
 import { OnboardingActions } from "@/components/OnboardingActions";
 import { OnboardingCard } from "@/components/OnboardingCard";
 import { PaginationDot } from "@/components/PaginationDot";
+import { ONBOARDING_SLIDES } from "@/constants/Mock";
 import { useCallback, useState } from "react";
 import {
   NativeScrollEvent,
@@ -12,11 +13,7 @@ import {
   View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import {
-  APPLICATION_NAME,
-  COLORS,
-  ONBOARDING_SLIDES,
-} from "../../constants/Constants";
+import { APPLICATION_NAME, COLORS } from "../../constants/Constants";
 
 export default function OnboardingPage() {
   const { width: screenWidth } = useWindowDimensions();

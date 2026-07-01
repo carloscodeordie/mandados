@@ -1,11 +1,7 @@
 import { Header } from "@/components/Header";
 import { RecipeCard } from "@/components/RecipeCard";
-import {
-  COLORS,
-  RECIPE_FILTERS,
-  RECIPES,
-  RECIPES_TEXT,
-} from "@/constants/Constants";
+import { COLORS, RECIPE_FILTERS, RECIPES_TEXT } from "@/constants/Constants";
+import { RECIPES } from "@/constants/Mock";
 
 import { useState } from "react";
 import {
