@@ -2,12 +2,13 @@ import { IngredientCategory } from "./IngredientCategory";
 import { MeasurementUnit } from "./MeasurementUnit";
 
 type Ingredient = {
-  id: string;
-  name: string;
-  quantity: string;
-  measurementUnit: MeasurementUnit;
   category: IngredientCategory;
+  id: string;
   inStock: boolean;
+  name: string;
+  measurementUnit: MeasurementUnit;
+  price: number;
+  quantity: string;
 };
 
 export type { Ingredient };

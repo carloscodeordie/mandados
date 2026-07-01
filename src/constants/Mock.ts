@@ -33,6 +33,7 @@ export const RECIPES: Recipe[] = [
         measurementUnit: "unit",
         category: "Frutas",
         inStock: true,
+        price: 10,
       },
       {
         id: "2",
@@ -41,6 +42,7 @@ export const RECIPES: Recipe[] = [
         measurementUnit: "unit",
         category: "Cereales",
         inStock: true,
+        price: 10,
       },
       {
         id: "3",
@@ -49,6 +51,7 @@ export const RECIPES: Recipe[] = [
         measurementUnit: "unit",
         category: "Frutas",
         inStock: true,
+        price: 10,
       },
     ],
     category: "Desayuno",
@@ -67,6 +70,7 @@ export const RECIPES: Recipe[] = [
         measurementUnit: "unit",
         category: "Verduras",
         inStock: true,
+        price: 10,
       },
       {
         id: "5",
@@ -75,6 +79,7 @@ export const RECIPES: Recipe[] = [
         measurementUnit: "unit",
         category: "Carnes",
         inStock: true,
+        price: 10,
       },
     ],
     category: "Desayuno",
@@ -93,6 +98,7 @@ export const RECIPES: Recipe[] = [
         measurementUnit: "unit",
         category: "Carnes",
         inStock: true,
+        price: 10,
       },
       {
         id: "7",
@@ -101,6 +107,7 @@ export const RECIPES: Recipe[] = [
         measurementUnit: "unit",
         category: "Cereales",
         inStock: true,
+        price: 10,
       },
       {
         id: "8",
@@ -109,6 +116,7 @@ export const RECIPES: Recipe[] = [
         measurementUnit: "unit",
         category: "Verduras",
         inStock: true,
+        price: 10,
       },
     ],
     category: "Almuerzo",
@@ -127,6 +135,7 @@ export const RECIPES: Recipe[] = [
         measurementUnit: "unit",
         category: "Frutas",
         inStock: true,
+        price: 10,
       },
       {
         id: "10",
@@ -135,6 +144,7 @@ export const RECIPES: Recipe[] = [
         measurementUnit: "unit",
         category: "Frutas",
         inStock: true,
+        price: 10,
       },
       {
         id: "11",
@@ -143,6 +153,7 @@ export const RECIPES: Recipe[] = [
         measurementUnit: "unit",
         category: "Lácteos",
         inStock: true,
+        price: 10,
       },
     ],
     category: "Cena",
@@ -161,6 +172,7 @@ export const RECIPES: Recipe[] = [
         measurementUnit: "unit",
         category: "Verduras",
         inStock: true,
+        price: 10,
       },
       {
         id: "13",
@@ -169,6 +181,7 @@ export const RECIPES: Recipe[] = [
         measurementUnit: "unit",
         category: "Verduras",
         inStock: true,
+        price: 10,
       },
       {
         id: "14",
@@ -177,6 +190,7 @@ export const RECIPES: Recipe[] = [
         measurementUnit: "unit",
         category: "Verduras",
         inStock: true,
+        price: 10,
       },
     ],
     category: "Almuerzo",
@@ -195,6 +209,7 @@ export const RECIPES: Recipe[] = [
         measurementUnit: "unit",
         category: "Pescados",
         inStock: true,
+        price: 10,
       },
       {
         id: "16",
@@ -203,6 +218,7 @@ export const RECIPES: Recipe[] = [
         measurementUnit: "unit",
         category: "Cereales",
         inStock: true,
+        price: 10,
       },
       {
         id: "17",
@@ -211,6 +227,7 @@ export const RECIPES: Recipe[] = [
         measurementUnit: "unit",
         category: "Frutas",
         inStock: true,
+        price: 10,
       },
     ],
     category: "Cena",

@@ -1,3 +1,4 @@
+import { CartProvider } from "@/contexts/CartContext";
 import {
   Poppins_400Regular,
   Poppins_700Bold,
@@ -26,5 +27,9 @@ export default function RootLayout() {
     return null;
   }
 
-  return <Stack screenOptions={{ headerShown: false }} />;
+  return (
+    <CartProvider>
+      <Stack screenOptions={{ headerShown: false }} />
+    </CartProvider>
+  );
 }

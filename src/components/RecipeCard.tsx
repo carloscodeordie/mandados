@@ -1,8 +1,15 @@
 import { COLORS } from "@/constants/Constants";
+import { useCart } from "@/contexts/CartContext";
 import { RecipeCardProps } from "@/types/RecipeCardProps";
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 
 function RecipeCard({ recipe }: RecipeCardProps) {
+  const { addRecipeIngredients } = useCart();
+
+  const handleAddIngredients = () => {
+    addRecipeIngredients(recipe.ingredients);
+  };
+
   return (
     <View style={styles.recipeCard}>
       <View style={styles.imageWrapper}>
@@ -12,7 +19,7 @@ function RecipeCard({ recipe }: RecipeCardProps) {
           <Text style={styles.cookTimeText}>{recipe.cookTime} min</Text>
         </View>
 
-        <Pressable style={styles.addButton}>
+        <Pressable style={styles.addButton} onPress={handleAddIngredients}>
           <Text style={styles.addButtonText}>+</Text>
         </Pressable>
       </View>
