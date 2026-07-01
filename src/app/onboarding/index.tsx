@@ -78,7 +78,9 @@ export default function OnboardingPage() {
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
-        <Header title={APPLICATION_NAME} />
+        <View style={styles.headerContainer}>
+          <Header title={APPLICATION_NAME} />
+        </View>
 
         <View style={styles.paginationContainer}>
           <View style={styles.pagination}>
@@ -132,7 +134,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: COLORS.defaultBackground,
+  },
+  headerContainer: {
     padding: 24,
+    marginBottom: 16,
   },
   paginationContainer: {
     paddingHorizontal: 24,
