@@ -339,7 +339,7 @@ const styles = StyleSheet.create({
     marginBottom: 24,
   },
   stepsSection: {
-    marginBottom: 0,
+    marginBottom: 16,
   },
   sectionTitle: {
     color: COLORS.primaryColor,
@@ -363,7 +363,9 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   stepNumberSmall: {
+    color: COLORS.brandColor,
     fontSize: 30,
+    fontWeight: "800",
     lineHeight: 32,
     marginBottom: 0,
     marginRight: 12,
