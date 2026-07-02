@@ -13,7 +13,7 @@ function Header({
   isTitleDisplayed,
 }: HeaderProps) {
   const router = useRouter();
-  const { ingredientsCount } = useCart();
+  const { productsCount } = useCart();
 
   const handleBackPress = () => {
     router.push("/recipes");
@@ -52,9 +52,9 @@ function Header({
             color={COLORS.brandColor}
             style={styles.cartIcon}
           />
-          {ingredientsCount > 0 ? (
+          {productsCount > 0 ? (
             <View style={styles.cartBadge}>
-              <Text style={styles.cartBadgeText}>{ingredientsCount}</Text>
+              <Text style={styles.cartBadgeText}>{productsCount}</Text>
             </View>
           ) : null}
         </View>

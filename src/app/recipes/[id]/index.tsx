@@ -1,8 +1,9 @@
+import { CookingSteps } from "@/components/CookingSteps";
 import { Header } from "@/components/Header";
-import { COLORS, PREPARATION_STEPS } from "@/constants/Constants";
+import { COLORS } from "@/constants/Constants";
 import { RECIPES } from "@/constants/Mock";
 import { useCart } from "@/contexts/CartContext";
-import { Ingredient } from "@/types/Ingredient";
+import { Product } from "@/types/Product";
 import { Ionicons } from "@expo/vector-icons";
 import { useLocalSearchParams } from "expo-router";
 import { useMemo, useState } from "react";
@@ -19,42 +20,40 @@ import {
 export default function RecipeDetailsPage() {
   const { id } = useLocalSearchParams<{ id?: string }>();
   const { width } = useWindowDimensions();
-  const { addRecipeIngredients } = useCart();
-  const [selectedIngredientIds, setSelectedIngredientIds] = useState<string[]>(
-    [],
-  );
+  const { addRecipeProducts } = useCart();
+  const [selectedProductsIds, setSelectedProductsIds] = useState<string[]>([]);
   const isSmallPhone = width < 390;
   const isMobileLayout = width < 768;
 
   const recipe = useMemo(() => RECIPES.find((item) => item.id === id), [id]);
 
-  const selectedIngredients = useMemo(() => {
+  const selectedProducts = useMemo(() => {
     if (!recipe) {
       return [];
     }
 
-    return recipe.ingredients.filter((ingredient) =>
-      selectedIngredientIds.includes(ingredient.id),
+    return recipe.products.filter((product) =>
+      selectedProductsIds.includes(product.id),
     );
-  }, [recipe, selectedIngredientIds]);
+  }, [recipe, selectedProductsIds]);
 
-  const toggleIngredient = (ingredient: Ingredient) => {
-    setSelectedIngredientIds((currentIds) => {
-      if (currentIds.includes(ingredient.id)) {
-        return currentIds.filter((idItem) => idItem !== ingredient.id);
+  const toggleProduct = (product: Product) => {
+    setSelectedProductsIds((currentIds) => {
+      if (currentIds.includes(product.id)) {
+        return currentIds.filter((idItem) => idItem !== product.id);
       }
 
-      return [...currentIds, ingredient.id];
+      return [...currentIds, product.id];
     });
   };
 
-  const handleAddSelectedIngredients = () => {
-    if (!selectedIngredients.length) {
+  const handleAddSelectedProducts = () => {
+    if (!selectedProducts.length) {
       return;
     }
 
-    addRecipeIngredients(selectedIngredients);
-    setSelectedIngredientIds([]);
+    addRecipeProducts(selectedProducts);
+    setSelectedProductsIds([]);
   };
 
   if (!recipe) {
@@ -106,17 +105,15 @@ export default function RecipeDetailsPage() {
           <View style={styles.section}>
             <Text style={styles.sectionTitle}>Ingredientes</Text>
 
-            <View style={styles.ingredientsGrid}>
-              {recipe.ingredients.map((ingredient) => {
-                const isSelected = selectedIngredientIds.includes(
-                  ingredient.id,
-                );
+            <View style={styles.productsGrid}>
+              {recipe.products.map((product) => {
+                const isSelected = selectedProductsIds.includes(product.id);
 
                 return (
                   <Pressable
-                    key={ingredient.id}
-                    onPress={() => toggleIngredient(ingredient)}
-                    style={styles.ingredientItem}
+                    key={product.id}
+                    onPress={() => toggleProduct(product)}
+                    style={styles.productItem}
                   >
                     <View
                       style={[
@@ -136,11 +133,11 @@ export default function RecipeDetailsPage() {
 
                     <Text
                       style={[
-                        styles.ingredientText,
-                        isSmallPhone && styles.ingredientTextSmall,
+                        styles.productText,
+                        isSmallPhone && styles.productTextSmall,
                       ]}
                     >
-                      {ingredient.quantity} {ingredient.name}
+                      {product.quantity} {product.name}
                     </Text>
                   </Pressable>
                 );
@@ -148,12 +145,12 @@ export default function RecipeDetailsPage() {
             </View>
 
             <Pressable
-              onPress={handleAddSelectedIngredients}
-              disabled={!selectedIngredients.length}
+              onPress={handleAddSelectedProducts}
+              disabled={!selectedProducts.length}
               style={[
                 styles.addToCartButton,
                 isSmallPhone && styles.addToCartButtonSmall,
-                !selectedIngredients.length && styles.addToCartButtonDisabled,
+                !selectedProducts.length && styles.addToCartButtonDisabled,
               ]}
             >
               <Text
@@ -166,30 +163,7 @@ export default function RecipeDetailsPage() {
               </Text>
             </Pressable>
           </View>
-
-          <View style={styles.stepsSection}>
-            <Text style={styles.sectionTitle}>Pasos</Text>
-
-            {isMobileLayout ? (
-              <View style={styles.stepsListMobile}>
-                {PREPARATION_STEPS.map((step, index) => (
-                  <View key={step} style={[styles.stepItemMobile]}>
-                    <Text style={styles.stepNumberSmall}>{index + 1}</Text>
-                    <Text style={styles.stepTextSmall}>{step}</Text>
-                  </View>
-                ))}
-              </View>
-            ) : (
-              <View style={styles.stepsRow}>
-                {PREPARATION_STEPS.map((step, index) => (
-                  <View key={step} style={styles.stepItem}>
-                    <Text style={styles.stepNumber}>{index + 1}</Text>
-                    <Text style={styles.stepText}>{step}</Text>
-                  </View>
-                ))}
-              </View>
-            )}
-          </View>
+          <CookingSteps isMobileLayout={isMobileLayout} />
         </View>
       </ScrollView>
     </View>
@@ -271,22 +245,22 @@ const styles = StyleSheet.create({
     marginBottom: 8,
     textAlign: "center",
   },
-  ingredientItem: {
+  productItem: {
     alignItems: "center",
     flexDirection: "row",
     gap: 12,
     width: "48%",
   },
-  ingredientText: {
+  productText: {
     color: COLORS.primaryColor,
     flexShrink: 1,
     fontSize: 16,
     fontWeight: "500",
   },
-  ingredientTextSmall: {
+  productTextSmall: {
     fontSize: 15,
   },
-  ingredientsGrid: {
+  productsGrid: {
     columnGap: "4%",
     flexDirection: "row",
     flexWrap: "wrap",
@@ -338,59 +312,10 @@ const styles = StyleSheet.create({
   section: {
     marginBottom: 24,
   },
-  stepsSection: {
-    marginBottom: 16,
-  },
   sectionTitle: {
     color: COLORS.primaryColor,
     fontSize: 20,
     fontWeight: "800",
     marginBottom: 14,
-  },
-  stepItem: {
-    flex: 1,
-  },
-  stepItemMobile: {
-    alignItems: "flex-start",
-    flexDirection: "row",
-    width: "100%",
-  },
-  stepNumber: {
-    color: COLORS.brandColor,
-    fontSize: 54,
-    fontWeight: "800",
-    lineHeight: 56,
-    marginBottom: 8,
-    textAlign: "center",
-  },
-  stepNumberSmall: {
-    color: COLORS.brandColor,
-    fontSize: 30,
-    fontWeight: "800",
-    lineHeight: 32,
-    marginBottom: 0,
-    marginRight: 12,
-    textAlign: "center",
-    width: 28,
-  },
-  stepsRow: {
-    gap: 12,
-    flexDirection: "row",
-    alignItems: "flex-start",
-  },
-  stepsListMobile: {
-    width: "100%",
-  },
-  stepText: {
-    color: COLORS.secondaryColor,
-    fontSize: 13,
-    lineHeight: 18,
-    textAlign: "center",
-  },
-  stepTextSmall: {
-    flex: 1,
-    fontSize: 15,
-    lineHeight: 21,
-    marginTop: 4,
   },
 });

@@ -1,4 +1,4 @@
-type IngredientCategory =
+type ProductCategory =
   | "Frutas"
   | "Verduras"
   | "Carnes"
@@ -9,4 +9,4 @@ type IngredientCategory =
   | "Bebidas"
   | "Otros";
 
-export type { IngredientCategory };
+export type { ProductCategory };

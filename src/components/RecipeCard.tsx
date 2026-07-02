@@ -6,18 +6,18 @@ import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 
 function RecipeCard({ recipe }: RecipeCardProps) {
   const router = useRouter();
-  const { addRecipeIngredients } = useCart();
+  const { addRecipeProducts } = useCart();
 
-  const handleAddIngredients = () => {
-    addRecipeIngredients(recipe.ingredients);
+  const handleAddProducts = () => {
+    addRecipeProducts(recipe.products);
   };
 
-  const handleCardPress = () => {
+  const handleRecipePress = () => {
     router.push(`/recipes/${recipe.id}`);
   };
 
   return (
-    <Pressable style={styles.recipeCard} onPress={handleCardPress}>
+    <Pressable style={styles.recipeCard} onPress={handleRecipePress}>
       <View style={styles.imageWrapper}>
         <Image source={{ uri: recipe.image }} style={styles.recipeImage} />
 
@@ -29,7 +29,7 @@ function RecipeCard({ recipe }: RecipeCardProps) {
           style={styles.addButton}
           onPress={(event) => {
             event.stopPropagation();
-            handleAddIngredients();
+            handleAddProducts();
           }}
         >
           <Text style={styles.addButtonText}>+</Text>
@@ -40,8 +40,8 @@ function RecipeCard({ recipe }: RecipeCardProps) {
         <Text numberOfLines={2} style={styles.recipeTitle}>
           {recipe.name}
         </Text>
-        <Text numberOfLines={1} style={styles.recipeIngredients}>
-          {recipe.ingredients.map((ingredient) => ingredient.name).join(", ")}
+        <Text numberOfLines={1} style={styles.recipeProducts}>
+          {recipe.products.map((product) => product.name).join(", ")}
         </Text>
       </View>
     </Pressable>
@@ -123,7 +123,7 @@ const styles = StyleSheet.create({
     fontWeight: "800",
     lineHeight: 22,
   },
-  recipeIngredients: {
+  recipeProducts: {
     color: COLORS.secondaryColor,
     fontSize: 15,
     fontWeight: "500",

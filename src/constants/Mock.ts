@@ -25,7 +25,7 @@ export const RECIPES: Recipe[] = [
   {
     id: "1",
     name: "Tostada de Aguacate con Lima",
-    ingredients: [
+    products: [
       {
         id: "1",
         name: "Aguacate",
@@ -62,7 +62,7 @@ export const RECIPES: Recipe[] = [
   {
     id: "2",
     name: "Omelet de Espinaca",
-    ingredients: [
+    products: [
       {
         id: "4",
         name: "Lechuga",
@@ -90,7 +90,7 @@ export const RECIPES: Recipe[] = [
   {
     id: "3",
     name: "Bowl de Wrap de Pollo",
-    ingredients: [
+    products: [
       {
         id: "6",
         name: "Pollo",
@@ -127,7 +127,7 @@ export const RECIPES: Recipe[] = [
   {
     id: "4",
     name: "Smoothie de Frutos Rojos",
-    ingredients: [
+    products: [
       {
         id: "9",
         name: "Plátano",
@@ -164,7 +164,7 @@ export const RECIPES: Recipe[] = [
   {
     id: "5",
     name: "Plato de Verduras Asadas",
-    ingredients: [
+    products: [
       {
         id: "12",
         name: "Calabacín",
@@ -201,7 +201,7 @@ export const RECIPES: Recipe[] = [
   {
     id: "6",
     name: "Bowl de Arroz con Salmón",
-    ingredients: [
+    products: [
       {
         id: "15",
         name: "Salmon",

@@ -1,8 +1,8 @@
-import { IngredientCategory } from "./IngredientCategory";
 import { MeasurementUnit } from "./MeasurementUnit";
+import { ProductCategory } from "./ProductCategory";
 
-type Ingredient = {
-  category: IngredientCategory;
+type Product = {
+  category: ProductCategory;
   id: string;
   inStock: boolean;
   name: string;
@@ -11,4 +11,4 @@ type Ingredient = {
   quantity: string;
 };
 
-export type { Ingredient };
+export type { Product };

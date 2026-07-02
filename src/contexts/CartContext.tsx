@@ -1,4 +1,4 @@
-import { Ingredient } from "@/types/Ingredient";
+import { Product } from "@/types/Product";
 import {
   createContext,
   ReactNode,
@@ -9,36 +9,33 @@ import {
 } from "react";
 
 type CartContextValue = {
-  ingredients: Ingredient[];
-  ingredientsCount: number;
-  addRecipeIngredients: (ingredients: Ingredient[]) => void;
+  products: Product[];
+  productsCount: number;
+  addRecipeProducts: (products: Product[]) => void;
   clearCart: () => void;
 };
 
 const CartContext = createContext<CartContextValue | null>(null);
 
 function CartProvider({ children }: { children: ReactNode }) {
-  const [ingredients, setIngredients] = useState<Ingredient[]>([]);
+  const [products, setProducts] = useState<Product[]>([]);
 
-  const addRecipeIngredients = useCallback((newIngredients: Ingredient[]) => {
-    setIngredients((currentIngredients) => [
-      ...currentIngredients,
-      ...newIngredients,
-    ]);
+  const addRecipeProducts = useCallback((newProducts: Product[]) => {
+    setProducts((currentProducts) => [...currentProducts, ...newProducts]);
   }, []);
 
   const clearCart = useCallback(() => {
-    setIngredients([]);
+    setProducts([]);
   }, []);
 
   const value = useMemo(
     () => ({
-      ingredients,
-      ingredientsCount: ingredients.length,
-      addRecipeIngredients,
+      products,
+      productsCount: products.length,
+      addRecipeProducts,
       clearCart,
     }),
-    [addRecipeIngredients, clearCart, ingredients],
+    [addRecipeProducts, clearCart, products],
   );
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
