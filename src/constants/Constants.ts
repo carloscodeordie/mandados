@@ -13,6 +13,12 @@ export const COLORS = {
   surfaceColor: "#F1F5F9",
 };
 
+export const PREPARATION_STEPS = [
+  "Preparar y medir todos los ingredientes.",
+  "Cocinar la base principal de la receta.",
+  "Servir y agregar toppings al gusto.",
+];
+
 export const PRODUCTS_ROUTE: Href = "/products";
 export const PRODUCTS_TEXT = "Productos";
 

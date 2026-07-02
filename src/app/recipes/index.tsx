@@ -35,7 +35,12 @@ export default function RecipesPage() {
 
   return (
     <View style={styles.container}>
-      <Header title={RECIPES_TEXT} isLogoDisplayed isCartDisplayed />
+      <Header
+        isLogoDisplayed
+        isCartDisplayed
+        isTitleDisplayed
+        title={RECIPES_TEXT}
+      />
 
       {isDesktop ? (
         <View style={styles.filtersDesktopContainer}>

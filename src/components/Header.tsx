@@ -5,9 +5,19 @@ import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 
-function Header({ title, isCartDisplayed, isLogoDisplayed }: HeaderProps) {
+function Header({
+  title,
+  isBackDisplayed,
+  isCartDisplayed,
+  isLogoDisplayed,
+  isTitleDisplayed,
+}: HeaderProps) {
   const router = useRouter();
   const { ingredientsCount } = useCart();
+
+  const handleBackPress = () => {
+    router.push("/recipes");
+  };
 
   const handleLogoPress = () => {
     router.push("/products");
@@ -15,7 +25,16 @@ function Header({ title, isCartDisplayed, isLogoDisplayed }: HeaderProps) {
 
   return (
     <View style={styles.headerContainer}>
-      <Text style={styles.headerTitle}>{title}</Text>
+      {isBackDisplayed ? (
+        <Pressable onPress={handleBackPress} style={styles.backButton}>
+          <Ionicons name="arrow-back" size={28} color={COLORS.secondaryColor} />
+        </Pressable>
+      ) : null}
+
+      {isTitleDisplayed ? (
+        <Text style={styles.headerTitle}>{title}</Text>
+      ) : null}
+
       {isLogoDisplayed ? (
         <Pressable onPress={handleLogoPress}>
           <Image
@@ -57,6 +76,10 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontFamily: "Poppins_800ExtraBold",
     lineHeight: 40,
+  },
+  backButton: {
+    marginRight: 8,
+    padding: 4,
   },
   cartIcon: {
     marginLeft: 12,

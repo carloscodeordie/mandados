@@ -79,7 +79,7 @@ export default function OnboardingPage() {
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
         <View style={styles.headerContainer}>
-          <Header title={APPLICATION_NAME} />
+          <Header isTitleDisplayed title={APPLICATION_NAME} />
         </View>
 
         <View style={styles.paginationContainer}>

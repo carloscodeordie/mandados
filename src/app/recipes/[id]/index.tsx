@@ -1,5 +1,5 @@
 import { Header } from "@/components/Header";
-import { COLORS } from "@/constants/Constants";
+import { COLORS, PREPARATION_STEPS } from "@/constants/Constants";
 import { RECIPES } from "@/constants/Mock";
 import { useCart } from "@/contexts/CartContext";
 import { Ingredient } from "@/types/Ingredient";
@@ -15,12 +15,6 @@ import {
   useWindowDimensions,
   View,
 } from "react-native";
-
-const PREPARATION_STEPS = [
-  "Preparar y medir todos los ingredientes.",
-  "Cocinar la base principal de la receta.",
-  "Servir y agregar toppings al gusto.",
-];
 
 export default function RecipeDetailsPage() {
   const { id } = useLocalSearchParams<{ id?: string }>();
@@ -65,7 +59,7 @@ export default function RecipeDetailsPage() {
   if (!recipe) {
     return (
       <View style={styles.container}>
-        <Header title="Receta" isCartDisplayed isLogoDisplayed />
+        <Header isBackDisplayed isCartDisplayed isLogoDisplayed />
         <View style={styles.emptyState}>
           <Text style={styles.emptyStateTitle}>No encontramos la receta</Text>
           <Text style={styles.emptyStateDescription}>
@@ -78,7 +72,7 @@ export default function RecipeDetailsPage() {
 
   return (
     <View style={styles.container}>
-      <Header title="Detalle" isCartDisplayed isLogoDisplayed />
+      <Header isBackDisplayed isCartDisplayed isLogoDisplayed />
 
       <ScrollView
         contentContainerStyle={styles.content}
@@ -88,16 +82,26 @@ export default function RecipeDetailsPage() {
 
         <View style={styles.mainCard}>
           <View style={styles.section}>
-            <Text style={[styles.recipeTitle, isSmallPhone && styles.recipeTitleSmall]}>
+            <Text
+              style={[
+                styles.recipeTitle,
+                isSmallPhone && styles.recipeTitleSmall,
+              ]}
+            >
               {recipe.name}
             </Text>
-            <Text style={[styles.prepTimeText, isSmallPhone && styles.prepTimeTextSmall]}>
-              Prep Time: {recipe.cookTime} mins
+            <Text
+              style={[
+                styles.prepTimeText,
+                isSmallPhone && styles.prepTimeTextSmall,
+              ]}
+            >
+              Tiempo: {recipe.cookTime} min
             </Text>
           </View>
 
           <View style={styles.section}>
-            <Text style={styles.sectionTitle}>Ingredientes necesarios</Text>
+            <Text style={styles.sectionTitle}>Ingredientes</Text>
 
             <View style={styles.ingredientsGrid}>
               {recipe.ingredients.map((ingredient) => {
@@ -127,7 +131,12 @@ export default function RecipeDetailsPage() {
                       ) : null}
                     </View>
 
-                    <Text style={[styles.ingredientText, isSmallPhone && styles.ingredientTextSmall]}>
+                    <Text
+                      style={[
+                        styles.ingredientText,
+                        isSmallPhone && styles.ingredientTextSmall,
+                      ]}
+                    >
                       {ingredient.quantity} {ingredient.name}
                     </Text>
                   </Pressable>
@@ -150,13 +159,13 @@ export default function RecipeDetailsPage() {
                   isSmallPhone && styles.addToCartButtonTextSmall,
                 ]}
               >
-                ADD SELECTED INGREDIENTS TO CART
+                AGREGAR INGREDIENTES AL CARRITO
               </Text>
             </Pressable>
           </View>
 
           <View style={styles.section}>
-            <Text style={styles.sectionTitle}>Preparation Steps</Text>
+            <Text style={styles.sectionTitle}>Pasos</Text>
 
             <View style={styles.stepsRow}>
               {PREPARATION_STEPS.map((step, index) => (
