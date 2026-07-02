@@ -24,6 +24,7 @@ export default function RecipeDetailsPage() {
     [],
   );
   const isSmallPhone = width < 390;
+  const isMobileLayout = width < 768;
 
   const recipe = useMemo(() => RECIPES.find((item) => item.id === id), [id]);
 
@@ -80,7 +81,9 @@ export default function RecipeDetailsPage() {
       >
         <Image source={{ uri: recipe.image }} style={styles.recipeImage} />
 
-        <View style={styles.mainCard}>
+        <View
+          style={[styles.mainCard, isMobileLayout && styles.mainCardMobile]}
+        >
           <View style={styles.section}>
             <Text
               style={[
@@ -164,17 +167,28 @@ export default function RecipeDetailsPage() {
             </Pressable>
           </View>
 
-          <View style={styles.section}>
+          <View style={styles.stepsSection}>
             <Text style={styles.sectionTitle}>Pasos</Text>
 
-            <View style={styles.stepsRow}>
-              {PREPARATION_STEPS.map((step, index) => (
-                <View key={step} style={styles.stepItem}>
-                  <Text style={styles.stepNumber}>{index + 1}</Text>
-                  <Text style={styles.stepText}>{step}</Text>
-                </View>
-              ))}
-            </View>
+            {isMobileLayout ? (
+              <View style={styles.stepsListMobile}>
+                {PREPARATION_STEPS.map((step, index) => (
+                  <View key={step} style={[styles.stepItemMobile]}>
+                    <Text style={styles.stepNumberSmall}>{index + 1}</Text>
+                    <Text style={styles.stepTextSmall}>{step}</Text>
+                  </View>
+                ))}
+              </View>
+            ) : (
+              <View style={styles.stepsRow}>
+                {PREPARATION_STEPS.map((step, index) => (
+                  <View key={step} style={styles.stepItem}>
+                    <Text style={styles.stepNumber}>{index + 1}</Text>
+                    <Text style={styles.stepText}>{step}</Text>
+                  </View>
+                ))}
+              </View>
+            )}
           </View>
         </View>
       </ScrollView>
@@ -291,6 +305,9 @@ const styles = StyleSheet.create({
     shadowRadius: 18,
     elevation: 3,
   },
+  mainCardMobile: {
+    paddingBottom: 4,
+  },
   prepTimeText: {
     color: COLORS.secondaryColor,
     fontSize: 18,
@@ -321,6 +338,9 @@ const styles = StyleSheet.create({
   section: {
     marginBottom: 24,
   },
+  stepsSection: {
+    marginBottom: 0,
+  },
   sectionTitle: {
     color: COLORS.primaryColor,
     fontSize: 20,
@@ -330,6 +350,11 @@ const styles = StyleSheet.create({
   stepItem: {
     flex: 1,
   },
+  stepItemMobile: {
+    alignItems: "flex-start",
+    flexDirection: "row",
+    width: "100%",
+  },
   stepNumber: {
     color: COLORS.brandColor,
     fontSize: 54,
@@ -337,14 +362,31 @@ const styles = StyleSheet.create({
     lineHeight: 56,
     marginBottom: 8,
   },
+  stepNumberSmall: {
+    fontSize: 30,
+    lineHeight: 32,
+    marginBottom: 0,
+    marginRight: 12,
+    textAlign: "center",
+    width: 28,
+  },
   stepsRow: {
-    columnGap: 12,
+    gap: 12,
     flexDirection: "row",
     alignItems: "flex-start",
+  },
+  stepsListMobile: {
+    width: "100%",
   },
   stepText: {
     color: COLORS.secondaryColor,
     fontSize: 13,
     lineHeight: 18,
+  },
+  stepTextSmall: {
+    flex: 1,
+    fontSize: 15,
+    lineHeight: 21,
+    marginTop: 4,
   },
 });
