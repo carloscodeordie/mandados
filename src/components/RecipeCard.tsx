@@ -1,17 +1,23 @@
 import { COLORS } from "@/constants/Constants";
 import { useCart } from "@/contexts/CartContext";
 import { RecipeCardProps } from "@/types/RecipeCardProps";
+import { useRouter } from "expo-router";
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 
 function RecipeCard({ recipe }: RecipeCardProps) {
+  const router = useRouter();
   const { addRecipeIngredients } = useCart();
 
   const handleAddIngredients = () => {
     addRecipeIngredients(recipe.ingredients);
   };
 
+  const handleCardPress = () => {
+    router.push(`/recipes/${recipe.id}`);
+  };
+
   return (
-    <View style={styles.recipeCard}>
+    <Pressable style={styles.recipeCard} onPress={handleCardPress}>
       <View style={styles.imageWrapper}>
         <Image source={{ uri: recipe.image }} style={styles.recipeImage} />
 
@@ -19,7 +25,13 @@ function RecipeCard({ recipe }: RecipeCardProps) {
           <Text style={styles.cookTimeText}>{recipe.cookTime} min</Text>
         </View>
 
-        <Pressable style={styles.addButton} onPress={handleAddIngredients}>
+        <Pressable
+          style={styles.addButton}
+          onPress={(event) => {
+            event.stopPropagation();
+            handleAddIngredients();
+          }}
+        >
           <Text style={styles.addButtonText}>+</Text>
         </Pressable>
       </View>
@@ -32,7 +44,7 @@ function RecipeCard({ recipe }: RecipeCardProps) {
           {recipe.ingredients.map((ingredient) => ingredient.name).join(", ")}
         </Text>
       </View>
-    </View>
+    </Pressable>
   );
 }
 
