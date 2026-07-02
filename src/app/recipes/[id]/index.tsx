@@ -322,7 +322,7 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 28,
     borderBottomLeftRadius: 20,
     borderBottomRightRadius: 20,
-    height: 250,
+    height: 300,
     width: "100%",
   },
   recipeTitle: {
@@ -361,6 +361,7 @@ const styles = StyleSheet.create({
     fontWeight: "800",
     lineHeight: 56,
     marginBottom: 8,
+    textAlign: "center",
   },
   stepNumberSmall: {
     color: COLORS.brandColor,
@@ -384,6 +385,7 @@ const styles = StyleSheet.create({
     color: COLORS.secondaryColor,
     fontSize: 13,
     lineHeight: 18,
+    textAlign: "center",
   },
   stepTextSmall: {
     flex: 1,
