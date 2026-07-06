@@ -1,5 +1,7 @@
 import { Href } from "expo-router";
 
+export const ADD_INGREDIENTS_TEXT = "Agregar ingredientes";
+
 export const APPLICATION_NAME = "Mandados";
 export const APPLICATION_SLOGAN = "Come sano sin tanta vuelta";
 
@@ -12,6 +14,8 @@ export const COLORS = {
   successColor: "#064E3B",
   surfaceColor: "#F1F5F9",
 };
+
+export const INGREDIENTS_TEXT = "Ingredientes";
 
 export const NOT_FOUND_TITLE = "La pagina no existe";
 export const NOT_FOUND_BUTTON = "Ir al inicio";

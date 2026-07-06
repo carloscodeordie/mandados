@@ -1,6 +1,10 @@
 import { CookingSteps } from "@/components/CookingSteps";
 import { Header } from "@/components/Header";
-import { COLORS } from "@/constants/Constants";
+import {
+  ADD_INGREDIENTS_TEXT,
+  COLORS,
+  INGREDIENTS_TEXT,
+} from "@/constants/Constants";
 import { RECIPES } from "@/constants/Mock";
 import { useCart } from "@/contexts/CartContext";
 import { Product } from "@/types/Product";
@@ -93,7 +97,7 @@ export default function RecipeDetailsPage() {
           </View>
 
           <View style={styles.section}>
-            <Text style={styles.sectionTitle}>Ingredientes</Text>
+            <Text style={styles.sectionTitle}>{INGREDIENTS_TEXT}</Text>
 
             <View style={styles.productsGrid}>
               {recipe.products.map((product) => {
@@ -149,7 +153,7 @@ export default function RecipeDetailsPage() {
                   isSmallPhone && styles.addToCartButtonTextSmall,
                 ]}
               >
-                AGREGAR INGREDIENTES AL CARRITO
+                {ADD_INGREDIENTS_TEXT}
               </Text>
             </Pressable>
           </View>
