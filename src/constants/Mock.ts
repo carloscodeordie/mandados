@@ -30,6 +30,8 @@ export const RECIPES: Recipe[] = [
       {
         id: "1",
         name: "Aguacate",
+        imageUrl:
+          "https://images.unsplash.com/photo-1519162808019-7de1683fa2ad?auto=format&fit=crop&w=800&q=80",
         quantity: "1",
         measurementUnit: "unit",
         category: "Frutas",
@@ -39,6 +41,8 @@ export const RECIPES: Recipe[] = [
       {
         id: "2",
         name: "Pan",
+        imageUrl:
+          "https://images.unsplash.com/photo-1549931319-a545dcf3bc73?auto=format&fit=crop&w=800&q=80",
         quantity: "2",
         measurementUnit: "unit",
         category: "Cereales",
@@ -48,6 +52,8 @@ export const RECIPES: Recipe[] = [
       {
         id: "3",
         name: "Lima",
+        imageUrl:
+          "https://images.unsplash.com/photo-1528825871115-3581a5387919?auto=format&fit=crop&w=800&q=80",
         quantity: "1",
         measurementUnit: "unit",
         category: "Frutas",
@@ -67,6 +73,8 @@ export const RECIPES: Recipe[] = [
       {
         id: "4",
         name: "Lechuga",
+        imageUrl:
+          "https://images.unsplash.com/photo-1622206151226-18ca2c9ab4a1?auto=format&fit=crop&w=800&q=80",
         quantity: "1",
         measurementUnit: "unit",
         category: "Verduras",
@@ -76,6 +84,8 @@ export const RECIPES: Recipe[] = [
       {
         id: "5",
         name: "Huevos",
+        imageUrl:
+          "https://images.unsplash.com/photo-1506976785307-8732e854ad03?auto=format&fit=crop&w=800&q=80",
         quantity: "2",
         measurementUnit: "unit",
         category: "Carnes",
@@ -95,6 +105,8 @@ export const RECIPES: Recipe[] = [
       {
         id: "6",
         name: "Pollo",
+        imageUrl:
+          "https://images.unsplash.com/photo-1604503468506-a8da13d82791?auto=format&fit=crop&w=800&q=80",
         quantity: "1",
         measurementUnit: "unit",
         category: "Carnes",
@@ -104,6 +116,8 @@ export const RECIPES: Recipe[] = [
       {
         id: "7",
         name: "Tortilla",
+        imageUrl:
+          "https://images.unsplash.com/photo-1615870216519-2f9fa575fa5c?auto=format&fit=crop&w=800&q=80",
         quantity: "1",
         measurementUnit: "unit",
         category: "Cereales",
@@ -113,6 +127,8 @@ export const RECIPES: Recipe[] = [
       {
         id: "8",
         name: "Espinaca",
+        imageUrl:
+          "https://images.unsplash.com/photo-1576045057995-568f588f82fb?auto=format&fit=crop&w=800&q=80",
         quantity: "1",
         measurementUnit: "unit",
         category: "Verduras",
@@ -132,6 +148,8 @@ export const RECIPES: Recipe[] = [
       {
         id: "9",
         name: "Plátano",
+        imageUrl:
+          "https://images.unsplash.com/photo-1528825871115-3581a5387919?auto=format&fit=crop&w=800&q=80",
         quantity: "1",
         measurementUnit: "unit",
         category: "Frutas",
@@ -141,6 +159,8 @@ export const RECIPES: Recipe[] = [
       {
         id: "10",
         name: "Frutos rojos",
+        imageUrl:
+          "https://images.unsplash.com/photo-1563746924237-fb7f0e6f645d?auto=format&fit=crop&w=800&q=80",
         quantity: "1",
         measurementUnit: "unit",
         category: "Frutas",
@@ -150,6 +170,8 @@ export const RECIPES: Recipe[] = [
       {
         id: "11",
         name: "Yogurth",
+        imageUrl:
+          "https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=800&q=80",
         quantity: "1",
         measurementUnit: "unit",
         category: "Lácteos",
@@ -169,6 +191,8 @@ export const RECIPES: Recipe[] = [
       {
         id: "12",
         name: "Calabacín",
+        imageUrl:
+          "https://images.unsplash.com/photo-1583663848850-46af132dc08e?auto=format&fit=crop&w=800&q=80",
         quantity: "1",
         measurementUnit: "unit",
         category: "Verduras",
@@ -178,6 +202,8 @@ export const RECIPES: Recipe[] = [
       {
         id: "13",
         name: "Zanahoria",
+        imageUrl:
+          "https://images.unsplash.com/photo-1447175008436-054170c2e979?auto=format&fit=crop&w=800&q=80",
         quantity: "1",
         measurementUnit: "unit",
         category: "Verduras",
@@ -187,6 +213,8 @@ export const RECIPES: Recipe[] = [
       {
         id: "14",
         name: "Brócoli",
+        imageUrl:
+          "https://images.unsplash.com/photo-1459411621453-7b03977f4bfc?auto=format&fit=crop&w=800&q=80",
         quantity: "1",
         measurementUnit: "unit",
         category: "Verduras",
@@ -206,6 +234,8 @@ export const RECIPES: Recipe[] = [
       {
         id: "15",
         name: "Salmon",
+        imageUrl:
+          "https://images.unsplash.com/photo-1599084993091-1cb5c0721cc6?auto=format&fit=crop&w=800&q=80",
         quantity: "1",
         measurementUnit: "unit",
         category: "Pescados",
@@ -215,6 +245,8 @@ export const RECIPES: Recipe[] = [
       {
         id: "16",
         name: "Arroz",
+        imageUrl:
+          "https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=800&q=80",
         quantity: "1",
         measurementUnit: "unit",
         category: "Cereales",
@@ -224,6 +256,8 @@ export const RECIPES: Recipe[] = [
       {
         id: "17",
         name: "Aguacate",
+        imageUrl:
+          "https://images.unsplash.com/photo-1519162808019-7de1683fa2ad?auto=format&fit=crop&w=800&q=80",
         quantity: "1",
         measurementUnit: "unit",
         category: "Frutas",
@@ -243,6 +277,8 @@ export const PRODUCTS: Product[] = [
     allowedMeasurementUnits: ["unit", "kg"],
     id: "1",
     name: "Aguacate",
+    imageUrl:
+      "https://images.unsplash.com/photo-1519162808019-7de1683fa2ad?auto=format&fit=crop&w=800&q=80",
     quantity: "1",
     measurementUnit: "kg",
     category: "Frutas",
@@ -252,6 +288,8 @@ export const PRODUCTS: Product[] = [
   {
     id: "2",
     name: "Pan",
+    imageUrl:
+      "https://images.unsplash.com/photo-1549931319-a545dcf3bc73?auto=format&fit=crop&w=800&q=80",
     quantity: "1",
     measurementUnit: "unit",
     category: "Cereales",
@@ -261,6 +299,8 @@ export const PRODUCTS: Product[] = [
   {
     id: "3",
     name: "Lima",
+    imageUrl:
+      "https://images.unsplash.com/photo-1528825871115-3581a5387919?auto=format&fit=crop&w=800&q=80",
     quantity: "1",
     measurementUnit: "kg",
     category: "Frutas",
@@ -270,6 +310,8 @@ export const PRODUCTS: Product[] = [
   {
     id: "4",
     name: "Lechuga",
+    imageUrl:
+      "https://images.unsplash.com/photo-1622206151226-18ca2c9ab4a1?auto=format&fit=crop&w=800&q=80",
     quantity: "1",
     measurementUnit: "unit",
     category: "Verduras",
@@ -280,6 +322,8 @@ export const PRODUCTS: Product[] = [
     allowedMeasurementUnits: ["unit", "kg"],
     id: "5",
     name: "Huevos",
+    imageUrl:
+      "https://images.unsplash.com/photo-1506976785307-8732e854ad03?auto=format&fit=crop&w=800&q=80",
     quantity: "1",
     measurementUnit: "kg",
     category: "Carnes",
@@ -289,6 +333,8 @@ export const PRODUCTS: Product[] = [
   {
     id: "6",
     name: "Pollo",
+    imageUrl:
+      "https://images.unsplash.com/photo-1604503468506-a8da13d82791?auto=format&fit=crop&w=800&q=80",
     quantity: "1",
     measurementUnit: "kg",
     category: "Carnes",
@@ -298,6 +344,8 @@ export const PRODUCTS: Product[] = [
   {
     id: "7",
     name: "Tortilla",
+    imageUrl:
+      "https://images.unsplash.com/photo-1615870216519-2f9fa575fa5c?auto=format&fit=crop&w=800&q=80",
     quantity: "1",
     measurementUnit: "kg",
     category: "Cereales",
@@ -307,6 +355,8 @@ export const PRODUCTS: Product[] = [
   {
     id: "8",
     name: "Espinaca",
+    imageUrl:
+      "https://images.unsplash.com/photo-1576045057995-568f588f82fb?auto=format&fit=crop&w=800&q=80",
     quantity: "1",
     measurementUnit: "kg",
     category: "Verduras",
@@ -316,6 +366,8 @@ export const PRODUCTS: Product[] = [
   {
     id: "9",
     name: "Plátano",
+    imageUrl:
+      "https://images.unsplash.com/photo-1574226516831-e1dff420e37f?auto=format&fit=crop&w=800&q=80",
     quantity: "1",
     measurementUnit: "unit",
     category: "Frutas",
@@ -325,6 +377,8 @@ export const PRODUCTS: Product[] = [
   {
     id: "10",
     name: "Frutos rojos",
+    imageUrl:
+      "https://images.unsplash.com/photo-1563746924237-fb7f0e6f645d?auto=format&fit=crop&w=800&q=80",
     quantity: "1",
     measurementUnit: "g",
     category: "Frutas",
@@ -334,6 +388,8 @@ export const PRODUCTS: Product[] = [
   {
     id: "11",
     name: "Yogurth",
+    imageUrl:
+      "https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=800&q=80",
     quantity: "1",
     measurementUnit: "ml",
     category: "Lácteos",
@@ -344,6 +400,8 @@ export const PRODUCTS: Product[] = [
     allowedMeasurementUnits: ["unit", "kg"],
     id: "12",
     name: "Calabacín",
+    imageUrl:
+      "https://images.unsplash.com/photo-1583663848850-46af132dc08e?auto=format&fit=crop&w=800&q=80",
     quantity: "1",
     measurementUnit: "kg",
     category: "Verduras",
@@ -353,6 +411,8 @@ export const PRODUCTS: Product[] = [
   {
     id: "13",
     name: "Zanahoria",
+    imageUrl:
+      "https://images.unsplash.com/photo-1447175008436-054170c2e979?auto=format&fit=crop&w=800&q=80",
     quantity: "1",
     measurementUnit: "kg",
     category: "Verduras",
@@ -362,6 +422,8 @@ export const PRODUCTS: Product[] = [
   {
     id: "14",
     name: "Brócoli",
+    imageUrl:
+      "https://images.unsplash.com/photo-1459411621453-7b03977f4bfc?auto=format&fit=crop&w=800&q=80",
     quantity: "1",
     measurementUnit: "kg",
     category: "Verduras",
@@ -372,6 +434,8 @@ export const PRODUCTS: Product[] = [
     allowedMeasurementUnits: ["unit", "kg"],
     id: "15",
     name: "Salmon",
+    imageUrl:
+      "https://images.unsplash.com/photo-1599084993091-1cb5c0721cc6?auto=format&fit=crop&w=800&q=80",
     quantity: "1",
     measurementUnit: "kg",
     category: "Pescados",
@@ -381,6 +445,8 @@ export const PRODUCTS: Product[] = [
   {
     id: "16",
     name: "Arroz",
+    imageUrl:
+      "https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=800&q=80",
     quantity: "1",
     measurementUnit: "kg",
     category: "Cereales",

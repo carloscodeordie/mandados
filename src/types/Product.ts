@@ -4,6 +4,7 @@ import { ProductCategory } from "./ProductCategory";
 type Product = {
   category: ProductCategory;
   id: string;
+  imageUrl: string;
   inStock: boolean;
   name: string;
   measurementUnit: MeasurementUnit;

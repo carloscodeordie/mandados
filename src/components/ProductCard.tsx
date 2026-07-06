@@ -1,8 +1,15 @@
-import { ADDED_FEEDBACK_DURATION_MS, COLORS } from "@/constants/Constants";
+import {
+  ADDED_FEEDBACK_DURATION_MS,
+  AVAILABLE_TEXT,
+  COLORS,
+  QUANTITY_TEXT,
+  UNAVAILABLE_TEXT,
+  UNIT_TEXT,
+} from "@/constants/Constants";
 import { useCart } from "@/contexts/CartContext";
 import { ProductCardProps } from "@/types/ProductCardProps";
 import { useEffect, useRef, useState } from "react";
-import { Pressable, StyleSheet, Switch, Text, View } from "react-native";
+import { Image, Pressable, StyleSheet, Switch, Text, View } from "react-native";
 
 function ProductCard({ product }: ProductCardProps) {
   const { addRecipeProducts } = useCart();
@@ -67,9 +74,17 @@ function ProductCard({ product }: ProductCardProps) {
   return (
     <View style={styles.card}>
       <View style={styles.cardTopContent}>
-        <Text numberOfLines={1} style={styles.productTitle}>
-          {product.name}
-        </Text>
+        <Image
+          source={{ uri: product.imageUrl }}
+          style={styles.productImage}
+          resizeMode="cover"
+        />
+
+        <View>
+          <Text numberOfLines={1} style={styles.productTitle}>
+            {product.name}
+          </Text>
+        </View>
 
         <View style={styles.metaRow}>
           <Text style={styles.productCategory}>{product.category}</Text>
@@ -77,26 +92,28 @@ function ProductCard({ product }: ProductCardProps) {
         </View>
 
         <Text style={styles.stockText}>
-          {product.inStock ? "Disponible" : "Sin stock"}
+          {product.inStock ? AVAILABLE_TEXT : UNAVAILABLE_TEXT}
         </Text>
       </View>
 
       {isMeasurementSwitchDisplayed ? (
         <View style={styles.switchRow}>
-          <Text style={styles.measurementText}>unit</Text>
+          <Text style={styles.measurementText}>{UNIT_TEXT}</Text>
           <Switch
             value={isUnitSelected}
             onValueChange={setIsUnitSelected}
             disabled={isMeasurementTypeSwitchDisabled}
-            trackColor={{ false: "#D1D5DB", true: "#86EFAC" }}
-            thumbColor={isUnitSelected ? COLORS.brandColor : "#FFFFFF"}
+            trackColor={{ false: COLORS.surfaceColor, true: COLORS.brandColor }}
+            thumbColor={
+              isUnitSelected ? COLORS.brandColor : COLORS.defaultBackground
+            }
           />
           <Text style={styles.measurementText}>{product.measurementUnit}</Text>
         </View>
       ) : null}
 
       <View style={styles.quantitySelectorRow}>
-        <Text style={styles.quantityLabel}>Cantidad</Text>
+        <Text style={styles.quantityLabel}>{QUANTITY_TEXT}</Text>
 
         <View style={styles.quantityControls}>
           <Pressable
@@ -159,16 +176,16 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
   },
   addButtonDisabled: {
-    backgroundColor: "#A3A3A3",
+    backgroundColor: COLORS.secondaryColor,
   },
   addButtonText: {
-    color: "#FFFFFF",
+    color: COLORS.defaultBackground,
     fontSize: 14,
     fontWeight: "700",
   },
   card: {
     backgroundColor: COLORS.defaultBackground,
-    borderColor: "#E5E7EB",
+    borderColor: COLORS.surfaceColor,
     borderRadius: 20,
     borderWidth: 1,
     flex: 1,
@@ -201,6 +218,11 @@ const styles = StyleSheet.create({
     fontSize: 13,
     fontWeight: "700",
   },
+  productImage: {
+    borderRadius: 12,
+    height: 110,
+    width: "100%",
+  },
   productPrice: {
     color: COLORS.primaryColor,
     fontSize: 16,
@@ -215,7 +237,7 @@ const styles = StyleSheet.create({
   quantityButton: {
     alignItems: "center",
     backgroundColor: COLORS.surfaceColor,
-    borderColor: "#D1D5DB",
+    borderColor: COLORS.surfaceColor,
     borderRadius: 8,
     borderWidth: 1,
     height: 30,

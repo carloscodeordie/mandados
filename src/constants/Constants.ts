@@ -7,6 +7,9 @@ export const ADDED_FEEDBACK_DURATION_MS = 1200;
 export const APPLICATION_NAME = "Mandados";
 export const APPLICATION_SLOGAN = "Come sano sin tanta vuelta";
 
+export const AVAILABLE_TEXT = "Disponible";
+export const UNAVAILABLE_TEXT = "Sin stock";
+
 export const COLORS = {
   brandColor: "#32CD32",
   defaultBackground: "#FFFFFF",
@@ -45,6 +48,8 @@ export const PRODUCT_FILTERS: ProductCategory[] = [
 export const PRODUCTS_ROUTE: Href = "/products";
 export const PRODUCTS_TEXT = "Productos";
 
+export const QUANTITY_TEXT = "Cantidad";
+
 export const RECIPE_FILTERS = ["Todos", "Desayuno", "Almuerzo", "Cena"];
 
 export const RECIPES_DESKTOP_COLUMN_COUNT = 4;
@@ -53,3 +58,5 @@ export const RECIPES_ROUTE: Href = "/recipes";
 export const RECIPES_TEXT = "Recetas";
 
 export const SPLASH_SCREEN_DURATION = 3000;
+
+export const UNIT_TEXT = "unidad";
