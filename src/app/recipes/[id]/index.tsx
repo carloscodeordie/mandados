@@ -5,7 +5,7 @@ import { RECIPES } from "@/constants/Mock";
 import { useCart } from "@/contexts/CartContext";
 import { Product } from "@/types/Product";
 import { Ionicons } from "@expo/vector-icons";
-import { useLocalSearchParams } from "expo-router";
+import { Redirect, useLocalSearchParams } from "expo-router";
 import { useMemo, useState } from "react";
 import {
   Image,
@@ -57,17 +57,7 @@ export default function RecipeDetailsPage() {
   };
 
   if (!recipe) {
-    return (
-      <View style={styles.container}>
-        <Header isBackDisplayed isCartDisplayed isLogoDisplayed />
-        <View style={styles.emptyState}>
-          <Text style={styles.emptyStateTitle}>No encontramos la receta</Text>
-          <Text style={styles.emptyStateDescription}>
-            Regresa al listado e intenta de nuevo.
-          </Text>
-        </View>
-      </View>
-    );
+    return <Redirect href="/not-found" />;
   }
 
   return (
@@ -224,26 +214,6 @@ const styles = StyleSheet.create({
   },
   content: {
     paddingBottom: 30,
-  },
-  emptyState: {
-    alignItems: "center",
-    backgroundColor: COLORS.defaultBackground,
-    borderRadius: 20,
-    marginTop: 24,
-    padding: 24,
-  },
-  emptyStateDescription: {
-    color: COLORS.secondaryColor,
-    fontSize: 16,
-    lineHeight: 22,
-    textAlign: "center",
-  },
-  emptyStateTitle: {
-    color: COLORS.primaryColor,
-    fontSize: 22,
-    fontWeight: "800",
-    marginBottom: 8,
-    textAlign: "center",
   },
   productItem: {
     alignItems: "center",

@@ -13,6 +13,10 @@ export const COLORS = {
   surfaceColor: "#F1F5F9",
 };
 
+export const NOT_FOUND_TITLE = "La pagina no existe";
+export const NOT_FOUND_BUTTON = "Ir al inicio";
+export const NOT_FOUND_ERROR = "Error";
+
 export const PREPARATION_STEPS = [
   "Preparar y medir todos los ingredientes.",
   "Cocinar la base principal de la receta.",
