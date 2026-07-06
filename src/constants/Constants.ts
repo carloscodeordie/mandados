@@ -17,9 +17,10 @@ export const COLORS = {
 
 export const INGREDIENTS_TEXT = "Ingredientes";
 
-export const NOT_FOUND_TITLE = "La pagina no existe";
 export const NOT_FOUND_BUTTON = "Ir al inicio";
 export const NOT_FOUND_ERROR = "Error";
+export const NOT_FOUND_TITLE = "La pagina no existe";
+export const NOT_FOUND_PATH: Href = "/+not-found";
 
 export const PREPARATION_STEPS = [
   "Preparar y medir todos los ingredientes.",

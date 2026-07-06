@@ -4,6 +4,7 @@ import {
   ADD_INGREDIENTS_TEXT,
   COLORS,
   INGREDIENTS_TEXT,
+  NOT_FOUND_PATH,
 } from "@/constants/Constants";
 import { RECIPES } from "@/constants/Mock";
 import { useCart } from "@/contexts/CartContext";
@@ -61,7 +62,7 @@ export default function RecipeDetailsPage() {
   };
 
   if (!recipe) {
-    return <Redirect href="/not-found" />;
+    return <Redirect href={NOT_FOUND_PATH} />;
   }
 
   return (

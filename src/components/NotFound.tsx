@@ -1,43 +1,47 @@
-import { Header } from "@/components/Header";
 import {
   COLORS,
   NOT_FOUND_BUTTON,
-  NOT_FOUND_ERROR,
   NOT_FOUND_TITLE,
 } from "@/constants/Constants";
 import { Link } from "expo-router";
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
+import { Header } from "./Header";
 
 export default function NotFoundScreen() {
   return (
-    <View style={styles.notFoundContainer}>
-      <Header isLogoDisplayed isTitleDisplayed title={NOT_FOUND_ERROR} />
+    <View style={styles.screenContainer}>
+      <Header isLogoDisplayed />
+      <View style={styles.notFoundContainer}>
+        <View style={styles.card}>
+          <Image
+            source={require("../../assets/images/onboarding/delivery.png")}
+            style={styles.notFoundImage}
+            resizeMode="contain"
+          />
+          <Text style={styles.statusCode}>404</Text>
+          <Text style={styles.title}>{NOT_FOUND_TITLE}</Text>
 
-      <View style={styles.card}>
-        <Image
-          source={require("../../assets/images/onboarding/delivery.png")}
-          style={styles.notFoundImage}
-          resizeMode="contain"
-        />
-        <Text style={styles.statusCode}>404</Text>
-        <Text style={styles.title}>{NOT_FOUND_TITLE}</Text>
-
-        <Link href="/products" asChild>
-          <Pressable style={styles.button}>
-            <Text style={styles.buttonText}>{NOT_FOUND_BUTTON}</Text>
-          </Pressable>
-        </Link>
+          <Link href="/products" asChild>
+            <Pressable style={styles.button}>
+              <Text style={styles.buttonText}>{NOT_FOUND_BUTTON}</Text>
+            </Pressable>
+          </Link>
+        </View>
       </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  screenContainer: {
+    flex: 1,
+  },
   notFoundContainer: {
     backgroundColor: COLORS.surfaceColor,
     flex: 1,
+    height: "100%",
+    justifyContent: "center",
     paddingHorizontal: 16,
-    paddingTop: 18,
   },
   button: {
     alignItems: "center",
@@ -57,7 +61,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: COLORS.defaultBackground,
     borderRadius: 24,
-    marginTop: 18,
     paddingHorizontal: 24,
     paddingVertical: 30,
   },
