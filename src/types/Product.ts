@@ -7,6 +7,7 @@ type Product = {
   inStock: boolean;
   name: string;
   measurementUnit: MeasurementUnit;
+  allowedMeasurementUnits?: MeasurementUnit[];
   price: number;
   quantity: string;
 };
