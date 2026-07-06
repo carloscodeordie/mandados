@@ -2,12 +2,12 @@ import { Header } from "@/components/Header";
 import { ProductCard } from "@/components/ProductCard";
 import {
   COLORS,
+  PRODUCT_FILTERS,
   PRODUCTS_TEXT,
   RECIPES_DESKTOP_COLUMN_COUNT,
   RECIPES_MOBILE_COLUMN_COUNT,
 } from "@/constants/Constants";
 import { PRODUCTS } from "@/constants/Mock";
-import { ProductCategory } from "@/types/ProductCategory";
 import { useMemo, useState } from "react";
 import {
   FlatList,
@@ -18,19 +18,6 @@ import {
   useWindowDimensions,
   View,
 } from "react-native";
-
-const PRODUCT_FILTERS: Array<"Todos" | ProductCategory> = [
-  "Todos",
-  "Frutas",
-  "Verduras",
-  "Carnes",
-  "Pescados",
-  "Lácteos",
-  "Cereales",
-  "Legumbres",
-  "Bebidas",
-  "Otros",
-];
 
 export default function ProductsPage() {
   const [activeFilter, setActiveFilter] =

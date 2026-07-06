@@ -1,10 +1,8 @@
-import { COLORS } from "@/constants/Constants";
+import { ADDED_FEEDBACK_DURATION_MS, COLORS } from "@/constants/Constants";
 import { useCart } from "@/contexts/CartContext";
 import { ProductCardProps } from "@/types/ProductCardProps";
 import { useEffect, useRef, useState } from "react";
 import { Pressable, StyleSheet, Switch, Text, View } from "react-native";
-
-const ADDED_FEEDBACK_DURATION_MS = 1200;
 
 function ProductCard({ product }: ProductCardProps) {
   const { addRecipeProducts } = useCart();

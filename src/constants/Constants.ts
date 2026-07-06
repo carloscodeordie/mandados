@@ -1,6 +1,8 @@
+import { ProductCategory } from "@/types/ProductCategory";
 import { Href } from "expo-router";
 
 export const ADD_INGREDIENTS_TEXT = "Agregar ingredientes";
+export const ADDED_FEEDBACK_DURATION_MS = 1200;
 
 export const APPLICATION_NAME = "Mandados";
 export const APPLICATION_SLOGAN = "Come sano sin tanta vuelta";
@@ -28,6 +30,18 @@ export const PREPARATION_STEPS = [
   "Servir y agregar toppings al gusto.",
 ];
 
+export const PRODUCT_FILTERS: ProductCategory[] = [
+  "Todos",
+  "Frutas",
+  "Verduras",
+  "Carnes",
+  "Pescados",
+  "Lácteos",
+  "Cereales",
+  "Legumbres",
+  "Bebidas",
+  "Otros",
+];
 export const PRODUCTS_ROUTE: Href = "/products";
 export const PRODUCTS_TEXT = "Productos";
 

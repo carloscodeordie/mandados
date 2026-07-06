@@ -1,4 +1,5 @@
 type ProductCategory =
+  | "Todos"
   | "Frutas"
   | "Verduras"
   | "Carnes"
