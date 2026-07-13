@@ -10,6 +10,7 @@ type Product = {
   measurementUnit: MeasurementUnit;
   allowedMeasurementUnits?: MeasurementUnit[];
   price: number;
+  priceUnit?: number;
   quantity: string;
 };
 

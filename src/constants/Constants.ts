@@ -10,6 +10,9 @@ export const APPLICATION_SLOGAN = "Come sano sin tanta vuelta";
 export const AVAILABLE_TEXT = "Disponible";
 export const UNAVAILABLE_TEXT = "Sin stock";
 
+export const CART_ROUTE: Href = "/cart";
+export const CART_TEXT = "Carrito";
+
 export const COLORS = {
   brandColor: "#32CD32",
   defaultBackground: "#FFFFFF",

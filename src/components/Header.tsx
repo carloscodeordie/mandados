@@ -1,4 +1,4 @@
-import { COLORS } from "@/constants/Constants";
+import { CART_ROUTE, COLORS } from "@/constants/Constants";
 import { useCart } from "@/contexts/CartContext";
 import { HeaderProps } from "@/types/HeaderProps";
 import { Ionicons } from "@expo/vector-icons";
@@ -23,6 +23,10 @@ function Header({
     router.push("/products");
   };
 
+  const handleCartPress = () => {
+    router.push(CART_ROUTE);
+  };
+
   return (
     <View style={styles.headerContainer}>
       {isBackDisplayed ? (
@@ -45,7 +49,7 @@ function Header({
         </Pressable>
       ) : null}
       {isCartDisplayed ? (
-        <View style={styles.cartIconContainer}>
+        <Pressable onPress={handleCartPress} style={styles.cartIconContainer}>
           <Ionicons
             name="cart-outline"
             size={36}
@@ -57,7 +61,7 @@ function Header({
               <Text style={styles.cartBadgeText}>{productsCount}</Text>
             </View>
           ) : null}
-        </View>
+        </Pressable>
       ) : null}
     </View>
   );
