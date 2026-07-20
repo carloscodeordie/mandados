@@ -1,19 +1,8 @@
+import { formatPrice, formatQuantity } from "@/app/utils";
 import { COLORS } from "@/constants/Constants";
 import { MeasurementUnit } from "@/types/MeasurementUnit";
 import { Picker } from "@react-native-picker/picker";
 import { Platform, Pressable, StyleSheet, Text, View } from "react-native";
-
-function formatPrice(value: number) {
-  return `$${value.toFixed(2)}`;
-}
-
-function formatQuantity(quantity: number) {
-  if (Number.isInteger(quantity)) {
-    return String(quantity);
-  }
-
-  return quantity.toFixed(3).replace(/\.?0+$/, "");
-}
 
 function CartProduct({
   item,

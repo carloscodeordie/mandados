@@ -1,4 +1,6 @@
+import { CartCheckout } from "@/components/CartCheckout";
 import { CartProduct } from "@/components/CartProduct";
+import { EmptyCart } from "@/components/EmptyCart";
 import { Header } from "@/components/Header";
 import { CART_TEXT, COLORS } from "@/constants/Constants";
 import { PRODUCTS } from "@/constants/Mock";
@@ -6,20 +8,8 @@ import { useCart } from "@/contexts/CartContext";
 import { MeasurementUnit } from "@/types/MeasurementUnit";
 import { Product } from "@/types/Product";
 import { useMemo } from "react";
-import { FlatList, Pressable, StyleSheet, Text, View } from "react-native";
-
-function formatPrice(value: number) {
-  return `$${value.toFixed(2)}`;
-}
-function parseQuantity(quantity: string) {
-  const parsedQuantity = Number.parseFloat(quantity);
-
-  if (Number.isNaN(parsedQuantity) || parsedQuantity <= 0) {
-    return 1;
-  }
-
-  return parsedQuantity;
-}
+import { FlatList, StyleSheet, View } from "react-native";
+import { parseQuantity } from "../utils";
 
 function getAvailableMeasurementUnits(
   product: Product,
@@ -109,12 +99,7 @@ export default function CartPage() {
       />
 
       {!products.length ? (
-        <View style={styles.emptyContainer}>
-          <Text style={styles.emptyTitle}>Tu carrito esta vacio</Text>
-          <Text style={styles.emptyDescription}>
-            Agrega productos desde recetas o productos para comenzar tu compra.
-          </Text>
-        </View>
+        <EmptyCart />
       ) : (
         <>
           <FlatList
@@ -144,16 +129,10 @@ export default function CartPage() {
             }}
           />
 
-          <View style={styles.summaryContainer}>
-            <View style={styles.totalRow}>
-              <Text style={styles.totalLabel}>Total</Text>
-              <Text style={styles.totalValue}>{formatPrice(totalPrice)}</Text>
-            </View>
-
-            <Pressable onPress={handleCheckout} style={styles.checkoutButton}>
-              <Text style={styles.checkoutButtonText}>Checkout</Text>
-            </Pressable>
-          </View>
+          <CartCheckout
+            totalPrice={totalPrice}
+            handleCheckout={handleCheckout}
+          />
         </>
       )}
     </View>
@@ -161,69 +140,13 @@ export default function CartPage() {
 }
 
 const styles = StyleSheet.create({
-  checkoutButton: {
-    alignItems: "center",
-    backgroundColor: COLORS.brandColor,
-    borderRadius: 14,
-    justifyContent: "center",
-    marginTop: 14,
-    minHeight: 52,
-  },
-  checkoutButtonText: {
-    color: "#FFFFFF",
-    fontSize: 16,
-    fontWeight: "800",
-  },
   container: {
     backgroundColor: COLORS.surfaceColor,
     flex: 1,
     paddingHorizontal: 18,
     paddingTop: 18,
   },
-  emptyContainer: {
-    alignItems: "center",
-    backgroundColor: COLORS.defaultBackground,
-    borderRadius: 24,
-    marginTop: 16,
-    padding: 24,
-  },
-  emptyDescription: {
-    color: COLORS.secondaryColor,
-    fontSize: 15,
-    lineHeight: 22,
-    marginTop: 10,
-    textAlign: "center",
-  },
-  emptyTitle: {
-    color: COLORS.primaryColor,
-    fontSize: 22,
-    fontWeight: "800",
-    textAlign: "center",
-  },
   listContent: {
     paddingBottom: 12,
-  },
-  summaryContainer: {
-    backgroundColor: COLORS.defaultBackground,
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-    paddingHorizontal: 14,
-    paddingTop: 14,
-    paddingBottom: 18,
-  },
-  totalLabel: {
-    color: COLORS.secondaryColor,
-    fontSize: 16,
-    fontWeight: "700",
-  },
-  totalRow: {
-    alignItems: "center",
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
-  totalValue: {
-    color: COLORS.primaryColor,
-    fontSize: 24,
-    fontWeight: "800",
   },
 });

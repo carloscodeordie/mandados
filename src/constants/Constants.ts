@@ -23,6 +23,10 @@ export const COLORS = {
   surfaceColor: "#F1F5F9",
 };
 
+export const EMPTY_CART_DESCRIPTION =
+  "Agrega productos desde recetas o productos para comenzar tu compra.";
+export const EMPTY_CART_TITLE = "Tu carrito esta vacio";
+
 export const INGREDIENTS_TEXT = "Ingredientes";
 
 export const NOT_FOUND_BUTTON = "Ir al inicio";
