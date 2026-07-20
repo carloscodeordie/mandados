@@ -104,20 +104,22 @@ export default function CartPage() {
         <>
           <FlatList
             data={products}
-            keyExtractor={(item) => `${item.id}-${item.measurementUnit}`}
-            contentContainerStyle={styles.listContent}
+            keyExtractor={(product) =>
+              `${product.id}-${product.measurementUnit}`
+            }
+            contentContainerStyle={styles.listProducts}
             showsVerticalScrollIndicator={false}
-            renderItem={({ item }) => {
-              const quantity = parseQuantity(item.quantity);
-              const itemTotal = item.price * quantity;
+            renderItem={({ item: product }) => {
+              const quantity = parseQuantity(product.quantity);
+              const itemTotal = product.price * quantity;
               const measurementUnits = getAvailableMeasurementUnits(
-                item,
-                availableMeasurementUnitsByProductId[item.id],
+                product,
+                availableMeasurementUnitsByProductId[product.id],
               );
 
               return (
                 <CartProduct
-                  item={item}
+                  item={product}
                   quantity={quantity}
                   measurementUnits={measurementUnits}
                   itemTotal={itemTotal}
@@ -146,7 +148,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 18,
     paddingTop: 18,
   },
-  listContent: {
+  listProducts: {
     paddingBottom: 12,
   },
 });
