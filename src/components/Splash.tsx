@@ -19,14 +19,14 @@ function Splash() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: COLORS.splashBackground,
     alignItems: "center",
+    backgroundColor: COLORS.splashBackground,
+    flex: 1,
     justifyContent: "center",
   },
   splashLogo: {
-    width: 120,
     height: 120,
+    width: 120,
   },
 });
 

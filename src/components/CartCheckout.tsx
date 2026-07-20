@@ -19,13 +19,26 @@ function CartCheckout({ totalPrice, handleCheckout }: CartCheckoutProps) {
 }
 
 const styles = StyleSheet.create({
+  checkoutButton: {
+    alignItems: "center",
+    backgroundColor: COLORS.brandColor,
+    borderRadius: 14,
+    justifyContent: "center",
+    marginTop: 14,
+    minHeight: 52,
+  },
+  checkoutButtonText: {
+    color: "#FFFFFF",
+    fontSize: 16,
+    fontWeight: "800",
+  },
   summaryContainer: {
     backgroundColor: COLORS.defaultBackground,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
+    paddingBottom: 18,
     paddingHorizontal: 14,
     paddingTop: 14,
-    paddingBottom: 18,
   },
   totalLabel: {
     color: COLORS.secondaryColor,
@@ -40,19 +53,6 @@ const styles = StyleSheet.create({
   totalValue: {
     color: COLORS.primaryColor,
     fontSize: 24,
-    fontWeight: "800",
-  },
-  checkoutButton: {
-    alignItems: "center",
-    backgroundColor: COLORS.brandColor,
-    borderRadius: 14,
-    justifyContent: "center",
-    marginTop: 14,
-    minHeight: 52,
-  },
-  checkoutButtonText: {
-    color: "#FFFFFF",
-    fontSize: 16,
     fontWeight: "800",
   },
 });

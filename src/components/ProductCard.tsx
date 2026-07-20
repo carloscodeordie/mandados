@@ -164,9 +164,6 @@ function ProductCard({ product }: ProductCardProps) {
 }
 
 const styles = StyleSheet.create({
-  addButtonAdded: {
-    backgroundColor: COLORS.successColor,
-  },
   addButton: {
     alignItems: "center",
     backgroundColor: COLORS.brandColor,
@@ -174,6 +171,9 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     minHeight: 42,
     paddingHorizontal: 12,
+  },
+  addButtonAdded: {
+    backgroundColor: COLORS.successColor,
   },
   addButtonDisabled: {
     backgroundColor: COLORS.secondaryColor,
@@ -188,6 +188,7 @@ const styles = StyleSheet.create({
     borderColor: COLORS.surfaceColor,
     borderRadius: 20,
     borderWidth: 1,
+    elevation: 2,
     flex: 1,
     gap: 12,
     justifyContent: "space-between",
@@ -197,7 +198,6 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.08,
     shadowRadius: 10,
-    elevation: 2,
   },
   cardTopContent: {
     gap: 8,

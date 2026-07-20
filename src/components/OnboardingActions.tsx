@@ -55,39 +55,39 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
   },
   actionsDesktop: {
-    flexDirection: "row",
-    width: "100%",
-    justifyContent: "center",
     alignItems: "center",
+    flexDirection: "row",
+    justifyContent: "center",
+    width: "100%",
   },
   button: {
-    minHeight: 56,
-    borderRadius: 18,
     alignItems: "center",
+    borderRadius: 18,
     justifyContent: "center",
-  },
-  buttonMobile: {
-    flex: 0,
-    width: "100%",
-    height: 56,
+    minHeight: 56,
   },
   buttonDesktop: {
     flexShrink: 0,
-    width: 220,
     height: 56,
+    width: 220,
+  },
+  buttonMobile: {
+    flex: 0,
+    height: 56,
+    width: "100%",
+  },
+  buttonText: {
+    color: COLORS.defaultBackground,
+    fontFamily: "Poppins_700Bold",
+    fontSize: 16,
   },
   primaryButton: {
     backgroundColor: COLORS.brandColor,
   },
   secondaryButton: {
     backgroundColor: COLORS.defaultBackground,
-    borderWidth: 1,
     borderColor: COLORS.secondaryColor,
-  },
-  buttonText: {
-    color: COLORS.defaultBackground,
-    fontFamily: "Poppins_700Bold",
-    fontSize: 16,
+    borderWidth: 1,
   },
   secondaryButtonText: {
     color: COLORS.primaryColor,

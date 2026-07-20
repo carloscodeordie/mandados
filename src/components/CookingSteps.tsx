@@ -31,22 +31,13 @@ function CookingSteps({ isMobileLayout }: CookingStepsProps) {
 }
 
 const styles = StyleSheet.create({
-  cookingStepsContainer: {
-    marginBottom: 16,
-  },
-  cookingStepsTitle: {
-    color: COLORS.primaryColor,
-    fontSize: 20,
-    fontWeight: "800",
-    marginBottom: 14,
-  },
-  cookingStepsRow: {
-    gap: 12,
-    flexDirection: "row",
-    alignItems: "flex-start",
-  },
   cookingStepItem: {
     flex: 1,
+  },
+  cookingStepItemMobile: {
+    alignItems: "flex-start",
+    flexDirection: "row",
+    width: "100%",
   },
   cookingStepNumber: {
     color: COLORS.brandColor,
@@ -55,20 +46,6 @@ const styles = StyleSheet.create({
     lineHeight: 56,
     marginBottom: 8,
     textAlign: "center",
-  },
-  cookingStepText: {
-    color: COLORS.secondaryColor,
-    fontSize: 13,
-    lineHeight: 18,
-    textAlign: "center",
-  },
-  cookingStepRowMobile: {
-    width: "100%",
-  },
-  cookingStepItemMobile: {
-    alignItems: "flex-start",
-    flexDirection: "row",
-    width: "100%",
   },
   cookingStepNumberMobile: {
     color: COLORS.brandColor,
@@ -79,6 +56,29 @@ const styles = StyleSheet.create({
     marginRight: 12,
     textAlign: "center",
     width: 28,
+  },
+  cookingStepRowMobile: {
+    width: "100%",
+  },
+  cookingStepsContainer: {
+    marginBottom: 16,
+  },
+  cookingStepsRow: {
+    alignItems: "flex-start",
+    flexDirection: "row",
+    gap: 12,
+  },
+  cookingStepsTitle: {
+    color: COLORS.primaryColor,
+    fontSize: 20,
+    fontWeight: "800",
+    marginBottom: 14,
+  },
+  cookingStepText: {
+    color: COLORS.secondaryColor,
+    fontSize: 13,
+    lineHeight: 18,
+    textAlign: "center",
   },
   cookingStepTextMobile: {
     flex: 1,

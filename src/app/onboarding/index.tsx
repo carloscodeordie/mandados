@@ -132,41 +132,41 @@ export default function OnboardingPage() {
 }
 
 const styles = StyleSheet.create({
-  safeArea: {
-    flex: 1,
-    backgroundColor: COLORS.defaultBackground,
+  actionsContainer: {
+    bottom: 0,
+    left: 0,
+    position: "absolute",
+    right: 0,
+    zIndex: 1,
   },
   container: {
-    flex: 1,
     backgroundColor: COLORS.defaultBackground,
+    flex: 1,
   },
   headerContainer: {
-    padding: 24,
     marginBottom: 16,
-  },
-  paginationContainer: {
-    paddingHorizontal: 24,
-    marginBottom: 36,
+    padding: 24,
   },
   pagination: {
     flexDirection: "row",
-    justifyContent: "center",
     gap: 10,
+    justifyContent: "center",
+  },
+  paginationContainer: {
+    marginBottom: 36,
+    paddingHorizontal: 24,
+  },
+  safeArea: {
+    backgroundColor: COLORS.defaultBackground,
+    flex: 1,
   },
   slider: {
     flex: 1,
   },
-  sliderWithActions: {
-    marginBottom: 110,
-  },
   sliderContainer: {
     marginBottom: 16,
   },
-  actionsContainer: {
-    position: "absolute",
-    left: 0,
-    right: 0,
-    bottom: 0,
-    zIndex: 1,
+  sliderWithActions: {
+    marginBottom: 110,
   },
 });

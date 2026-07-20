@@ -179,8 +179,8 @@ const styles = StyleSheet.create({
     opacity: 0.5,
   },
   addToCartButtonSmall: {
-    minHeight: 48,
     marginTop: 12,
+    minHeight: 48,
     paddingHorizontal: 16,
   },
   addToCartButtonText: {
@@ -202,14 +202,14 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     width: 28,
   },
+  checkboxSelected: {
+    backgroundColor: COLORS.brandColor,
+    borderColor: COLORS.brandColor,
+  },
   checkboxSmall: {
     borderRadius: 7,
     height: 24,
     width: 24,
-  },
-  checkboxSelected: {
-    backgroundColor: COLORS.brandColor,
-    borderColor: COLORS.brandColor,
   },
   container: {
     backgroundColor: COLORS.surfaceColor,
@@ -220,39 +220,18 @@ const styles = StyleSheet.create({
   content: {
     paddingBottom: 30,
   },
-  productItem: {
-    alignItems: "center",
-    flexDirection: "row",
-    gap: 12,
-    width: "48%",
-  },
-  productText: {
-    color: COLORS.primaryColor,
-    flexShrink: 1,
-    fontSize: 16,
-    fontWeight: "500",
-  },
-  productTextSmall: {
-    fontSize: 15,
-  },
-  productsGrid: {
-    columnGap: "4%",
-    flexDirection: "row",
-    flexWrap: "wrap",
-    rowGap: 14,
-  },
   mainCard: {
     backgroundColor: COLORS.defaultBackground,
     borderRadius: 30,
+    elevation: 3,
     marginTop: -32,
+    paddingBottom: 14,
     paddingHorizontal: 20,
     paddingTop: 22,
-    paddingBottom: 14,
     shadowColor: COLORS.primaryColor,
     shadowOffset: { width: 0, height: 8 },
     shadowOpacity: 0.1,
     shadowRadius: 18,
-    elevation: 3,
   },
   mainCardMobile: {
     paddingBottom: 4,
@@ -266,11 +245,32 @@ const styles = StyleSheet.create({
   prepTimeTextSmall: {
     fontSize: 16,
   },
+  productItem: {
+    alignItems: "center",
+    flexDirection: "row",
+    gap: 12,
+    width: "48%",
+  },
+  productsGrid: {
+    columnGap: "4%",
+    flexDirection: "row",
+    flexWrap: "wrap",
+    rowGap: 14,
+  },
+  productText: {
+    color: COLORS.primaryColor,
+    flexShrink: 1,
+    fontSize: 16,
+    fontWeight: "500",
+  },
+  productTextSmall: {
+    fontSize: 15,
+  },
   recipeImage: {
-    borderTopLeftRadius: 28,
-    borderTopRightRadius: 28,
     borderBottomLeftRadius: 20,
     borderBottomRightRadius: 20,
+    borderTopLeftRadius: 28,
+    borderTopRightRadius: 28,
     height: 300,
     width: "100%",
   },

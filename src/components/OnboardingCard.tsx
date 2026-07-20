@@ -38,33 +38,24 @@ function OnboardingCard({
 }
 
 const styles = StyleSheet.create({
-  cardContainer: {
-    paddingHorizontal: 24,
-    alignItems: "center",
-  },
   card: {
-    flex: 1,
-    width: "100%",
-    maxWidth: 880,
-    borderRadius: 32,
     backgroundColor: COLORS.surfaceColor,
-    padding: 28,
+    borderRadius: 32,
+    elevation: 4,
+    flex: 1,
     justifyContent: "space-between",
+    maxWidth: 880,
+    minHeight: 470,
+    padding: 28,
     shadowColor: COLORS.secondaryColor,
+    shadowOffset: { width: 0, height: 10 },
     shadowOpacity: 0.08,
     shadowRadius: 18,
-    shadowOffset: { width: 0, height: 10 },
-    elevation: 4,
-    minHeight: 470,
+    width: "100%",
   },
-  cardHeader: {
-    marginBottom: 24,
-  },
-  cardTitle: {
-    color: COLORS.primaryColor,
-    fontSize: 28,
-    fontFamily: "Poppins_800ExtraBold",
-    marginBottom: 12,
+  cardContainer: {
+    alignItems: "center",
+    paddingHorizontal: 24,
   },
   cardDescription: {
     color: COLORS.secondaryColor,
@@ -72,20 +63,29 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 24,
   },
+  cardHeader: {
+    marginBottom: 24,
+  },
   cardIllustration: {
-    borderRadius: 24,
-    backgroundColor: "transparent",
-    overflow: "hidden",
-    justifyContent: "center",
     alignItems: "center",
+    backgroundColor: "transparent",
+    borderRadius: 24,
+    justifyContent: "center",
+    overflow: "hidden",
   },
   cardIllustrationImage: {
-    width: "100%",
     height: "100%",
+    width: "100%",
   },
   cardIllustrationImageDesktop: {
-    width: "82%",
     alignSelf: "center",
+    width: "82%",
+  },
+  cardTitle: {
+    color: COLORS.primaryColor,
+    fontFamily: "Poppins_800ExtraBold",
+    fontSize: 28,
+    marginBottom: 12,
   },
 });
 

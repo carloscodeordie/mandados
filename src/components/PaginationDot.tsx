@@ -24,18 +24,18 @@ function PaginationDot({
 
 const styles = StyleSheet.create({
   dot: {
-    width: 40,
-    height: 10,
-    borderRadius: 999,
     backgroundColor: COLORS.secondaryColor,
+    borderRadius: 999,
+    height: 10,
     justifyContent: "center",
-  },
-  dotInner: {
-    width: "100%",
-    height: "100%",
+    width: 40,
   },
   dotActive: {
     backgroundColor: COLORS.brandColor,
+  },
+  dotInner: {
+    height: "100%",
+    width: "100%",
   },
 });
 

@@ -33,16 +33,6 @@ export default function NotFoundScreen() {
 }
 
 const styles = StyleSheet.create({
-  screenContainer: {
-    flex: 1,
-  },
-  notFoundContainer: {
-    backgroundColor: COLORS.surfaceColor,
-    flex: 1,
-    height: "100%",
-    justifyContent: "center",
-    paddingHorizontal: 16,
-  },
   button: {
     alignItems: "center",
     backgroundColor: COLORS.brandColor,
@@ -64,12 +54,21 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
     paddingVertical: 30,
   },
+  notFoundContainer: {
+    backgroundColor: COLORS.surfaceColor,
+    flex: 1,
+    height: "100%",
+    justifyContent: "center",
+    paddingHorizontal: 16,
+  },
   notFoundImage: {
     height: 140,
     marginBottom: 8,
     width: "75%",
   },
-
+  screenContainer: {
+    flex: 1,
+  },
   statusCode: {
     color: COLORS.brandColor,
     fontSize: 40,

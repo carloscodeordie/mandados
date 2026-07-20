@@ -22,17 +22,17 @@ const styles = StyleSheet.create({
     marginTop: 16,
     padding: 24,
   },
-  emptyCartTitle: {
-    color: COLORS.primaryColor,
-    fontSize: 22,
-    fontWeight: "800",
-    textAlign: "center",
-  },
   emptyCartDescription: {
     color: COLORS.secondaryColor,
     fontSize: 15,
     lineHeight: 22,
     marginTop: 10,
+    textAlign: "center",
+  },
+  emptyCartTitle: {
+    color: COLORS.primaryColor,
+    fontSize: 22,
+    fontWeight: "800",
     textAlign: "center",
   },
 });

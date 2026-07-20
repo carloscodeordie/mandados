@@ -68,22 +68,28 @@ function Header({
 }
 
 const styles = StyleSheet.create({
-  headerContainer: {
-    marginBottom: 16,
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
-  headerTitle: {
-    color: COLORS.secondaryColor,
-    fontSize: 24,
-    fontFamily: "Poppins_800ExtraBold",
-    lineHeight: 40,
-  },
   backButton: {
     marginRight: 8,
     padding: 4,
+  },
+  cartBadge: {
+    alignItems: "center",
+    backgroundColor: COLORS.brandColor,
+    borderRadius: 10,
+    height: 20,
+    justifyContent: "center",
+    minWidth: 20,
+    paddingHorizontal: 6,
+    position: "absolute",
+    right: -6,
+    top: -5,
+  },
+  cartBadgeText: {
+    color: "#FFFFFF",
+    fontSize: 11,
+    fontWeight: "700",
+    includeFontPadding: false,
+    lineHeight: 14,
   },
   cartIcon: {
     marginLeft: 12,
@@ -91,29 +97,23 @@ const styles = StyleSheet.create({
   cartIconContainer: {
     position: "relative",
   },
-  cartBadge: {
-    position: "absolute",
-    top: -5,
-    right: -6,
-    minWidth: 20,
-    height: 20,
-    borderRadius: 10,
-    paddingHorizontal: 6,
-    backgroundColor: COLORS.brandColor,
+  headerContainer: {
     alignItems: "center",
-    justifyContent: "center",
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginBottom: 16,
   },
-  cartBadgeText: {
-    color: "#FFFFFF",
-    fontSize: 11,
-    fontWeight: "700",
-    lineHeight: 14,
-    includeFontPadding: false,
+  headerTitle: {
+    color: COLORS.secondaryColor,
+    fontFamily: "Poppins_800ExtraBold",
+    fontSize: 24,
+    lineHeight: 40,
   },
   logoIcon: {
-    width: 50,
-    height: 50,
     cursor: "pointer",
+    height: 50,
+    width: 50,
   },
 });
 

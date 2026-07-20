@@ -88,6 +88,12 @@ const styles = StyleSheet.create({
     marginBottom: 12,
     padding: 14,
   },
+  itemFooterRow: {
+    alignItems: "center",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginTop: 12,
+  },
   itemHeaderRow: {
     alignItems: "center",
     flexDirection: "row",
@@ -110,9 +116,31 @@ const styles = StyleSheet.create({
     fontSize: 17,
     fontWeight: "800",
   },
-  unitsRow: {
-    marginTop: 10,
-    width: 170,
+  quantityButton: {
+    alignItems: "center",
+    backgroundColor: COLORS.surfaceColor,
+    borderRadius: 8,
+    height: 32,
+    justifyContent: "center",
+    width: 32,
+  },
+  quantityButtonText: {
+    color: COLORS.primaryColor,
+    fontSize: 20,
+    fontWeight: "700",
+    lineHeight: 24,
+  },
+  quantityControls: {
+    alignItems: "center",
+    flexDirection: "row",
+    gap: 10,
+  },
+  quantityValue: {
+    color: COLORS.primaryColor,
+    fontSize: 16,
+    fontWeight: "800",
+    minWidth: 24,
+    textAlign: "center",
   },
   unitLabel: {
     color: COLORS.secondaryColor,
@@ -133,37 +161,9 @@ const styles = StyleSheet.create({
     marginTop: 6,
     overflow: "hidden",
   },
-  itemFooterRow: {
-    alignItems: "center",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginTop: 12,
-  },
-  quantityControls: {
-    alignItems: "center",
-    flexDirection: "row",
-    gap: 10,
-  },
-  quantityButton: {
-    alignItems: "center",
-    backgroundColor: COLORS.surfaceColor,
-    borderRadius: 8,
-    justifyContent: "center",
-    width: 32,
-    height: 32,
-  },
-  quantityButtonText: {
-    color: COLORS.primaryColor,
-    fontSize: 20,
-    fontWeight: "700",
-    lineHeight: 24,
-  },
-  quantityValue: {
-    color: COLORS.primaryColor,
-    fontSize: 16,
-    fontWeight: "800",
-    minWidth: 24,
-    textAlign: "center",
+  unitsRow: {
+    marginTop: 10,
+    width: 170,
   },
 });
 
