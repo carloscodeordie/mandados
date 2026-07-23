@@ -1,24 +1,14 @@
 import {
   formatPrice,
   formatQuantity,
+  getMeasurementUnitLabel,
   getProductDisplayPrice,
 } from "@/app/utils";
 import { COLORS } from "@/constants/Constants";
 import { MeasurementUnit } from "@/types/MeasurementUnit";
+import { Product } from "@/types/Product";
 import { Picker } from "@react-native-picker/picker";
 import { Platform, Pressable, StyleSheet, Text, View } from "react-native";
-
-const MEASUREMENT_UNIT_LABELS: Record<MeasurementUnit, string> = {
-  g: "gr",
-  kg: "kg",
-  l: "l",
-  ml: "ml",
-  unit: "unidad",
-};
-
-function getMeasurementUnitLabel(unit: MeasurementUnit) {
-  return MEASUREMENT_UNIT_LABELS[unit];
-}
 
 function CartProduct({
   item,
@@ -29,36 +19,36 @@ function CartProduct({
   handleDecreaseQuantity,
   handleMeasurementUnitChange,
 }: {
-  item: any;
+  item: Product;
   quantity: number;
   measurementUnits: MeasurementUnit[];
   itemTotal: number;
-  handleIncreaseQuantity: (item: any) => void;
-  handleDecreaseQuantity: (item: any) => void;
-  handleMeasurementUnitChange: (item: any, unit: MeasurementUnit) => void;
+  handleIncreaseQuantity: (item: Product) => void;
+  handleDecreaseQuantity: (item: Product) => void;
+  handleMeasurementUnitChange: (item: Product, unit: MeasurementUnit) => void;
 }) {
   return (
-    <View style={styles.itemCard}>
-      <View style={styles.itemHeaderRow}>
-        <Text numberOfLines={1} style={styles.itemName}>
+    <View style={styles.productCard}>
+      <View style={styles.productHeaderRow}>
+        <Text numberOfLines={1} style={styles.productName}>
           {item.name}
         </Text>
-        <Text style={styles.itemPrice}>
+        <Text style={styles.productPrice}>
           {formatPrice(getProductDisplayPrice(item))} /{" "}
           {getMeasurementUnitLabel(item.measurementUnit)}
         </Text>
       </View>
 
       {measurementUnits.length > 1 ? (
-        <View style={styles.unitsRow}>
-          <Text style={styles.unitLabel}>Unidad</Text>
-          <View style={styles.unitPickerWrapper}>
+        <View style={styles.productUnitsRow}>
+          <Text style={styles.productUnitLabel}>Unidad</Text>
+          <View style={styles.productUnitPickerWrapper}>
             <Picker
               selectedValue={item.measurementUnit}
               onValueChange={(value) =>
                 handleMeasurementUnitChange(item, value as MeasurementUnit)
               }
-              style={styles.unitPicker}
+              style={styles.productUnitPicker}
               dropdownIconColor={COLORS.primaryColor}
             >
               {measurementUnits.map((unit) => (
@@ -73,69 +63,71 @@ function CartProduct({
         </View>
       ) : null}
 
-      <View style={styles.itemFooterRow}>
-        <View style={styles.quantityControls}>
+      <View style={styles.productFooterRow}>
+        <View style={styles.productQuantityControls}>
           <Pressable
             accessibilityLabel={`Disminuir cantidad de ${item.name}`}
             onPress={() => handleDecreaseQuantity(item)}
-            style={styles.quantityButton}
+            style={styles.productQuantityButton}
           >
-            <Text style={styles.quantityButtonText}>-</Text>
+            <Text style={styles.productQuantityButtonText}>-</Text>
           </Pressable>
 
-          <Text style={styles.quantityValue}>{formatQuantity(quantity)}</Text>
+          <Text style={styles.productQuantityValue}>
+            {formatQuantity(quantity)}
+          </Text>
 
           <Pressable
             accessibilityLabel={`Aumentar cantidad de ${item.name}`}
             onPress={() => handleIncreaseQuantity(item)}
-            style={styles.quantityButton}
+            style={styles.productQuantityButton}
           >
-            <Text style={styles.quantityButtonText}>+</Text>
+            <Text style={styles.productQuantityButtonText}>+</Text>
           </Pressable>
         </View>
 
-        <Text style={styles.itemTotal}>{formatPrice(itemTotal)}</Text>
+        <Text style={styles.productTotal}>{formatPrice(itemTotal)}</Text>
       </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  itemCard: {
+  productCard: {
     backgroundColor: COLORS.defaultBackground,
     borderRadius: 16,
     marginBottom: 12,
     padding: 14,
   },
-  itemFooterRow: {
+  productFooterRow: {
     alignItems: "center",
     flexDirection: "row",
     justifyContent: "space-between",
     marginTop: 12,
   },
-  itemHeaderRow: {
+  productHeaderRow: {
     alignItems: "center",
     flexDirection: "row",
     justifyContent: "space-between",
   },
-  itemName: {
+  productName: {
     color: COLORS.primaryColor,
     flex: 1,
     fontSize: 18,
     fontWeight: "800",
     marginRight: 10,
   },
-  itemPrice: {
+  productPrice: {
     color: COLORS.secondaryColor,
     fontSize: 14,
     fontWeight: "600",
   },
-  itemTotal: {
+  productTotal: {
     color: COLORS.primaryColor,
     fontSize: 17,
     fontWeight: "800",
   },
-  quantityButton: {
+  productQuantityButton: {
     alignItems: "center",
     backgroundColor: COLORS.surfaceColor,
     borderRadius: 8,
@@ -143,44 +135,54 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     width: 32,
   },
-  quantityButtonText: {
+  productQuantityButtonText: {
     color: COLORS.primaryColor,
     fontSize: 20,
     fontWeight: "700",
     lineHeight: 24,
   },
-  quantityControls: {
+  productQuantityControls: {
     alignItems: "center",
     flexDirection: "row",
     gap: 10,
   },
-  quantityValue: {
+  productQuantityValue: {
     color: COLORS.primaryColor,
     fontSize: 16,
     fontWeight: "800",
     minWidth: 24,
     textAlign: "center",
   },
-  unitLabel: {
+  productUnitLabel: {
     color: COLORS.secondaryColor,
     fontSize: 12,
     fontWeight: "700",
     textTransform: "uppercase",
   },
-  unitPicker: {
+  productUnitPicker: {
     color: COLORS.primaryColor,
     height: Platform.OS === "ios" ? 140 : 44,
     marginTop: Platform.OS === "ios" ? -48 : 0,
+    paddingLeft: Platform.OS === "web" ? 12 : 0,
+    paddingRight: Platform.OS === "web" ? 32 : 0,
+    ...(Platform.OS === "web"
+      ? {
+          borderWidth: 0,
+          outlineStyle: "none",
+          backgroundColor: "transparent",
+          appearance: "none",
+        }
+      : null),
   },
-  unitPickerWrapper: {
+  productUnitPickerWrapper: {
     backgroundColor: COLORS.surfaceColor,
-    borderColor: COLORS.surfaceColor,
+    borderColor: COLORS.brandColor,
     borderRadius: 10,
     borderWidth: 1,
     marginTop: 6,
-    overflow: "hidden",
+    overflow: Platform.OS === "web" ? "visible" : "hidden",
   },
-  unitsRow: {
+  productUnitsRow: {
     marginTop: 10,
     width: 170,
   },

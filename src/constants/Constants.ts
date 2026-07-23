@@ -1,3 +1,4 @@
+import { MeasurementUnit } from "@/types/MeasurementUnit";
 import { ProductCategory } from "@/types/ProductCategory";
 import { Href } from "expo-router";
 
@@ -28,6 +29,14 @@ export const EMPTY_CART_DESCRIPTION =
 export const EMPTY_CART_TITLE = "Tu carrito esta vacio";
 
 export const INGREDIENTS_TEXT = "Ingredientes";
+
+export const MEASUREMENT_UNIT_LABELS: Record<MeasurementUnit, string> = {
+  g: "gr",
+  kg: "kg",
+  l: "l",
+  ml: "ml",
+  unit: "unidad",
+};
 
 export const NOT_FOUND_BUTTON = "Ir al inicio";
 export const NOT_FOUND_ERROR = "Error";

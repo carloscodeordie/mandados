@@ -1,3 +1,4 @@
+import { MEASUREMENT_UNIT_LABELS } from "@/constants/Constants";
 import { MeasurementUnit } from "@/types/MeasurementUnit";
 
 type PriceableProduct = {
@@ -34,4 +35,8 @@ export function formatQuantity(quantity: number) {
   }
 
   return quantity.toFixed(3).replace(/\.?0+$/, "");
+}
+
+export function getMeasurementUnitLabel(unit: MeasurementUnit) {
+  return MEASUREMENT_UNIT_LABELS[unit];
 }
