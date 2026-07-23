@@ -1,8 +1,24 @@
-import { formatPrice, formatQuantity } from "@/app/utils";
+import {
+  formatPrice,
+  formatQuantity,
+  getProductDisplayPrice,
+} from "@/app/utils";
 import { COLORS } from "@/constants/Constants";
 import { MeasurementUnit } from "@/types/MeasurementUnit";
 import { Picker } from "@react-native-picker/picker";
 import { Platform, Pressable, StyleSheet, Text, View } from "react-native";
+
+const MEASUREMENT_UNIT_LABELS: Record<MeasurementUnit, string> = {
+  g: "gr",
+  kg: "kg",
+  l: "l",
+  ml: "ml",
+  unit: "unidad",
+};
+
+function getMeasurementUnitLabel(unit: MeasurementUnit) {
+  return MEASUREMENT_UNIT_LABELS[unit];
+}
 
 function CartProduct({
   item,
@@ -27,7 +43,10 @@ function CartProduct({
         <Text numberOfLines={1} style={styles.itemName}>
           {item.name}
         </Text>
-        <Text style={styles.itemPrice}>{formatPrice(item.price)} c/u</Text>
+        <Text style={styles.itemPrice}>
+          {formatPrice(getProductDisplayPrice(item))} /{" "}
+          {getMeasurementUnitLabel(item.measurementUnit)}
+        </Text>
       </View>
 
       {measurementUnits.length > 1 ? (
@@ -45,7 +64,7 @@ function CartProduct({
               {measurementUnits.map((unit) => (
                 <Picker.Item
                   key={`${item.id}-${unit}`}
-                  label={unit.toUpperCase()}
+                  label={getMeasurementUnitLabel(unit)}
                   value={unit}
                 />
               ))}

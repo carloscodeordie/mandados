@@ -9,7 +9,7 @@ import { MeasurementUnit } from "@/types/MeasurementUnit";
 import { Product } from "@/types/Product";
 import { useMemo } from "react";
 import { FlatList, StyleSheet, View } from "react-native";
-import { parseQuantity } from "../utils";
+import { getProductDisplayPrice, parseQuantity } from "../utils";
 
 function getAvailableMeasurementUnits(
   product: Product,
@@ -37,7 +37,7 @@ export default function CartPage() {
       products.reduce((currentTotal, product) => {
         const quantity = parseQuantity(product.quantity);
 
-        return currentTotal + product.price * quantity;
+        return currentTotal + getProductDisplayPrice(product) * quantity;
       }, 0),
     [products],
   );
@@ -111,7 +111,7 @@ export default function CartPage() {
             showsVerticalScrollIndicator={false}
             renderItem={({ item: product }) => {
               const quantity = parseQuantity(product.quantity);
-              const itemTotal = product.price * quantity;
+              const itemTotal = getProductDisplayPrice(product) * quantity;
               const measurementUnits = getAvailableMeasurementUnits(
                 product,
                 availableMeasurementUnitsByProductId[product.id],

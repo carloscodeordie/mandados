@@ -1,3 +1,5 @@
+import { getProductDisplayPrice } from "@/app/utils";
+import { PRODUCTS } from "@/constants/Mock";
 import { MeasurementUnit } from "@/types/MeasurementUnit";
 import { Product } from "@/types/Product";
 import {
@@ -28,51 +30,52 @@ type CartContextValue = {
 
 const CartContext = createContext<CartContextValue | null>(null);
 
-const UNIT_TO_BASE_FACTOR: Partial<Record<MeasurementUnit, number>> = {
-  g: 1,
-  kg: 1000,
-  ml: 1,
-  l: 1000,
-};
-
 function roundQuantity(value: number) {
   return Number.parseFloat(value.toFixed(3));
 }
 
-function convertQuantity(
-  quantity: number,
+function convertPrice(
+  price: number,
   currentMeasurementUnit: MeasurementUnit,
   nextMeasurementUnit: MeasurementUnit,
   priceUnit?: number,
 ) {
   if (currentMeasurementUnit === nextMeasurementUnit) {
-    return quantity;
+    return price;
   }
 
+  // Handle conversions involving "unit" using product-specific equivalence.
   if (currentMeasurementUnit === "unit" && nextMeasurementUnit !== "unit") {
     if (priceUnit && priceUnit > 0) {
-      return roundQuantity(quantity * priceUnit);
+      return Number.parseFloat((price / priceUnit).toFixed(2));
     }
 
-    return quantity;
+    return price;
   }
 
   if (currentMeasurementUnit !== "unit" && nextMeasurementUnit === "unit") {
     if (priceUnit && priceUnit > 0) {
-      return roundQuantity(quantity / priceUnit);
+      return Number.parseFloat((price * priceUnit).toFixed(2));
     }
 
-    return quantity;
+    return price;
   }
+
+  const UNIT_TO_BASE_FACTOR: Partial<Record<MeasurementUnit, number>> = {
+    g: 1,
+    kg: 1000,
+    ml: 1,
+    l: 1000,
+  };
 
   const currentFactor = UNIT_TO_BASE_FACTOR[currentMeasurementUnit];
   const nextFactor = UNIT_TO_BASE_FACTOR[nextMeasurementUnit];
 
   if (!currentFactor || !nextFactor) {
-    return quantity;
+    return price;
   }
 
-  return roundQuantity((quantity * currentFactor) / nextFactor);
+  return Number.parseFloat(((price * nextFactor) / currentFactor).toFixed(2));
 }
 
 function CartProvider({ children }: { children: ReactNode }) {
@@ -115,6 +118,7 @@ function CartProvider({ children }: { children: ReactNode }) {
 
         nextProducts.push({
           ...newProduct,
+          price: getProductDisplayPrice(newProduct),
           quantity: String(newProductQuantity),
         });
       });
@@ -172,17 +176,28 @@ function CartProvider({ children }: { children: ReactNode }) {
         }
 
         const sourceQuantity = parseQuantity(sourceProduct.quantity);
-        const convertedSourceQuantity = convertQuantity(
-          sourceQuantity,
-          currentMeasurementUnit,
-          nextMeasurementUnit,
-          sourceProduct.priceUnit,
-        );
         const targetProduct = currentProducts.find(
           (product) =>
             product.id === productId &&
             product.measurementUnit === nextMeasurementUnit,
         );
+
+        const nextUnitCatalogProduct = PRODUCTS.find(
+          (product) =>
+            product.id === productId &&
+            product.measurementUnit === nextMeasurementUnit,
+        );
+
+        const nextUnitPrice =
+          (nextUnitCatalogProduct
+            ? getProductDisplayPrice(nextUnitCatalogProduct)
+            : undefined) ??
+          convertPrice(
+            sourceProduct.price,
+            currentMeasurementUnit,
+            nextMeasurementUnit,
+            sourceProduct.priceUnit,
+          );
 
         if (targetProduct) {
           return currentProducts
@@ -203,10 +218,12 @@ function CartProvider({ children }: { children: ReactNode }) {
 
               return {
                 ...product,
+                price: nextUnitPrice,
+                priceUnit:
+                  nextUnitCatalogProduct?.priceUnit ?? product.priceUnit,
                 quantity: String(
                   roundQuantity(
-                    parseQuantity(targetProduct.quantity) +
-                      convertedSourceQuantity,
+                    parseQuantity(targetProduct.quantity) + sourceQuantity,
                   ),
                 ),
               };
@@ -223,7 +240,12 @@ function CartProvider({ children }: { children: ReactNode }) {
 
           return {
             ...product,
-            quantity: String(convertedSourceQuantity),
+            allowedMeasurementUnits:
+              nextUnitCatalogProduct?.allowedMeasurementUnits ??
+              product.allowedMeasurementUnits,
+            price: nextUnitPrice,
+            priceUnit: nextUnitCatalogProduct?.priceUnit ?? product.priceUnit,
+            quantity: String(sourceQuantity),
             measurementUnit: nextMeasurementUnit,
           };
         });
