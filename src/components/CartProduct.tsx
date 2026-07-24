@@ -4,11 +4,18 @@ import {
   getMeasurementUnitLabel,
   getProductDisplayPrice,
 } from "@/app/utils";
-import { COLORS } from "@/constants/Constants";
+import { COLORS, UNIT_TEXT } from "@/constants/Constants";
 import { MeasurementUnit } from "@/types/MeasurementUnit";
 import { Product } from "@/types/Product";
 import { Picker } from "@react-native-picker/picker";
-import { Platform, Pressable, StyleSheet, Text, View } from "react-native";
+import {
+  Image,
+  Platform,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 
 function CartProduct({
   item,
@@ -29,64 +36,72 @@ function CartProduct({
 }) {
   return (
     <View style={styles.productCard}>
-      <View style={styles.productHeaderRow}>
-        <Text numberOfLines={1} style={styles.productName}>
-          {item.name}
-        </Text>
-        <Text style={styles.productPrice}>
-          {formatPrice(getProductDisplayPrice(item))} /{" "}
-          {getMeasurementUnitLabel(item.measurementUnit)}
-        </Text>
-      </View>
+      <Image
+        source={{ uri: item.imageUrl }}
+        style={styles.productImage}
+        resizeMode="cover"
+      />
 
-      {measurementUnits.length > 1 ? (
-        <View style={styles.productUnitsRow}>
-          <Text style={styles.productUnitLabel}>Unidad</Text>
-          <View style={styles.productUnitPickerWrapper}>
-            <Picker
-              selectedValue={item.measurementUnit}
-              onValueChange={(value) =>
-                handleMeasurementUnitChange(item, value as MeasurementUnit)
-              }
-              style={styles.productUnitPicker}
-              dropdownIconColor={COLORS.primaryColor}
-            >
-              {measurementUnits.map((unit) => (
-                <Picker.Item
-                  key={`${item.id}-${unit}`}
-                  label={getMeasurementUnitLabel(unit)}
-                  value={unit}
-                />
-              ))}
-            </Picker>
-          </View>
-        </View>
-      ) : null}
-
-      <View style={styles.productFooterRow}>
-        <View style={styles.productQuantityControls}>
-          <Pressable
-            accessibilityLabel={`Disminuir cantidad de ${item.name}`}
-            onPress={() => handleDecreaseQuantity(item)}
-            style={styles.productQuantityButton}
-          >
-            <Text style={styles.productQuantityButtonText}>-</Text>
-          </Pressable>
-
-          <Text style={styles.productQuantityValue}>
-            {formatQuantity(quantity)}
+      <View style={styles.productContent}>
+        <View style={styles.productHeaderRow}>
+          <Text numberOfLines={1} style={styles.productName}>
+            {item.name}
           </Text>
-
-          <Pressable
-            accessibilityLabel={`Aumentar cantidad de ${item.name}`}
-            onPress={() => handleIncreaseQuantity(item)}
-            style={styles.productQuantityButton}
-          >
-            <Text style={styles.productQuantityButtonText}>+</Text>
-          </Pressable>
+          <Text style={styles.productPrice}>
+            {formatPrice(getProductDisplayPrice(item))} /{" "}
+            {getMeasurementUnitLabel(item.measurementUnit)}
+          </Text>
         </View>
 
-        <Text style={styles.productTotal}>{formatPrice(itemTotal)}</Text>
+        {measurementUnits.length > 1 ? (
+          <View style={styles.productUnitsRow}>
+            <Text style={styles.productUnitLabel}>{UNIT_TEXT}</Text>
+            <View style={styles.productUnitPickerWrapper}>
+              <Picker
+                selectedValue={item.measurementUnit}
+                onValueChange={(value) =>
+                  handleMeasurementUnitChange(item, value as MeasurementUnit)
+                }
+                style={styles.productUnitPicker}
+                dropdownIconColor={COLORS.primaryColor}
+              >
+                {measurementUnits.map((unit) => (
+                  <Picker.Item
+                    key={`${item.id}-${unit}`}
+                    label={getMeasurementUnitLabel(unit)}
+                    value={unit}
+                  />
+                ))}
+              </Picker>
+            </View>
+          </View>
+        ) : null}
+
+        <View style={styles.productFooterRow}>
+          <View style={styles.productQuantityControls}>
+            <Pressable
+              accessibilityLabel={`Disminuir cantidad de ${item.name}`}
+              onPress={() => handleDecreaseQuantity(item)}
+              style={styles.productQuantityButton}
+            >
+              <Text style={styles.productQuantityButtonText}>-</Text>
+            </Pressable>
+
+            <Text style={styles.productQuantityValue}>
+              {formatQuantity(quantity)}
+            </Text>
+
+            <Pressable
+              accessibilityLabel={`Aumentar cantidad de ${item.name}`}
+              onPress={() => handleIncreaseQuantity(item)}
+              style={styles.productQuantityButton}
+            >
+              <Text style={styles.productQuantityButtonText}>+</Text>
+            </Pressable>
+          </View>
+
+          <Text style={styles.productTotal}>{formatPrice(itemTotal)}</Text>
+        </View>
       </View>
     </View>
   );
@@ -94,10 +109,15 @@ function CartProduct({
 
 const styles = StyleSheet.create({
   productCard: {
+    alignItems: "center",
     backgroundColor: COLORS.defaultBackground,
     borderRadius: 16,
+    flexDirection: "row",
     marginBottom: 12,
     padding: 14,
+  },
+  productContent: {
+    flex: 1,
   },
   productFooterRow: {
     alignItems: "center",
@@ -116,6 +136,13 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "800",
     marginRight: 10,
+  },
+  productImage: {
+    backgroundColor: COLORS.surfaceColor,
+    borderRadius: 12,
+    height: 72,
+    marginRight: 12,
+    width: 72,
   },
   productPrice: {
     color: COLORS.secondaryColor,

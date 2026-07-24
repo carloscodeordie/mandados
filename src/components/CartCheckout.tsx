@@ -1,5 +1,5 @@
 import { formatPrice } from "@/app/utils";
-import { COLORS } from "@/constants/Constants";
+import { CHECKOUT_TEXT, COLORS } from "@/constants/Constants";
 import { CartCheckoutProps } from "@/types/CartCheckoutProps";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 
@@ -12,7 +12,7 @@ function CartCheckout({ totalPrice, handleCheckout }: CartCheckoutProps) {
       </View>
 
       <Pressable onPress={handleCheckout} style={styles.checkoutButton}>
-        <Text style={styles.checkoutButtonText}>Checkout</Text>
+        <Text style={styles.checkoutButtonText}>{CHECKOUT_TEXT}</Text>
       </Pressable>
     </View>
   );

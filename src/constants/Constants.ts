@@ -14,6 +14,8 @@ export const UNAVAILABLE_TEXT = "Sin stock";
 export const CART_ROUTE: Href = "/cart";
 export const CART_TEXT = "Carrito";
 
+export const CHECKOUT_TEXT = "Comprar";
+
 export const COLORS = {
   brandColor: "#32CD32",
   defaultBackground: "#FFFFFF",
