@@ -1,8 +1,8 @@
 import { Header } from "@/components/Header";
 import {
   COLORS,
+  LOGIN_ROUTE,
   LOGIN_TEXT,
-  LOGON_ROUTE,
   LOGON_TEXT,
   PAYMENT_ROUTE,
   PAYMENT_TEXT,
@@ -12,24 +12,24 @@ import { Redirect, useRouter } from "expo-router";
 import { useState } from "react";
 import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 
-export default function LoginPage() {
-  const { isLoggedIn, login } = useAuth();
+export default function LogonPage() {
+  const { isLoggedIn, register } = useAuth();
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
 
   const isValidEmail = (value: string) => /\S+@\S+\.\S+/.test(value.trim());
 
-  const handleLogin = () => {
+  const handleRegister = () => {
     if (!isValidEmail(email)) {
       setError("Ingresa un correo electronico valido.");
       return;
     }
 
-    const isLoginSuccessful = login(email);
+    const isRegistrationSuccessful = register(email);
 
-    if (!isLoginSuccessful) {
-      setError("No encontramos una cuenta con ese correo. Crea una cuenta.");
+    if (!isRegistrationSuccessful) {
+      setError("Ese correo ya esta registrado. Inicia sesion.");
       return;
     }
 
@@ -37,8 +37,8 @@ export default function LoginPage() {
     router.replace(PAYMENT_ROUTE);
   };
 
-  const handleGoToLogon = () => {
-    router.push(LOGON_ROUTE);
+  const handleGoToLogin = () => {
+    router.replace(LOGIN_ROUTE);
   };
 
   if (isLoggedIn) {
@@ -46,18 +46,16 @@ export default function LoginPage() {
   }
 
   return (
-    <View style={styles.loginContainer}>
+    <View style={styles.container}>
       <Header
         isBackDisplayed
         isLogoDisplayed
         isTitleDisplayed
-        title={LOGIN_TEXT}
+        title={LOGON_TEXT}
       />
 
-      <View style={styles.loginContent}>
-        <Text style={styles.loginTitle}>
-          Si ya tienes cuenta, inicia sesion con tu correo.
-        </Text>
+      <View style={styles.content}>
+        <Text style={styles.title}>Crea tu cuenta registrando tu correo.</Text>
 
         <TextInput
           autoCapitalize="none"
@@ -65,23 +63,23 @@ export default function LoginPage() {
           keyboardType="email-address"
           onChangeText={setEmail}
           placeholder="correo@ejemplo.com"
-          style={styles.loginInput}
+          style={styles.input}
           value={email}
         />
 
         {error ? <Text style={styles.errorText}>{error}</Text> : null}
 
-        <Pressable onPress={handleLogin} style={styles.loginButton}>
+        <Pressable onPress={handleRegister} style={styles.primaryButton}>
           <Text
-            style={styles.loginButtonText}
-          >{`${LOGIN_TEXT} y continuar al ${PAYMENT_TEXT.toLowerCase()}`}</Text>
+            style={styles.primaryButtonText}
+          >{`${LOGON_TEXT} y continuar al ${PAYMENT_TEXT.toLowerCase()}`}</Text>
         </Pressable>
 
-        <View style={styles.logonContainer}>
-          <Text style={styles.logonTitle}>No tienes una cuenta?</Text>
+        <View style={styles.loginContainer}>
+          <Text style={styles.loginTitle}>Ya tienes una cuenta?</Text>
 
-          <Pressable onPress={handleGoToLogon} style={styles.logonButton}>
-            <Text style={styles.logonButtonText}>{LOGON_TEXT}</Text>
+          <Pressable onPress={handleGoToLogin} style={styles.secondaryButton}>
+            <Text style={styles.secondaryButtonText}>{LOGIN_TEXT}</Text>
           </Pressable>
         </View>
       </View>
@@ -90,6 +88,17 @@ export default function LoginPage() {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    backgroundColor: COLORS.surfaceColor,
+    flex: 1,
+    paddingHorizontal: 18,
+    paddingTop: 18,
+  },
+  content: {
+    alignItems: "center",
+    flex: 1,
+    justifyContent: "center",
+  },
   errorText: {
     color: COLORS.dangerColor,
     fontSize: 13,
@@ -98,34 +107,7 @@ const styles = StyleSheet.create({
     textAlign: "left",
     width: "100%",
   },
-  loginButton: {
-    alignItems: "center",
-    backgroundColor: COLORS.brandColor,
-    borderRadius: 999,
-    justifyContent: "center",
-    minHeight: 52,
-    paddingHorizontal: 20,
-    marginTop: 8,
-    width: "100%",
-  },
-  loginButtonText: {
-    color: "#FFFFFF",
-    fontSize: 14,
-    fontWeight: "800",
-    textAlign: "center",
-  },
-  loginContainer: {
-    backgroundColor: COLORS.surfaceColor,
-    flex: 1,
-    paddingHorizontal: 18,
-    paddingTop: 18,
-  },
-  loginContent: {
-    alignItems: "center",
-    flex: 1,
-    justifyContent: "center",
-  },
-  loginInput: {
+  input: {
     backgroundColor: COLORS.defaultBackground,
     borderColor: COLORS.secondaryColor,
     borderRadius: 12,
@@ -137,14 +119,32 @@ const styles = StyleSheet.create({
     paddingHorizontal: 14,
     width: "100%",
   },
+  loginContainer: {
+    alignItems: "center",
+    marginTop: 16,
+  },
   loginTitle: {
-    color: COLORS.primaryColor,
-    fontSize: 18,
-    fontWeight: "700",
-    marginBottom: 24,
+    color: COLORS.secondaryColor,
+    fontSize: 13,
+    marginBottom: 8,
+  },
+  primaryButton: {
+    alignItems: "center",
+    backgroundColor: COLORS.brandColor,
+    borderRadius: 999,
+    justifyContent: "center",
+    marginTop: 8,
+    minHeight: 52,
+    paddingHorizontal: 20,
+    width: "100%",
+  },
+  primaryButtonText: {
+    color: "#FFFFFF",
+    fontSize: 14,
+    fontWeight: "800",
     textAlign: "center",
   },
-  logonButton: {
+  secondaryButton: {
     alignItems: "center",
     borderColor: COLORS.secondaryColor,
     borderRadius: 999,
@@ -153,19 +153,17 @@ const styles = StyleSheet.create({
     minHeight: 44,
     paddingHorizontal: 18,
   },
-  logonButtonText: {
+  secondaryButtonText: {
     color: COLORS.secondaryColor,
     fontSize: 13,
     fontWeight: "700",
     textAlign: "center",
   },
-  logonContainer: {
-    alignItems: "center",
-    marginTop: 16,
-  },
-  logonTitle: {
-    color: COLORS.secondaryColor,
-    fontSize: 13,
-    marginBottom: 8,
+  title: {
+    color: COLORS.primaryColor,
+    fontSize: 18,
+    fontWeight: "700",
+    marginBottom: 24,
+    textAlign: "center",
   },
 });

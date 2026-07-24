@@ -20,6 +20,9 @@ export const CHECKOUT_TEXT = "Comprar";
 export const LOGIN_ROUTE: Href = "/login";
 export const LOGIN_TEXT = "Iniciar sesion";
 
+export const LOGON_ROUTE: Href = "/logon";
+export const LOGON_TEXT = "Crear cuenta";
+
 export const COLORS = {
   brandColor: "#32CD32",
   dangerColor: "#DC2626",
