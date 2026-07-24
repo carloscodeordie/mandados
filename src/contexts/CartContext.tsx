@@ -3,15 +3,19 @@ import {
   getProductDisplayPrice,
   roundQuantity,
 } from "@/app/utils";
+import { CART_PRODUCTS_STORAGE_KEY } from "@/constants/Constants";
 import { PRODUCTS } from "@/constants/Mock";
 import { MeasurementUnit } from "@/types/MeasurementUnit";
 import { Product } from "@/types/Product";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
   createContext,
   ReactNode,
   useCallback,
   useContext,
+  useEffect,
   useMemo,
+  useRef,
   useState,
 } from "react";
 
@@ -36,6 +40,7 @@ const CartContext = createContext<CartContextValue | null>(null);
 
 function CartProvider({ children }: { children: ReactNode }) {
   const [products, setProducts] = useState<Product[]>([]);
+  const hasHydratedProducts = useRef(false);
 
   const parseQuantity = (quantity: string) => {
     const parsedQuantity = Number.parseFloat(quantity);
@@ -213,6 +218,57 @@ function CartProvider({ children }: { children: ReactNode }) {
   const clearCart = useCallback(() => {
     setProducts([]);
   }, []);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    const loadProducts = async () => {
+      try {
+        const savedProducts = await AsyncStorage.getItem(
+          CART_PRODUCTS_STORAGE_KEY,
+        );
+
+        if (!savedProducts || !isMounted) {
+          return;
+        }
+
+        const parsedProducts = JSON.parse(savedProducts);
+
+        if (Array.isArray(parsedProducts)) {
+          setProducts(parsedProducts as Product[]);
+        }
+      } catch (error) {
+        console.warn("Could not load persisted cart products", error);
+      } finally {
+        hasHydratedProducts.current = true;
+      }
+    };
+
+    void loadProducts();
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!hasHydratedProducts.current) {
+      return;
+    }
+
+    const persistProducts = async () => {
+      try {
+        await AsyncStorage.setItem(
+          CART_PRODUCTS_STORAGE_KEY,
+          JSON.stringify(products),
+        );
+      } catch (error) {
+        console.warn("Could not persist cart products", error);
+      }
+    };
+
+    void persistProducts();
+  }, [products]);
 
   const value = useMemo(
     () => ({
