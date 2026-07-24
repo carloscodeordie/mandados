@@ -1,4 +1,8 @@
-import { getProductDisplayPrice } from "@/app/utils";
+import {
+  convertPrice,
+  getProductDisplayPrice,
+  roundQuantity,
+} from "@/app/utils";
 import { PRODUCTS } from "@/constants/Mock";
 import { MeasurementUnit } from "@/types/MeasurementUnit";
 import { Product } from "@/types/Product";
@@ -29,54 +33,6 @@ type CartContextValue = {
 };
 
 const CartContext = createContext<CartContextValue | null>(null);
-
-function roundQuantity(value: number) {
-  return Number.parseFloat(value.toFixed(3));
-}
-
-function convertPrice(
-  price: number,
-  currentMeasurementUnit: MeasurementUnit,
-  nextMeasurementUnit: MeasurementUnit,
-  priceUnit?: number,
-) {
-  if (currentMeasurementUnit === nextMeasurementUnit) {
-    return price;
-  }
-
-  // Handle conversions involving "unit" using product-specific equivalence.
-  if (currentMeasurementUnit === "unit" && nextMeasurementUnit !== "unit") {
-    if (priceUnit && priceUnit > 0) {
-      return Number.parseFloat((price / priceUnit).toFixed(2));
-    }
-
-    return price;
-  }
-
-  if (currentMeasurementUnit !== "unit" && nextMeasurementUnit === "unit") {
-    if (priceUnit && priceUnit > 0) {
-      return Number.parseFloat((price * priceUnit).toFixed(2));
-    }
-
-    return price;
-  }
-
-  const UNIT_TO_BASE_FACTOR: Partial<Record<MeasurementUnit, number>> = {
-    g: 1,
-    kg: 1000,
-    ml: 1,
-    l: 1000,
-  };
-
-  const currentFactor = UNIT_TO_BASE_FACTOR[currentMeasurementUnit];
-  const nextFactor = UNIT_TO_BASE_FACTOR[nextMeasurementUnit];
-
-  if (!currentFactor || !nextFactor) {
-    return price;
-  }
-
-  return Number.parseFloat(((price * nextFactor) / currentFactor).toFixed(2));
-}
 
 function CartProvider({ children }: { children: ReactNode }) {
   const [products, setProducts] = useState<Product[]>([]);
