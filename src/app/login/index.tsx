@@ -25,6 +25,7 @@ export default function LoginPage() {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [error, setError] = useState("");
 
   const isValidEmail = (value: string) => /\S+@\S+\.\S+/.test(value.trim());
@@ -94,15 +95,46 @@ export default function LoginPage() {
           />
         </View>
 
-        <TextInput
-          autoCapitalize="none"
-          autoComplete="password"
-          onChangeText={setPassword}
-          placeholder="Contraseña"
-          secureTextEntry
-          style={styles.loginInput}
-          value={password}
-        />
+        <View style={styles.loginInputWrapper}>
+          <Ionicons
+            color={COLORS.secondaryColor}
+            name="lock-closed-outline"
+            size={18}
+            style={styles.loginInputIcon}
+          />
+
+          <TextInput
+            autoCapitalize="none"
+            autoComplete="password"
+            onChangeText={setPassword}
+            placeholder="Contraseña"
+            secureTextEntry={!isPasswordVisible}
+            style={[
+              styles.loginInput,
+              styles.loginInputWithLeftIcon,
+              styles.loginInputWithRightIcon,
+            ]}
+            value={password}
+          />
+
+          <Pressable
+            accessibilityRole="button"
+            accessibilityLabel={
+              isPasswordVisible ? "Ocultar contraseña" : "Mostrar contraseña"
+            }
+            hitSlop={8}
+            onPress={() => {
+              setIsPasswordVisible((previousValue) => !previousValue);
+            }}
+            style={styles.passwordVisibilityButton}
+          >
+            <Ionicons
+              color={COLORS.secondaryColor}
+              name={isPasswordVisible ? "eye-off-outline" : "eye-outline"}
+              size={18}
+            />
+          </Pressable>
+        </View>
 
         {error ? <Text style={styles.errorText}>{error}</Text> : null}
 
@@ -190,9 +222,20 @@ const styles = StyleSheet.create({
   loginInputWithLeftIcon: {
     paddingLeft: 40,
   },
+  loginInputWithRightIcon: {
+    paddingRight: 40,
+  },
   loginInputWrapper: {
     position: "relative",
     width: "100%",
+  },
+  passwordVisibilityButton: {
+    alignItems: "center",
+    height: 48,
+    justifyContent: "center",
+    position: "absolute",
+    right: 14,
+    top: 0,
   },
   loginTitle: {
     color: COLORS.primaryColor,

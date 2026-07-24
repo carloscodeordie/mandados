@@ -18,6 +18,7 @@ export default function LogonPage() {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [error, setError] = useState("");
 
   const isValidEmail = (value: string) => /\S+@\S+\.\S+/.test(value.trim());
@@ -83,15 +84,46 @@ export default function LogonPage() {
           />
         </View>
 
-        <TextInput
-          autoCapitalize="none"
-          autoComplete="password"
-          onChangeText={setPassword}
-          placeholder="Contrasena"
-          secureTextEntry
-          style={styles.input}
-          value={password}
-        />
+        <View style={styles.inputWrapper}>
+          <Ionicons
+            color={COLORS.secondaryColor}
+            name="lock-closed-outline"
+            size={18}
+            style={styles.inputIcon}
+          />
+
+          <TextInput
+            autoCapitalize="none"
+            autoComplete="password"
+            onChangeText={setPassword}
+            placeholder="Contrasena"
+            secureTextEntry={!isPasswordVisible}
+            style={[
+              styles.input,
+              styles.inputWithLeftIcon,
+              styles.inputWithRightIcon,
+            ]}
+            value={password}
+          />
+
+          <Pressable
+            accessibilityRole="button"
+            accessibilityLabel={
+              isPasswordVisible ? "Ocultar contrasena" : "Mostrar contrasena"
+            }
+            hitSlop={8}
+            onPress={() => {
+              setIsPasswordVisible((previousValue) => !previousValue);
+            }}
+            style={styles.passwordVisibilityButton}
+          >
+            <Ionicons
+              color={COLORS.secondaryColor}
+              name={isPasswordVisible ? "eye-off-outline" : "eye-outline"}
+              size={18}
+            />
+          </Pressable>
+        </View>
 
         {error ? <Text style={styles.errorText}>{error}</Text> : null}
 
@@ -154,9 +186,20 @@ const styles = StyleSheet.create({
   inputWithLeftIcon: {
     paddingLeft: 40,
   },
+  inputWithRightIcon: {
+    paddingRight: 40,
+  },
   inputWrapper: {
     position: "relative",
     width: "100%",
+  },
+  passwordVisibilityButton: {
+    alignItems: "center",
+    height: 48,
+    justifyContent: "center",
+    position: "absolute",
+    right: 14,
+    top: 0,
   },
   loginContainer: {
     alignItems: "center",
