@@ -17,9 +17,9 @@ function AuthProvider({ children }: { children: ReactNode }) {
     null,
   );
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [registeredUsers, setRegisteredUsers] = useState<Record<string, string>>(
-    {},
-  );
+  const [registeredUsers, setRegisteredUsers] = useState<
+    Record<string, string>
+  >({});
 
   const normalizeEmail = (email: string) => email.trim().toLowerCase();
 

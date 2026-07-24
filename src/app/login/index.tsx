@@ -8,6 +8,7 @@ import {
   PAYMENT_TEXT,
 } from "@/constants/Constants";
 import { useAuth } from "@/contexts/AuthContext";
+import { Ionicons } from "@expo/vector-icons";
 import { Redirect, useRouter } from "expo-router";
 import { useState } from "react";
 import {
@@ -74,21 +75,30 @@ export default function LoginPage() {
           Si ya tienes cuenta, inicia sesion con tu correo.
         </Text>
 
-        <TextInput
-          autoCapitalize="none"
-          autoComplete="email"
-          keyboardType="email-address"
-          onChangeText={setEmail}
-          placeholder="correo@ejemplo.com"
-          style={styles.loginInput}
-          value={email}
-        />
+        <View style={styles.loginInputWrapper}>
+          <Ionicons
+            color={COLORS.secondaryColor}
+            name="mail-outline"
+            size={18}
+            style={styles.loginInputIcon}
+          />
+
+          <TextInput
+            autoCapitalize="none"
+            autoComplete="email"
+            keyboardType="email-address"
+            onChangeText={setEmail}
+            placeholder="correo@ejemplo.com"
+            style={[styles.loginInput, styles.loginInputWithLeftIcon]}
+            value={email}
+          />
+        </View>
 
         <TextInput
           autoCapitalize="none"
           autoComplete="password"
           onChangeText={setPassword}
-          placeholder="Contrasena"
+          placeholder="Contraseña"
           secureTextEntry
           style={styles.loginInput}
           value={password}
@@ -169,6 +179,19 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     minHeight: 48,
     paddingHorizontal: 14,
+    width: "100%",
+  },
+  loginInputIcon: {
+    left: 14,
+    position: "absolute",
+    top: 15,
+    zIndex: 1,
+  },
+  loginInputWithLeftIcon: {
+    paddingLeft: 40,
+  },
+  loginInputWrapper: {
+    position: "relative",
     width: "100%",
   },
   loginTitle: {

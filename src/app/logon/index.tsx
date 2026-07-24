@@ -8,6 +8,7 @@ import {
   PAYMENT_TEXT,
 } from "@/constants/Constants";
 import { useAuth } from "@/contexts/AuthContext";
+import { Ionicons } from "@expo/vector-icons";
 import { Redirect, useRouter } from "expo-router";
 import { useState } from "react";
 import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
@@ -63,15 +64,24 @@ export default function LogonPage() {
       <View style={styles.content}>
         <Text style={styles.title}>Crea tu cuenta registrando tu correo.</Text>
 
-        <TextInput
-          autoCapitalize="none"
-          autoComplete="email"
-          keyboardType="email-address"
-          onChangeText={setEmail}
-          placeholder="correo@ejemplo.com"
-          style={styles.input}
-          value={email}
-        />
+        <View style={styles.inputWrapper}>
+          <Ionicons
+            color={COLORS.secondaryColor}
+            name="mail-outline"
+            size={18}
+            style={styles.inputIcon}
+          />
+
+          <TextInput
+            autoCapitalize="none"
+            autoComplete="email"
+            keyboardType="email-address"
+            onChangeText={setEmail}
+            placeholder="correo@ejemplo.com"
+            style={[styles.input, styles.inputWithLeftIcon]}
+            value={email}
+          />
+        </View>
 
         <TextInput
           autoCapitalize="none"
@@ -123,6 +133,12 @@ const styles = StyleSheet.create({
     textAlign: "left",
     width: "100%",
   },
+  inputIcon: {
+    left: 14,
+    position: "absolute",
+    top: 15,
+    zIndex: 1,
+  },
   input: {
     backgroundColor: COLORS.defaultBackground,
     borderColor: COLORS.secondaryColor,
@@ -133,6 +149,13 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     minHeight: 48,
     paddingHorizontal: 14,
+    width: "100%",
+  },
+  inputWithLeftIcon: {
+    paddingLeft: 40,
+  },
+  inputWrapper: {
+    position: "relative",
     width: "100%",
   },
   loginContainer: {
