@@ -97,7 +97,8 @@ function CartProduct({
               <Text
                 style={[
                   styles.productQuantityButtonText,
-                  isDecreaseDisabled && styles.productQuantityButtonTextDisabled,
+                  isDecreaseDisabled &&
+                    styles.productQuantityButtonTextDisabled,
                 ]}
               >
                 -

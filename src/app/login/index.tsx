@@ -23,7 +23,7 @@ export default function LoginPage() {
   }
 
   return (
-    <View style={styles.container}>
+    <View style={styles.loginContainer}>
       <Header
         isBackDisplayed
         isLogoDisplayed
@@ -31,12 +31,14 @@ export default function LoginPage() {
         title={LOGIN_TEXT}
       />
 
-      <View style={styles.content}>
-        <Text style={styles.title}>Debes iniciar sesion para continuar.</Text>
+      <View style={styles.loginContent}>
+        <Text style={styles.loginTitle}>
+          Debes iniciar sesion para continuar.
+        </Text>
 
-        <Pressable onPress={handleLogin} style={styles.button}>
+        <Pressable onPress={handleLogin} style={styles.loginButton}>
           <Text
-            style={styles.buttonText}
+            style={styles.loginButtonText}
           >{`${LOGIN_TEXT} y continuar al ${PAYMENT_TEXT.toLowerCase()}`}</Text>
         </Pressable>
       </View>
@@ -45,7 +47,7 @@ export default function LoginPage() {
 }
 
 const styles = StyleSheet.create({
-  button: {
+  loginButton: {
     alignItems: "center",
     backgroundColor: COLORS.brandColor,
     borderRadius: 999,
@@ -54,24 +56,24 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     width: "100%",
   },
-  buttonText: {
+  loginButtonText: {
     color: "#FFFFFF",
     fontSize: 14,
     fontWeight: "800",
     textAlign: "center",
   },
-  container: {
+  loginContainer: {
     backgroundColor: COLORS.surfaceColor,
     flex: 1,
     paddingHorizontal: 18,
     paddingTop: 18,
   },
-  content: {
+  loginContent: {
     alignItems: "center",
     flex: 1,
     justifyContent: "center",
   },
-  title: {
+  loginTitle: {
     color: COLORS.primaryColor,
     fontSize: 18,
     fontWeight: "700",
