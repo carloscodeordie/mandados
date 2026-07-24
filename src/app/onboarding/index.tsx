@@ -3,10 +3,12 @@ import { OnboardingActions } from "@/components/OnboardingActions";
 import { OnboardingCard } from "@/components/OnboardingCard";
 import { PaginationDot } from "@/components/PaginationDot";
 import { ONBOARDING_SLIDES } from "@/constants/Mock";
+import { Ionicons } from "@expo/vector-icons";
 import { useCallback, useRef, useState } from "react";
 import {
   NativeScrollEvent,
   NativeSyntheticEvent,
+  Pressable,
   ScrollView,
   StyleSheet,
   useWindowDimensions,
@@ -20,6 +22,7 @@ export default function OnboardingPage() {
   const scrollViewRef = useRef<ScrollView | null>(null);
   const isProgrammaticScroll = useRef(false);
   const [activeIndex, setActiveIndex] = useState(0);
+  const isFirstSlide = activeIndex === 0;
   const isLastSlide = activeIndex === ONBOARDING_SLIDES.length - 1;
   const isDesktop = screenWidth >= 768;
   const illustrationHeight = isDesktop
@@ -75,6 +78,22 @@ export default function OnboardingPage() {
     [screenWidth],
   );
 
+  const handlePreviousSlidePress = useCallback(() => {
+    if (isFirstSlide) {
+      return;
+    }
+
+    handlePaginationPress(activeIndex - 1);
+  }, [activeIndex, handlePaginationPress, isFirstSlide]);
+
+  const handleNextSlidePress = useCallback(() => {
+    if (isLastSlide) {
+      return;
+    }
+
+    handlePaginationPress(activeIndex + 1);
+  }, [activeIndex, handlePaginationPress, isLastSlide]);
+
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
@@ -96,30 +115,61 @@ export default function OnboardingPage() {
           </View>
         </View>
 
-        <ScrollView
-          ref={scrollViewRef}
-          style={[styles.slider, isLastSlide ? styles.sliderWithActions : null]}
-          horizontal
-          pagingEnabled
-          showsHorizontalScrollIndicator={false}
-          onScroll={handleScroll}
-          onMomentumScrollEnd={handleScrollEnd}
-          scrollEventThrottle={16}
-          contentContainerStyle={styles.sliderContainer}
-        >
-          {ONBOARDING_SLIDES.map((slide, index) => (
-            <OnboardingCard
-              key={`${slide.title}-${index}`}
-              description={slide.description}
-              isDesktop={isDesktop}
-              illustrationHeight={illustrationHeight}
-              imageSource={slide.imageSource}
-              index={index}
-              screenWidth={screenWidth}
-              title={slide.title}
-            />
-          ))}
-        </ScrollView>
+        <View style={styles.sliderWrapper}>
+          <ScrollView
+            ref={scrollViewRef}
+            style={[
+              styles.slider,
+              isLastSlide ? styles.sliderWithActions : null,
+            ]}
+            horizontal
+            pagingEnabled
+            showsHorizontalScrollIndicator={false}
+            onScroll={handleScroll}
+            onMomentumScrollEnd={handleScrollEnd}
+            scrollEventThrottle={16}
+            contentContainerStyle={styles.sliderContainer}
+          >
+            {ONBOARDING_SLIDES.map((slide, index) => (
+              <OnboardingCard
+                key={`${slide.title}-${index}`}
+                description={slide.description}
+                isDesktop={isDesktop}
+                illustrationHeight={illustrationHeight}
+                imageSource={slide.imageSource}
+                index={index}
+                screenWidth={screenWidth}
+                title={slide.title}
+              />
+            ))}
+          </ScrollView>
+
+          {!isFirstSlide ? (
+            <Pressable
+              onPress={handlePreviousSlidePress}
+              style={[styles.carouselButton, styles.carouselButtonLeft]}
+            >
+              <Ionicons
+                name="chevron-back"
+                size={24}
+                color={COLORS.primaryColor}
+              />
+            </Pressable>
+          ) : null}
+
+          {!isLastSlide ? (
+            <Pressable
+              onPress={handleNextSlidePress}
+              style={[styles.carouselButton, styles.carouselButtonRight]}
+            >
+              <Ionicons
+                name="chevron-forward"
+                size={24}
+                color={COLORS.primaryColor}
+              />
+            </Pressable>
+          ) : null}
+        </View>
 
         {isLastSlide ? (
           <View style={styles.actionsContainer}>
@@ -156,6 +206,34 @@ const styles = StyleSheet.create({
     marginBottom: 36,
     paddingHorizontal: 24,
   },
+  carouselButton: {
+    alignItems: "center",
+    backgroundColor: "rgba(241, 245, 249, 0.95)",
+    borderColor: "rgba(100, 116, 139, 0.25)",
+    borderRadius: 22,
+    borderWidth: 1,
+    elevation: 2,
+    height: 44,
+    justifyContent: "center",
+    position: "absolute",
+    shadowColor: "#0F172A",
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    shadowOpacity: 0.15,
+    shadowRadius: 6,
+    top: "45%",
+    transform: [{ translateY: -22 }],
+    width: 44,
+    zIndex: 2,
+  },
+  carouselButtonLeft: {
+    left: 16,
+  },
+  carouselButtonRight: {
+    right: 16,
+  },
   safeArea: {
     backgroundColor: COLORS.defaultBackground,
     flex: 1,
@@ -165,6 +243,10 @@ const styles = StyleSheet.create({
   },
   sliderContainer: {
     marginBottom: 16,
+  },
+  sliderWrapper: {
+    flex: 1,
+    position: "relative",
   },
   sliderWithActions: {
     marginBottom: 110,
