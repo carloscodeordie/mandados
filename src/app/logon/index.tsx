@@ -3,15 +3,24 @@ import {
   COLORS,
   LOGIN_ROUTE,
   LOGIN_TEXT,
+  LOGON_QUESTION_TEXT,
   LOGON_TEXT,
   PAYMENT_ROUTE,
   PAYMENT_TEXT,
+  WELCOME_TEXT,
 } from "@/constants/Constants";
 import { useAuth } from "@/contexts/AuthContext";
 import { Ionicons } from "@expo/vector-icons";
 import { Redirect, useRouter } from "expo-router";
 import { useState } from "react";
-import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
+import {
+  Image,
+  Pressable,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from "react-native";
 
 export default function LogonPage() {
   const { isLoggedIn, register } = useAuth();
@@ -63,7 +72,14 @@ export default function LogonPage() {
       />
 
       <View style={styles.content}>
-        <Text style={styles.title}>Crea tu cuenta registrando tu correo.</Text>
+        <View style={styles.logoContainer}>
+          <Image
+            source={require("../../../assets/images/logon/logon.png")}
+            style={styles.logoImage}
+          />
+        </View>
+
+        <Text style={styles.title}>{WELCOME_TEXT}</Text>
 
         <View style={styles.inputWrapper}>
           <Ionicons
@@ -134,7 +150,7 @@ export default function LogonPage() {
         </Pressable>
 
         <View style={styles.loginContainer}>
-          <Text style={styles.loginTitle}>Ya tienes una cuenta?</Text>
+          <Text style={styles.loginTitle}>{LOGON_QUESTION_TEXT}</Text>
 
           <Pressable onPress={handleGoToLogin} style={styles.secondaryButton}>
             <Text style={styles.secondaryButtonText}>{LOGIN_TEXT}</Text>
@@ -200,6 +216,15 @@ const styles = StyleSheet.create({
     position: "absolute",
     right: 14,
     top: 0,
+  },
+  logoContainer: {
+    alignItems: "center",
+    marginBottom: 36,
+  },
+  logoImage: {
+    height: 150,
+    resizeMode: "contain",
+    width: 300,
   },
   loginContainer: {
     alignItems: "center",

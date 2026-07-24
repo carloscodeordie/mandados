@@ -89,3 +89,8 @@ export const RECIPES_TEXT = "Recetas";
 export const SPLASH_SCREEN_DURATION = 3000;
 
 export const UNIT_TEXT = "unidad";
+
+export const WELCOME_TEXT = "Bienvenido";
+
+export const LOGIN_QUESTION_TEXT = "¿Ya tienes una cuenta?";
+export const LOGON_QUESTION_TEXT = "¿No tienes una cuenta?";
