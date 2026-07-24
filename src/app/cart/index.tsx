@@ -74,6 +74,10 @@ export default function CartPage() {
     );
   };
 
+  const handleRemoveProduct = (product: Product) => {
+    updateProductQuantity(product.id, product.measurementUnit, 0);
+  };
+
   const handleMeasurementUnitChange = (
     product: Product,
     nextMeasurementUnit: MeasurementUnit,
@@ -125,6 +129,7 @@ export default function CartPage() {
                   itemTotal={itemTotal}
                   handleIncreaseQuantity={handleIncreaseQuantity}
                   handleDecreaseQuantity={handleDecreaseQuantity}
+                  handleRemoveProduct={handleRemoveProduct}
                   handleMeasurementUnitChange={handleMeasurementUnitChange}
                 />
               );

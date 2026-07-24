@@ -7,6 +7,7 @@ import {
 import { COLORS, UNIT_TEXT } from "@/constants/Constants";
 import { MeasurementUnit } from "@/types/MeasurementUnit";
 import { Product } from "@/types/Product";
+import { Ionicons } from "@expo/vector-icons";
 import { Picker } from "@react-native-picker/picker";
 import {
   Image,
@@ -24,6 +25,7 @@ function CartProduct({
   itemTotal,
   handleIncreaseQuantity,
   handleDecreaseQuantity,
+  handleRemoveProduct,
   handleMeasurementUnitChange,
 }: {
   item: Product;
@@ -32,8 +34,11 @@ function CartProduct({
   itemTotal: number;
   handleIncreaseQuantity: (item: Product) => void;
   handleDecreaseQuantity: (item: Product) => void;
+  handleRemoveProduct: (item: Product) => void;
   handleMeasurementUnitChange: (item: Product, unit: MeasurementUnit) => void;
 }) {
+  const isDecreaseDisabled = quantity <= 1;
+
   return (
     <View style={styles.productCard}>
       <Image
@@ -81,10 +86,22 @@ function CartProduct({
           <View style={styles.productQuantityControls}>
             <Pressable
               accessibilityLabel={`Disminuir cantidad de ${item.name}`}
+              accessibilityState={{ disabled: isDecreaseDisabled }}
+              disabled={isDecreaseDisabled}
               onPress={() => handleDecreaseQuantity(item)}
-              style={styles.productQuantityButton}
+              style={[
+                styles.productQuantityButton,
+                isDecreaseDisabled && styles.productQuantityButtonDisabled,
+              ]}
             >
-              <Text style={styles.productQuantityButtonText}>-</Text>
+              <Text
+                style={[
+                  styles.productQuantityButtonText,
+                  isDecreaseDisabled && styles.productQuantityButtonTextDisabled,
+                ]}
+              >
+                -
+              </Text>
             </Pressable>
 
             <Text style={styles.productQuantityValue}>
@@ -100,7 +117,20 @@ function CartProduct({
             </Pressable>
           </View>
 
-          <Text style={styles.productTotal}>{formatPrice(itemTotal)}</Text>
+          <View style={styles.productActions}>
+            <Text style={styles.productTotal}>{formatPrice(itemTotal)}</Text>
+            <Pressable
+              accessibilityLabel={`Eliminar ${item.name} del carrito`}
+              onPress={() => handleRemoveProduct(item)}
+              style={styles.productRemoveButton}
+            >
+              <Ionicons
+                name="trash-outline"
+                size={18}
+                color={COLORS.dangerColor}
+              />
+            </Pressable>
+          </View>
         </View>
       </View>
     </View>
@@ -149,10 +179,25 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: "600",
   },
+  productRemoveButton: {
+    alignItems: "center",
+    backgroundColor: COLORS.surfaceColor,
+    borderColor: COLORS.dangerColor,
+    borderRadius: 8,
+    borderWidth: 1,
+    height: 32,
+    justifyContent: "center",
+    width: 32,
+  },
   productTotal: {
     color: COLORS.primaryColor,
     fontSize: 17,
     fontWeight: "800",
+  },
+  productActions: {
+    alignItems: "center",
+    flexDirection: "row",
+    gap: 10,
   },
   productQuantityButton: {
     alignItems: "center",
@@ -162,11 +207,17 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     width: 32,
   },
+  productQuantityButtonDisabled: {
+    opacity: 0.5,
+  },
   productQuantityButtonText: {
     color: COLORS.primaryColor,
     fontSize: 20,
     fontWeight: "700",
     lineHeight: 24,
+  },
+  productQuantityButtonTextDisabled: {
+    color: COLORS.secondaryColor,
   },
   productQuantityControls: {
     alignItems: "center",

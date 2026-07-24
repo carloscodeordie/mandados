@@ -19,6 +19,7 @@ export const CHECKOUT_TEXT = "Comprar";
 
 export const COLORS = {
   brandColor: "#32CD32",
+  dangerColor: "#DC2626",
   defaultBackground: "#FFFFFF",
   primaryColor: "#1E293B",
   secondaryColor: "#64748B",
