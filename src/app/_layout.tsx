@@ -1,3 +1,4 @@
+import { AuthProvider } from "@/contexts/AuthContext";
 import { CartProvider } from "@/contexts/CartContext";
 import {
   Poppins_400Regular,
@@ -28,8 +29,10 @@ export default function RootLayout() {
   }
 
   return (
-    <CartProvider>
-      <Stack screenOptions={{ headerShown: false }} />
-    </CartProvider>
+    <AuthProvider>
+      <CartProvider>
+        <Stack screenOptions={{ headerShown: false }} />
+      </CartProvider>
+    </AuthProvider>
   );
 }

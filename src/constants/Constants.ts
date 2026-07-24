@@ -17,6 +17,9 @@ export const CART_TEXT = "Carrito";
 
 export const CHECKOUT_TEXT = "Comprar";
 
+export const LOGIN_ROUTE: Href = "/login";
+export const LOGIN_TEXT = "Iniciar sesion";
+
 export const COLORS = {
   brandColor: "#32CD32",
   dangerColor: "#DC2626",
@@ -67,6 +70,9 @@ export const PRODUCT_FILTERS: ProductCategory[] = [
 ];
 export const PRODUCTS_ROUTE: Href = "/products";
 export const PRODUCTS_TEXT = "Productos";
+
+export const PAYMENT_ROUTE: Href = "/payment";
+export const PAYMENT_TEXT = "Pago";
 
 export const QUANTITY_TEXT = "Cantidad";
 

@@ -2,11 +2,18 @@ import { CartCheckout } from "@/components/CartCheckout";
 import { CartProduct } from "@/components/CartProduct";
 import { EmptyCart } from "@/components/EmptyCart";
 import { Header } from "@/components/Header";
-import { CART_TEXT, COLORS } from "@/constants/Constants";
+import {
+  CART_TEXT,
+  COLORS,
+  LOGIN_ROUTE,
+  PAYMENT_ROUTE,
+} from "@/constants/Constants";
 import { PRODUCTS } from "@/constants/Mock";
+import { useAuth } from "@/contexts/AuthContext";
 import { useCart } from "@/contexts/CartContext";
 import { MeasurementUnit } from "@/types/MeasurementUnit";
 import { Product } from "@/types/Product";
+import { useRouter } from "expo-router";
 import { useMemo } from "react";
 import { FlatList, StyleSheet, View } from "react-native";
 import { getProductDisplayPrice, parseQuantity } from "../utils";
@@ -25,12 +32,10 @@ function getAvailableMeasurementUnits(
 }
 
 export default function CartPage() {
-  const {
-    products,
-    updateProductQuantity,
-    updateProductMeasurementUnit,
-    clearCart,
-  } = useCart();
+  const { products, updateProductQuantity, updateProductMeasurementUnit } =
+    useCart();
+  const { isLoggedIn } = useAuth();
+  const router = useRouter();
 
   const totalPrice = useMemo(
     () =>
@@ -90,7 +95,12 @@ export default function CartPage() {
   };
 
   const handleCheckout = () => {
-    clearCart();
+    if (!isLoggedIn) {
+      router.push(LOGIN_ROUTE);
+      return;
+    }
+
+    router.push(PAYMENT_ROUTE);
   };
 
   return (
