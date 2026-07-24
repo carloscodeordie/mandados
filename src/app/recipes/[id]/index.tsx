@@ -10,7 +10,7 @@ import { RECIPES } from "@/constants/Mock";
 import { useCart } from "@/contexts/CartContext";
 import { Product } from "@/types/Product";
 import { Ionicons } from "@expo/vector-icons";
-import { Redirect, useLocalSearchParams } from "expo-router";
+import { Redirect, useLocalSearchParams, useRouter } from "expo-router";
 import { useMemo, useState } from "react";
 import {
   Image,
@@ -26,7 +26,13 @@ export default function RecipeDetailsPage() {
   const { id } = useLocalSearchParams<{ id?: string }>();
   const { width } = useWindowDimensions();
   const { addRecipeProducts } = useCart();
-  const [selectedProductsIds, setSelectedProductsIds] = useState<string[]>([]);
+  const router = useRouter();
+  const [selectedProductsIds, setSelectedProductsIds] = useState<string[]>(
+    () => {
+      const recipe = RECIPES.find((item) => item.id === id);
+      return recipe ? recipe.products.map((product) => product.id) : [];
+    },
+  );
   const isSmallPhone = width < 390;
   const isMobileLayout = width < 768;
 
@@ -59,6 +65,7 @@ export default function RecipeDetailsPage() {
 
     addRecipeProducts(selectedProducts);
     setSelectedProductsIds([]);
+    router.replace("/recipes");
   };
 
   if (!recipe) {
