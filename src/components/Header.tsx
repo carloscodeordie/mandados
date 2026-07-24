@@ -3,7 +3,15 @@ import { useCart } from "@/contexts/CartContext";
 import { HeaderProps } from "@/types/HeaderProps";
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
-import { Image, Pressable, StyleSheet, Text, View } from "react-native";
+import { useEffect, useRef } from "react";
+import {
+  Animated,
+  Image,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 
 function Header({
   title,
@@ -14,6 +22,73 @@ function Header({
 }: HeaderProps) {
   const router = useRouter();
   const { productsCount } = useCart();
+  const cartPulseScale = useRef(new Animated.Value(1)).current;
+  const cartJolt = useRef(new Animated.Value(0)).current;
+  const previousProductsCountRef = useRef(productsCount);
+
+  useEffect(() => {
+    const previousProductsCount = previousProductsCountRef.current;
+
+    if (isCartDisplayed && productsCount > previousProductsCount) {
+      cartPulseScale.setValue(1);
+      cartJolt.setValue(0);
+
+      Animated.parallel([
+        Animated.sequence([
+          Animated.timing(cartPulseScale, {
+            toValue: 1.24,
+            duration: 85,
+            useNativeDriver: true,
+          }),
+          Animated.timing(cartPulseScale, {
+            toValue: 0.9,
+            duration: 75,
+            useNativeDriver: true,
+          }),
+          Animated.timing(cartPulseScale, {
+            toValue: 1.08,
+            duration: 70,
+            useNativeDriver: true,
+          }),
+          Animated.spring(cartPulseScale, {
+            toValue: 1,
+            friction: 3.2,
+            tension: 220,
+            useNativeDriver: true,
+          }),
+        ]),
+        Animated.sequence([
+          Animated.timing(cartJolt, {
+            toValue: 1,
+            duration: 220,
+            useNativeDriver: true,
+          }),
+          Animated.timing(cartJolt, {
+            toValue: 0,
+            duration: 90,
+            useNativeDriver: true,
+          }),
+        ]),
+      ]).start();
+    }
+
+    previousProductsCountRef.current = productsCount;
+  }, [cartJolt, cartPulseScale, isCartDisplayed, productsCount]);
+
+  const badgeScale = cartPulseScale.interpolate({
+    inputRange: [0.9, 1, 1.24],
+    outputRange: [0.86, 1, 1.34],
+  });
+
+  const cartWiggleRotate = cartJolt.interpolate({
+    inputRange: [0, 0.2, 0.4, 0.6, 0.8, 1],
+    outputRange: ["0deg", "-12deg", "11deg", "-8deg", "5deg", "0deg"],
+  });
+
+  const cartLiftTranslateY = cartJolt.interpolate({
+    inputRange: [0, 0.3, 0.6, 1],
+    outputRange: [0, -4, 1, 0],
+  });
 
   const handleBackPress = () => {
     router.push("/recipes");
@@ -50,16 +125,28 @@ function Header({
       ) : null}
       {isCartDisplayed ? (
         <Pressable onPress={handleCartPress} style={styles.cartIconContainer}>
-          <Ionicons
-            name="cart-outline"
-            size={36}
-            color={COLORS.brandColor}
-            style={styles.cartIcon}
-          />
+          <Animated.View
+            style={{
+              transform: [
+                { scale: cartPulseScale },
+                { rotate: cartWiggleRotate },
+                { translateY: cartLiftTranslateY },
+              ],
+            }}
+          >
+            <Ionicons
+              name="cart-outline"
+              size={36}
+              color={COLORS.brandColor}
+              style={styles.cartIcon}
+            />
+          </Animated.View>
           {productsCount > 0 ? (
-            <View style={styles.cartBadge}>
+            <Animated.View
+              style={[styles.cartBadge, { transform: [{ scale: badgeScale }] }]}
+            >
               <Text style={styles.cartBadgeText}>{productsCount}</Text>
-            </View>
+            </Animated.View>
           ) : null}
         </Pressable>
       ) : null}
