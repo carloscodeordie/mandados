@@ -16,6 +16,7 @@ export default function LogonPage() {
   const { isLoggedIn, register } = useAuth();
   const router = useRouter();
   const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
   const isValidEmail = (value: string) => /\S+@\S+\.\S+/.test(value.trim());
@@ -26,7 +27,12 @@ export default function LogonPage() {
       return;
     }
 
-    const isRegistrationSuccessful = register(email);
+    if (!password.trim()) {
+      setError("Ingresa una contrasena.");
+      return;
+    }
+
+    const isRegistrationSuccessful = register(email, password);
 
     if (!isRegistrationSuccessful) {
       setError("Ese correo ya esta registrado. Inicia sesion.");
@@ -65,6 +71,16 @@ export default function LogonPage() {
           placeholder="correo@ejemplo.com"
           style={styles.input}
           value={email}
+        />
+
+        <TextInput
+          autoCapitalize="none"
+          autoComplete="password"
+          onChangeText={setPassword}
+          placeholder="Contrasena"
+          secureTextEntry
+          style={styles.input}
+          value={password}
         />
 
         {error ? <Text style={styles.errorText}>{error}</Text> : null}

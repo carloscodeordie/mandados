@@ -2,9 +2,10 @@ import { createContext, ReactNode, useContext, useMemo, useState } from "react";
 
 type AuthContextValue = {
   currentUserEmail: string | null;
+  currentUserPassword: string | null;
   isLoggedIn: boolean;
-  login: (email: string) => boolean;
-  register: (email: string) => boolean;
+  login: (email: string, password: string) => boolean;
+  register: (email: string, password: string) => boolean;
   logout: () => void;
 };
 
@@ -12,49 +13,58 @@ const AuthContext = createContext<AuthContextValue | null>(null);
 
 function AuthProvider({ children }: { children: ReactNode }) {
   const [currentUserEmail, setCurrentUserEmail] = useState<string | null>(null);
+  const [currentUserPassword, setCurrentUserPassword] = useState<string | null>(
+    null,
+  );
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [registeredEmails, setRegisteredEmails] = useState<string[]>([]);
+  const [registeredUsers, setRegisteredUsers] = useState<Record<string, string>>(
+    {},
+  );
 
   const normalizeEmail = (email: string) => email.trim().toLowerCase();
 
   const value = useMemo(
     () => ({
       currentUserEmail,
+      currentUserPassword,
       isLoggedIn,
-      login: (email: string) => {
+      login: (email: string, password: string) => {
         const normalizedEmail = normalizeEmail(email);
-        const isRegistered = registeredEmails.includes(normalizedEmail);
+        const registeredPassword = registeredUsers[normalizedEmail];
 
-        if (!isRegistered) {
+        if (!registeredPassword || registeredPassword !== password) {
           return false;
         }
 
         setCurrentUserEmail(normalizedEmail);
+        setCurrentUserPassword(password);
         setIsLoggedIn(true);
         return true;
       },
-      register: (email: string) => {
+      register: (email: string, password: string) => {
         const normalizedEmail = normalizeEmail(email);
-        const isAlreadyRegistered = registeredEmails.includes(normalizedEmail);
+        const isAlreadyRegistered = normalizedEmail in registeredUsers;
 
         if (isAlreadyRegistered) {
           return false;
         }
 
-        setRegisteredEmails((previousRegisteredEmails) => [
-          ...previousRegisteredEmails,
-          normalizedEmail,
-        ]);
+        setRegisteredUsers((previousRegisteredUsers) => ({
+          ...previousRegisteredUsers,
+          [normalizedEmail]: password,
+        }));
         setCurrentUserEmail(normalizedEmail);
+        setCurrentUserPassword(password);
         setIsLoggedIn(true);
         return true;
       },
       logout: () => {
         setCurrentUserEmail(null);
+        setCurrentUserPassword(null);
         setIsLoggedIn(false);
       },
     }),
-    [currentUserEmail, isLoggedIn, registeredEmails],
+    [currentUserEmail, currentUserPassword, isLoggedIn, registeredUsers],
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

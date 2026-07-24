@@ -10,12 +10,20 @@ import {
 import { useAuth } from "@/contexts/AuthContext";
 import { Redirect, useRouter } from "expo-router";
 import { useState } from "react";
-import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
+import {
+  Image,
+  Pressable,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from "react-native";
 
 export default function LoginPage() {
   const { isLoggedIn, login } = useAuth();
   const router = useRouter();
   const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
   const isValidEmail = (value: string) => /\S+@\S+\.\S+/.test(value.trim());
@@ -26,7 +34,12 @@ export default function LoginPage() {
       return;
     }
 
-    const isLoginSuccessful = login(email);
+    if (!password.trim()) {
+      setError("Ingresa tu contrasena.");
+      return;
+    }
+
+    const isLoginSuccessful = login(email, password);
 
     if (!isLoginSuccessful) {
       setError("No encontramos una cuenta con ese correo. Crea una cuenta.");
@@ -47,14 +60,16 @@ export default function LoginPage() {
 
   return (
     <View style={styles.loginContainer}>
-      <Header
-        isBackDisplayed
-        isLogoDisplayed
-        isTitleDisplayed
-        title={LOGIN_TEXT}
-      />
+      <Header isBackDisplayed />
 
       <View style={styles.loginContent}>
+        <View style={styles.logoContainer}>
+          <Image
+            source={require("../../../assets/images/logo.png")}
+            style={styles.logoImage}
+          />
+        </View>
+
         <Text style={styles.loginTitle}>
           Si ya tienes cuenta, inicia sesion con tu correo.
         </Text>
@@ -67,6 +82,16 @@ export default function LoginPage() {
           placeholder="correo@ejemplo.com"
           style={styles.loginInput}
           value={email}
+        />
+
+        <TextInput
+          autoCapitalize="none"
+          autoComplete="password"
+          onChangeText={setPassword}
+          placeholder="Contrasena"
+          secureTextEntry
+          style={styles.loginInput}
+          value={password}
         />
 
         {error ? <Text style={styles.errorText}>{error}</Text> : null}
@@ -124,6 +149,15 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flex: 1,
     justifyContent: "center",
+  },
+  logoContainer: {
+    alignItems: "center",
+    marginBottom: 36,
+  },
+  logoImage: {
+    height: 150,
+    resizeMode: "contain",
+    width: 300,
   },
   loginInput: {
     backgroundColor: COLORS.defaultBackground,
