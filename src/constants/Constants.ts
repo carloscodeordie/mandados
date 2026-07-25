@@ -17,6 +17,9 @@ export const CART_TEXT = "Carrito";
 
 export const CHECKOUT_TEXT = "Comprar";
 
+export const HOME_ROUTE: Href = "/home";
+export const HOME_TEXT = "Acceder";
+
 export const LOGIN_ROUTE: Href = "/login";
 export const LOGIN_TEXT = "Iniciar sesion";
 
