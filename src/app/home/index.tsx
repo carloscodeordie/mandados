@@ -28,7 +28,9 @@ export default function HomePage() {
   const { width } = useWindowDimensions();
   const featuredCardWidth = Math.max(300, Math.min(width - 40, 840));
   const productsScrollViewRef = useRef<ScrollView>(null);
+  const recipesScrollViewRef = useRef<ScrollView>(null);
   const [productsScrollOffset, setProductsScrollOffset] = useState(0);
+  const [recipesScrollOffset, setRecipesScrollOffset] = useState(0);
 
   const handleProductsScroll = (direction: -1 | 1) => {
     const cardWidth = 250;
@@ -38,6 +40,17 @@ export default function HomePage() {
     productsScrollViewRef.current?.scrollTo({
       animated: true,
       x: Math.max(0, productsScrollOffset + direction * step),
+    });
+  };
+
+  const handleRecipesScroll = (direction: -1 | 1) => {
+    const cardWidth = 260;
+    const gap = 12;
+    const step = cardWidth + gap;
+
+    recipesScrollViewRef.current?.scrollTo({
+      animated: true,
+      x: Math.max(0, recipesScrollOffset + direction * step),
     });
   };
 
@@ -96,7 +109,6 @@ export default function HomePage() {
 
           <View style={styles.carouselShell}>
             <Pressable
-              accessibilityLabel="Ir al producto anterior"
               accessibilityRole="button"
               onPress={() => handleProductsScroll(-1)}
               style={[styles.carouselButton, styles.carouselButtonLeft]}
@@ -153,27 +165,60 @@ export default function HomePage() {
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Recetas</Text>
 
-          <ScrollView
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            contentContainerStyle={styles.itemsCarouselContent}
-          >
-            {FEATURED_RECIPES.map((recipe) => (
-              <View key={recipe.id} style={styles.recipeCardWrap}>
-                <RecipeCard recipe={recipe} />
-              </View>
-            ))}
+          <View style={styles.carouselShell}>
+            <Pressable
+              accessibilityLabel="Ir a la receta anterior"
+              accessibilityRole="button"
+              onPress={() => handleRecipesScroll(-1)}
+              style={[styles.carouselButton, styles.carouselButtonLeft]}
+            >
+              <Ionicons
+                color={COLORS.brandColor}
+                name="chevron-back"
+                size={22}
+              />
+            </Pressable>
+
+            <ScrollView
+              ref={recipesScrollViewRef}
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              contentContainerStyle={styles.itemsCarouselContent}
+              onScroll={(event) => {
+                setRecipesScrollOffset(event.nativeEvent.contentOffset.x);
+              }}
+              scrollEventThrottle={16}
+            >
+              {FEATURED_RECIPES.map((recipe) => (
+                <View key={recipe.id} style={styles.recipeCardWrap}>
+                  <RecipeCard recipe={recipe} />
+                </View>
+              ))}
+
+              <Pressable
+                onPress={() => router.push(RECIPES_ROUTE)}
+                style={[styles.seeAllCard, styles.recipesSeeAllCard]}
+                accessibilityRole="button"
+                accessibilityLabel="Ir a todas las recetas"
+              >
+                <Text style={styles.seeAllTitle}>Ver todas</Text>
+                <Text style={styles.seeAllSubtitle}>Ir a recetas</Text>
+              </Pressable>
+            </ScrollView>
 
             <Pressable
-              onPress={() => router.push(RECIPES_ROUTE)}
-              style={[styles.seeAllCard, styles.recipesSeeAllCard]}
+              accessibilityLabel="Ir a la receta siguiente"
               accessibilityRole="button"
-              accessibilityLabel="Ir a todas las recetas"
+              onPress={() => handleRecipesScroll(1)}
+              style={[styles.carouselButton, styles.carouselButtonRight]}
             >
-              <Text style={styles.seeAllTitle}>Ver todas</Text>
-              <Text style={styles.seeAllSubtitle}>Ir a recetas</Text>
+              <Ionicons
+                color={COLORS.brandColor}
+                name="chevron-forward"
+                size={22}
+              />
             </Pressable>
-          </ScrollView>
+          </View>
         </View>
       </ScrollView>
     </View>
@@ -193,8 +238,8 @@ const styles = StyleSheet.create({
   },
   carouselButton: {
     alignItems: "center",
-    backgroundColor: COLORS.defaultBackground,
-    borderColor: COLORS.surfaceColor,
+    backgroundColor: COLORS.successColor,
+    borderColor: COLORS.brandColor,
     borderWidth: 1,
     borderRadius: 999,
     elevation: 4,
