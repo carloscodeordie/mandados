@@ -41,6 +41,11 @@ export const EMPTY_CART_DESCRIPTION =
   "Agrega productos desde recetas o productos para comenzar tu compra.";
 export const EMPTY_CART_TITLE = "Tu carrito esta vacio";
 
+export const FEATURED_TEXT = "Destacados";
+
+export const GO_TO_PRODUCTS_TEXT = "Ir a productos";
+export const GO_TO_RECIPES_TEXT = "Ir a recetas";
+
 export const INGREDIENTS_TEXT = "Ingredientes";
 
 export const MEASUREMENT_UNIT_LABELS: Record<MeasurementUnit, string> = {
@@ -88,6 +93,9 @@ export const RECIPES_DESKTOP_COLUMN_COUNT = 4;
 export const RECIPES_MOBILE_COLUMN_COUNT = 2;
 export const RECIPES_ROUTE: Href = "/recipes";
 export const RECIPES_TEXT = "Recetas";
+
+export const SEE_ALL_TEXT = "Ver todos";
+export const SEE_MORE_TEXT = "Ver mas";
 
 export const SPLASH_SCREEN_DURATION = 3000;
 

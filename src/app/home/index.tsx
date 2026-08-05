@@ -4,8 +4,15 @@ import { RecipeCard } from "@/components/RecipeCard";
 import {
   APPLICATION_NAME,
   COLORS,
+  FEATURED_TEXT,
+  GO_TO_PRODUCTS_TEXT,
+  GO_TO_RECIPES_TEXT,
   PRODUCTS_ROUTE,
+  PRODUCTS_TEXT,
   RECIPES_ROUTE,
+  RECIPES_TEXT,
+  SEE_ALL_TEXT,
+  SEE_MORE_TEXT,
 } from "@/constants/Constants";
 import { FEATURED_SLIDES, PRODUCTS, RECIPES } from "@/constants/Mock";
 import { Ionicons } from "@expo/vector-icons";
@@ -55,20 +62,20 @@ export default function HomePage() {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={styles.homeContainer}>
       <Header isCartDisplayed isTitleDisplayed title={APPLICATION_NAME} />
 
       <ScrollView
-        contentContainerStyle={styles.content}
+        contentContainerStyle={styles.homeContent}
         showsVerticalScrollIndicator={false}
       >
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Destacados</Text>
+        <View style={styles.sliderContainer}>
+          <Text style={styles.sliderTitle}>{FEATURED_TEXT}</Text>
 
           <ScrollView
             horizontal
             showsHorizontalScrollIndicator={false}
-            contentContainerStyle={styles.heroCarouselContent}
+            contentContainerStyle={styles.featuredContainer}
             snapToInterval={featuredCardWidth + 12}
             decelerationRate="fast"
             pagingEnabled
@@ -77,26 +84,28 @@ export default function HomePage() {
               <View
                 key={slide.id}
                 style={[
-                  styles.heroSlide,
+                  styles.featuredSlide,
                   {
                     width: featuredCardWidth,
                     backgroundColor: slide.accentColor,
                   },
                 ]}
               >
-                <View style={styles.heroTextBlock}>
-                  <Text style={styles.heroTitle}>{slide.title}</Text>
-                  <Text style={styles.heroSubtitle}>{slide.subtitle}</Text>
+                <View style={styles.featuredHeader}>
+                  <Text style={styles.featuredTitle}>{slide.title}</Text>
+                  <Text style={styles.featuredSubtitle}>{slide.subtitle}</Text>
                 </View>
 
-                <View style={styles.heroImageWrap}>
+                <View style={styles.featuredImageContainer}>
                   <View
                     style={[
-                      styles.heroImage,
+                      styles.featuredImage,
                       { backgroundColor: "rgba(255, 255, 255, 0.22)" },
                     ]}
                   >
-                    <Text style={styles.heroImageLabel}>Ver mas</Text>
+                    <Text style={styles.featuredImageLabel}>
+                      {SEE_MORE_TEXT}
+                    </Text>
                   </View>
                 </View>
               </View>
@@ -104,14 +113,14 @@ export default function HomePage() {
           </ScrollView>
         </View>
 
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Productos</Text>
+        <View style={styles.sliderContainer}>
+          <Text style={styles.sliderTitle}>{PRODUCTS_TEXT}</Text>
 
-          <View style={styles.carouselShell}>
+          <View style={styles.slider}>
             <Pressable
               accessibilityRole="button"
               onPress={() => handleProductsScroll(-1)}
-              style={[styles.carouselButton, styles.carouselButtonLeft]}
+              style={[styles.sliderButton, styles.sliderButtonLeft]}
             >
               <Ionicons
                 color={COLORS.brandColor}
@@ -124,34 +133,32 @@ export default function HomePage() {
               ref={productsScrollViewRef}
               horizontal
               showsHorizontalScrollIndicator={false}
-              contentContainerStyle={styles.itemsCarouselContent}
+              contentContainerStyle={styles.sliderContent}
               onScroll={(event) => {
                 setProductsScrollOffset(event.nativeEvent.contentOffset.x);
               }}
               scrollEventThrottle={16}
             >
               {FEATURED_PRODUCTS.map((product) => (
-                <View key={product.id} style={styles.productCardWrap}>
+                <View key={product.id} style={styles.productCardContainer}>
                   <ProductCard product={product} />
                 </View>
               ))}
 
               <Pressable
                 onPress={() => router.push(PRODUCTS_ROUTE)}
-                style={[styles.seeAllCard, styles.productsSeeAllCard]}
+                style={styles.seeAllContainer}
                 accessibilityRole="button"
-                accessibilityLabel="Ir a todos los productos"
               >
-                <Text style={styles.seeAllTitle}>Ver todos</Text>
-                <Text style={styles.seeAllSubtitle}>Ir a productos</Text>
+                <Text style={styles.seeAllTitle}>{SEE_ALL_TEXT}</Text>
+                <Text style={styles.seeAllSubtitle}>{GO_TO_PRODUCTS_TEXT}</Text>
               </Pressable>
             </ScrollView>
 
             <Pressable
-              accessibilityLabel="Ir al producto siguiente"
               accessibilityRole="button"
               onPress={() => handleProductsScroll(1)}
-              style={[styles.carouselButton, styles.carouselButtonRight]}
+              style={[styles.sliderButton, styles.sliderButtonRight]}
             >
               <Ionicons
                 color={COLORS.brandColor}
@@ -162,15 +169,14 @@ export default function HomePage() {
           </View>
         </View>
 
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Recetas</Text>
+        <View style={styles.sliderContainer}>
+          <Text style={styles.sliderTitle}>{RECIPES_TEXT}</Text>
 
-          <View style={styles.carouselShell}>
+          <View style={styles.slider}>
             <Pressable
-              accessibilityLabel="Ir a la receta anterior"
               accessibilityRole="button"
               onPress={() => handleRecipesScroll(-1)}
-              style={[styles.carouselButton, styles.carouselButtonLeft]}
+              style={[styles.sliderButton, styles.sliderButtonLeft]}
             >
               <Ionicons
                 color={COLORS.brandColor}
@@ -183,34 +189,32 @@ export default function HomePage() {
               ref={recipesScrollViewRef}
               horizontal
               showsHorizontalScrollIndicator={false}
-              contentContainerStyle={styles.itemsCarouselContent}
+              contentContainerStyle={styles.sliderContent}
               onScroll={(event) => {
                 setRecipesScrollOffset(event.nativeEvent.contentOffset.x);
               }}
               scrollEventThrottle={16}
             >
               {FEATURED_RECIPES.map((recipe) => (
-                <View key={recipe.id} style={styles.recipeCardWrap}>
+                <View key={recipe.id} style={styles.recipeCardContainer}>
                   <RecipeCard recipe={recipe} />
                 </View>
               ))}
 
               <Pressable
                 onPress={() => router.push(RECIPES_ROUTE)}
-                style={[styles.seeAllCard, styles.recipesSeeAllCard]}
+                style={styles.seeAllContainer}
                 accessibilityRole="button"
-                accessibilityLabel="Ir a todas las recetas"
               >
-                <Text style={styles.seeAllTitle}>Ver todas</Text>
-                <Text style={styles.seeAllSubtitle}>Ir a recetas</Text>
+                <Text style={styles.seeAllTitle}>{SEE_ALL_TEXT}</Text>
+                <Text style={styles.seeAllSubtitle}>{GO_TO_RECIPES_TEXT}</Text>
               </Pressable>
             </ScrollView>
 
             <Pressable
-              accessibilityLabel="Ir a la receta siguiente"
               accessibilityRole="button"
               onPress={() => handleRecipesScroll(1)}
-              style={[styles.carouselButton, styles.carouselButtonRight]}
+              style={[styles.sliderButton, styles.sliderButtonRight]}
             >
               <Ionicons
                 color={COLORS.brandColor}
@@ -226,17 +230,20 @@ export default function HomePage() {
 }
 
 const styles = StyleSheet.create({
-  container: {
+  homeContainer: {
     backgroundColor: COLORS.surfaceColor,
     flex: 1,
     paddingHorizontal: 18,
     paddingTop: 18,
   },
-  content: {
+  homeContent: {
     gap: 24,
     paddingBottom: 36,
   },
-  carouselButton: {
+  slider: {
+    position: "relative",
+  },
+  sliderButton: {
     alignItems: "center",
     backgroundColor: COLORS.successColor,
     borderColor: COLORS.brandColor,
@@ -245,26 +252,28 @@ const styles = StyleSheet.create({
     elevation: 4,
     height: 40,
     justifyContent: "center",
+    marginRight: 2,
     position: "absolute",
     top: "50%",
     transform: [{ translateY: -20 }],
     width: 40,
     zIndex: 1,
   },
-  carouselButtonLeft: {
+  sliderButtonLeft: {
     left: 4,
   },
-  carouselButtonRight: {
+  sliderButtonRight: {
     right: 4,
   },
-  carouselShell: {
-    position: "relative",
-  },
-  heroCarouselContent: {
+  sliderContent: {
     gap: 12,
     paddingRight: 8,
   },
-  heroImage: {
+  featuredContainer: {
+    gap: 12,
+    paddingRight: 8,
+  },
+  featuredImage: {
     alignItems: "center",
     borderRadius: 14,
     justifyContent: "center",
@@ -273,68 +282,59 @@ const styles = StyleSheet.create({
     paddingHorizontal: 14,
     paddingVertical: 12,
   },
-  heroImageLabel: {
+  featuredImageLabel: {
     color: "#FFFFFF",
     fontFamily: "Poppins_700Bold",
     fontSize: 15,
   },
-  heroImageWrap: {
+  featuredImageContainer: {
     alignItems: "flex-end",
     flex: 1,
     justifyContent: "flex-end",
   },
-  heroSlide: {
+  featuredSlide: {
     borderRadius: 20,
     minHeight: 170,
     padding: 18,
   },
-  heroSubtitle: {
+  featuredSubtitle: {
     color: "#FFFFFF",
     fontFamily: "Poppins_400Regular",
     fontSize: 14,
     opacity: 0.95,
   },
-  heroTextBlock: {
+  featuredHeader: {
     gap: 4,
   },
-  heroTitle: {
+  featuredTitle: {
     color: "#FFFFFF",
     fontFamily: "Poppins_800ExtraBold",
     fontSize: 24,
   },
-  itemsCarouselContent: {
-    gap: 12,
-    paddingRight: 8,
-  },
-  productCardWrap: {
+  productCardContainer: {
     minWidth: 250,
     width: 250,
   },
-  productsSeeAllCard: {
+  seeAllContainer: {
     backgroundColor: "#14532D",
-  },
-  recipeCardWrap: {
-    minWidth: 260,
-    width: 260,
-  },
-  recipesSeeAllCard: {
-    backgroundColor: "#0F766E",
-  },
-  section: {
-    gap: 12,
-  },
-  sectionTitle: {
-    color: COLORS.primaryColor,
-    fontFamily: "Poppins_800ExtraBold",
-    fontSize: 22,
-  },
-  seeAllCard: {
     alignItems: "center",
     borderRadius: 22,
     justifyContent: "center",
     minHeight: 210,
     minWidth: 200,
     paddingHorizontal: 18,
+  },
+  recipeCardContainer: {
+    minWidth: 260,
+    width: 260,
+  },
+  sliderContainer: {
+    gap: 12,
+  },
+  sliderTitle: {
+    color: COLORS.primaryColor,
+    fontFamily: "Poppins_800ExtraBold",
+    fontSize: 22,
   },
   seeAllSubtitle: {
     color: "#FFFFFF",
