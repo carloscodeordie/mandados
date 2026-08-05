@@ -5,7 +5,7 @@ import { Href } from "expo-router";
 export const ADD_INGREDIENTS_TEXT = "Agregar ingredientes";
 export const ADDED_FEEDBACK_DURATION_MS = 1200;
 
-export const APPLICATION_NAME = "Mandados";
+export const APPLICATION_NAME = "GroceryToGo";
 export const APPLICATION_SLOGAN = "Come sano sin tanta vuelta";
 
 export const AVAILABLE_TEXT = "Disponible";

@@ -1,3 +1,4 @@
+import { FeaturedSlide } from "@/types/FeaturedSlide";
 import { Product } from "@/types/Product";
 import { Recipe } from "@/types/Recipe";
 
@@ -460,5 +461,22 @@ export const PRODUCTS: Product[] = [
     category: "Cereales",
     inStock: true,
     price: 14,
+  },
+];
+
+export const FEATURED_SLIDES: FeaturedSlide[] = [
+  {
+    id: "new-products",
+    title: "Nuevos productos",
+    subtitle: "Descubre lo recien llegado para tu cocina",
+    imageUrl: PRODUCTS[0]?.imageUrl ?? "",
+    accentColor: "#22C55E",
+  },
+  {
+    id: "discounts",
+    title: "Descuentos",
+    subtitle: "Aprovecha precios especiales por tiempo limitado",
+    imageUrl: PRODUCTS[1]?.imageUrl ?? PRODUCTS[0]?.imageUrl ?? "",
+    accentColor: "#F59E0B",
   },
 ];

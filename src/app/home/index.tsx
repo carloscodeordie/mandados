@@ -1,9 +1,16 @@
 import { Header } from "@/components/Header";
 import { ProductCard } from "@/components/ProductCard";
 import { RecipeCard } from "@/components/RecipeCard";
-import { COLORS, PRODUCTS_ROUTE, RECIPES_ROUTE } from "@/constants/Constants";
-import { PRODUCTS, RECIPES } from "@/constants/Mock";
+import {
+  APPLICATION_NAME,
+  COLORS,
+  PRODUCTS_ROUTE,
+  RECIPES_ROUTE,
+} from "@/constants/Constants";
+import { FEATURED_SLIDES, PRODUCTS, RECIPES } from "@/constants/Mock";
+import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
+import { useRef, useState } from "react";
 import {
   Pressable,
   ScrollView,
@@ -13,42 +20,30 @@ import {
   View,
 } from "react-native";
 
-type HeroSlide = {
-  id: string;
-  title: string;
-  subtitle: string;
-  imageUrl: string;
-  accentColor: string;
-};
-
-const HERO_SLIDES: HeroSlide[] = [
-  {
-    id: "new-products",
-    title: "Nuevos productos",
-    subtitle: "Descubre lo recien llegado para tu cocina",
-    imageUrl: PRODUCTS[0]?.imageUrl ?? "",
-    accentColor: "#22C55E",
-  },
-  {
-    id: "discounts",
-    title: "Descuentos",
-    subtitle: "Aprovecha precios especiales por tiempo limitado",
-    imageUrl: PRODUCTS[1]?.imageUrl ?? PRODUCTS[0]?.imageUrl ?? "",
-    accentColor: "#F59E0B",
-  },
-];
-
 const FEATURED_PRODUCTS = PRODUCTS.slice(0, 10);
 const FEATURED_RECIPES = RECIPES.slice(0, 10);
 
 export default function HomePage() {
   const router = useRouter();
   const { width } = useWindowDimensions();
-  const heroCardWidth = Math.max(300, Math.min(width - 40, 840));
+  const featuredCardWidth = Math.max(300, Math.min(width - 40, 840));
+  const productsScrollViewRef = useRef<ScrollView>(null);
+  const [productsScrollOffset, setProductsScrollOffset] = useState(0);
+
+  const handleProductsScroll = (direction: -1 | 1) => {
+    const cardWidth = 250;
+    const gap = 12;
+    const step = cardWidth + gap;
+
+    productsScrollViewRef.current?.scrollTo({
+      animated: true,
+      x: Math.max(0, productsScrollOffset + direction * step),
+    });
+  };
 
   return (
     <View style={styles.container}>
-      <Header isCartDisplayed isTitleDisplayed title="Inicio" />
+      <Header isCartDisplayed isTitleDisplayed title={APPLICATION_NAME} />
 
       <ScrollView
         contentContainerStyle={styles.content}
@@ -61,17 +56,17 @@ export default function HomePage() {
             horizontal
             showsHorizontalScrollIndicator={false}
             contentContainerStyle={styles.heroCarouselContent}
-            snapToInterval={heroCardWidth + 12}
+            snapToInterval={featuredCardWidth + 12}
             decelerationRate="fast"
             pagingEnabled
           >
-            {HERO_SLIDES.map((slide) => (
+            {FEATURED_SLIDES.map((slide) => (
               <View
                 key={slide.id}
                 style={[
                   styles.heroSlide,
                   {
-                    width: heroCardWidth,
+                    width: featuredCardWidth,
                     backgroundColor: slide.accentColor,
                   },
                 ]}
@@ -99,27 +94,60 @@ export default function HomePage() {
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Productos</Text>
 
-          <ScrollView
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            contentContainerStyle={styles.itemsCarouselContent}
-          >
-            {FEATURED_PRODUCTS.map((product) => (
-              <View key={product.id} style={styles.productCardWrap}>
-                <ProductCard product={product} />
-              </View>
-            ))}
+          <View style={styles.carouselShell}>
+            <Pressable
+              accessibilityLabel="Ir al producto anterior"
+              accessibilityRole="button"
+              onPress={() => handleProductsScroll(-1)}
+              style={[styles.carouselButton, styles.carouselButtonLeft]}
+            >
+              <Ionicons
+                color={COLORS.brandColor}
+                name="chevron-back"
+                size={22}
+              />
+            </Pressable>
+
+            <ScrollView
+              ref={productsScrollViewRef}
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              contentContainerStyle={styles.itemsCarouselContent}
+              onScroll={(event) => {
+                setProductsScrollOffset(event.nativeEvent.contentOffset.x);
+              }}
+              scrollEventThrottle={16}
+            >
+              {FEATURED_PRODUCTS.map((product) => (
+                <View key={product.id} style={styles.productCardWrap}>
+                  <ProductCard product={product} />
+                </View>
+              ))}
+
+              <Pressable
+                onPress={() => router.push(PRODUCTS_ROUTE)}
+                style={[styles.seeAllCard, styles.productsSeeAllCard]}
+                accessibilityRole="button"
+                accessibilityLabel="Ir a todos los productos"
+              >
+                <Text style={styles.seeAllTitle}>Ver todos</Text>
+                <Text style={styles.seeAllSubtitle}>Ir a productos</Text>
+              </Pressable>
+            </ScrollView>
 
             <Pressable
-              onPress={() => router.push(PRODUCTS_ROUTE)}
-              style={[styles.seeAllCard, styles.productsSeeAllCard]}
+              accessibilityLabel="Ir al producto siguiente"
               accessibilityRole="button"
-              accessibilityLabel="Ir a todos los productos"
+              onPress={() => handleProductsScroll(1)}
+              style={[styles.carouselButton, styles.carouselButtonRight]}
             >
-              <Text style={styles.seeAllTitle}>Ver todos</Text>
-              <Text style={styles.seeAllSubtitle}>Ir a productos</Text>
+              <Ionicons
+                color={COLORS.brandColor}
+                name="chevron-forward"
+                size={22}
+              />
             </Pressable>
-          </ScrollView>
+          </View>
         </View>
 
         <View style={styles.section}>
@@ -162,6 +190,30 @@ const styles = StyleSheet.create({
   content: {
     gap: 24,
     paddingBottom: 36,
+  },
+  carouselButton: {
+    alignItems: "center",
+    backgroundColor: COLORS.defaultBackground,
+    borderColor: COLORS.surfaceColor,
+    borderWidth: 1,
+    borderRadius: 999,
+    elevation: 4,
+    height: 40,
+    justifyContent: "center",
+    position: "absolute",
+    top: "50%",
+    transform: [{ translateY: -20 }],
+    width: 40,
+    zIndex: 1,
+  },
+  carouselButtonLeft: {
+    left: 4,
+  },
+  carouselButtonRight: {
+    right: 4,
+  },
+  carouselShell: {
+    position: "relative",
   },
   heroCarouselContent: {
     gap: 12,
