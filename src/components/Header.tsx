@@ -91,11 +91,11 @@ function Header({
   });
 
   const handleBackPress = () => {
-    router.push("/recipes");
+    router.back();
   };
 
   const handleLogoPress = () => {
-    router.push("/products");
+    router.push("/home");
   };
 
   const handleCartPress = () => {

@@ -5,7 +5,6 @@ import {
   RECIPE_FILTERS,
   RECIPES_DESKTOP_COLUMN_COUNT,
   RECIPES_MOBILE_COLUMN_COUNT,
-  RECIPES_TEXT,
 } from "@/constants/Constants";
 import { RECIPES } from "@/constants/Mock";
 
@@ -35,12 +34,7 @@ export default function RecipesPage() {
 
   return (
     <View style={styles.container}>
-      <Header
-        isLogoDisplayed
-        isCartDisplayed
-        isTitleDisplayed
-        title={RECIPES_TEXT}
-      />
+      <Header isBackDisplayed isCartDisplayed />
 
       {isDesktop ? (
         <View style={styles.filtersDesktopContainer}>

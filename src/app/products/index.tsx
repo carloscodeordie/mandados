@@ -3,7 +3,6 @@ import { ProductCard } from "@/components/ProductCard";
 import {
   COLORS,
   PRODUCT_FILTERS,
-  PRODUCTS_TEXT,
   RECIPES_DESKTOP_COLUMN_COUNT,
   RECIPES_MOBILE_COLUMN_COUNT,
 } from "@/constants/Constants";
@@ -39,12 +38,7 @@ export default function ProductsPage() {
 
   return (
     <View style={styles.container}>
-      <Header
-        isLogoDisplayed
-        isCartDisplayed
-        isTitleDisplayed
-        title={PRODUCTS_TEXT}
-      />
+      <Header isBackDisplayed isCartDisplayed />
 
       {isDesktop ? (
         <View style={styles.filtersDesktopContainer}>
