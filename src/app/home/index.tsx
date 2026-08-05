@@ -33,7 +33,12 @@ const FEATURED_RECIPES = RECIPES.slice(0, 10);
 export default function HomePage() {
   const router = useRouter();
   const { width } = useWindowDimensions();
-  const featuredCardWidth = Math.max(300, Math.min(width - 40, 840));
+  const isDesktop = width >= 1024;
+  const featuredCardGap = 12;
+  const availableFeaturedWidth = Math.max(0, width - 36);
+  const featuredCardWidth = isDesktop
+    ? (availableFeaturedWidth - featuredCardGap) / 2
+    : Math.max(280, Math.min(availableFeaturedWidth * 0.86, 420));
   const productsScrollViewRef = useRef<ScrollView>(null);
   const recipesScrollViewRef = useRef<ScrollView>(null);
   const [productsScrollOffset, setProductsScrollOffset] = useState(0);
@@ -76,9 +81,9 @@ export default function HomePage() {
             horizontal
             showsHorizontalScrollIndicator={false}
             contentContainerStyle={styles.featuredContainer}
-            snapToInterval={featuredCardWidth + 12}
+            snapToInterval={featuredCardWidth + featuredCardGap}
             decelerationRate="fast"
-            pagingEnabled
+            disableIntervalMomentum
           >
             {FEATURED_SLIDES.map((slide) => (
               <View
