@@ -1,12 +1,12 @@
 import { useOnboarding } from "@/app/hook/useOnboarding";
 import { Header } from "@/components/Header";
+import { Loading } from "@/components/Loading";
 import { OnboardingActions } from "@/components/OnboardingActions";
 import { OnboardingCard } from "@/components/OnboardingCard";
 import { PaginationDot } from "@/components/PaginationDot";
 import { Ionicons } from "@expo/vector-icons";
 import { useCallback, useEffect, useRef, useState } from "react";
 import {
-  ActivityIndicator,
   NativeScrollEvent,
   NativeSyntheticEvent,
   Pressable,
@@ -144,12 +144,7 @@ export default function OnboardingPage() {
         </View>
 
         <View style={styles.sliderWrapper}>
-          {isLoading ? (
-            <View style={styles.feedbackContainer}>
-              <ActivityIndicator size="small" color={COLORS.primaryColor} />
-              <Text style={styles.feedbackText}>Cargando onboarding...</Text>
-            </View>
-          ) : null}
+          {isLoading ? <Loading /> : null}
 
           {isError ? (
             <View style={styles.feedbackContainer}>
