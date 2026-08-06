@@ -9,7 +9,7 @@ export const ONBOARDING_SLIDES: Onboarding[] = [
     title: "Mandado a domicilio",
     description:
       "Te enviamos a tu casa lo que necesites, sin que tengas que salir de tu hogar.",
-    imageUrl: require("../../assets/images/onboarding/delivery.png"),
+    imageUrl: "https://6a73f1890e32446493cbca0f.imgix.net/delivery.png",
     sequence: 1,
   },
   {
@@ -17,7 +17,7 @@ export const ONBOARDING_SLIDES: Onboarding[] = [
     title: "No sabes que cocinar?",
     description:
       "Te ayudamos a decidir qué cocinar con recetas sanas y rápidas.",
-    imageUrl: require("../../assets/images/onboarding/cooking.png"),
+    imageUrl: "https://6a73f1890e32446493cbca0f.imgix.net/cooking.png",
     sequence: 2,
   },
   {
@@ -25,7 +25,7 @@ export const ONBOARDING_SLIDES: Onboarding[] = [
     title: "Siempre fresco",
     description:
       "Sellamos al vacio para que tu comida llegue fresca y lista para comer.",
-    imageUrl: require("../../assets/images/onboarding/fresh.png"),
+    imageUrl: "https://6a73f1890e32446493cbca0f.imgix.net/fresh.png",
     sequence: 3,
   },
 ];

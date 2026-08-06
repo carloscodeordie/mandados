@@ -23,7 +23,7 @@ function OnboardingCard({
         </View>
         <View style={[styles.cardIllustration, { height: illustrationHeight }]}>
           <Image
-            source={imageSource}
+            source={{ uri: imageSource }}
             style={[
               styles.cardIllustrationImage,
               isDesktop ? styles.cardIllustrationImageDesktop : null,
