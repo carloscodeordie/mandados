@@ -1,34 +1,6 @@
 import { FeaturedSlide } from "@/types/FeaturedSlide";
-import { Onboarding } from "@/types/Onboarding";
 import { Product } from "@/types/Product";
 import { Recipe } from "@/types/Recipe";
-
-export const ONBOARDING_SLIDES: Onboarding[] = [
-  {
-    id: "1",
-    title: "Mandado a domicilio",
-    description:
-      "Te enviamos a tu casa lo que necesites, sin que tengas que salir de tu hogar.",
-    imageUrl: "https://6a73f1890e32446493cbca0f.imgix.net/delivery.png",
-    sequence: 1,
-  },
-  {
-    id: "2",
-    title: "No sabes que cocinar?",
-    description:
-      "Te ayudamos a decidir qué cocinar con recetas sanas y rápidas.",
-    imageUrl: "https://6a73f1890e32446493cbca0f.imgix.net/cooking.png",
-    sequence: 2,
-  },
-  {
-    id: "3",
-    title: "Siempre fresco",
-    description:
-      "Sellamos al vacio para que tu comida llegue fresca y lista para comer.",
-    imageUrl: "https://6a73f1890e32446493cbca0f.imgix.net/fresh.png",
-    sequence: 3,
-  },
-];
 
 export const RECIPES: Recipe[] = [
   {
