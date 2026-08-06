@@ -40,25 +40,36 @@ export default function OnboardingPage() {
     : 220;
 
   useEffect(() => {
-    if (totalSlides === 0 && activeIndex !== 0) {
-      setActiveIndex(0);
+    if (totalSlides === 0) {
+      if (activeIndex !== 0) {
+        setActiveIndex(0);
+      }
       return;
     }
 
-    if (activeIndex > totalSlides - 1) {
-      setActiveIndex(totalSlides - 1);
+    const clampedIndex = Math.max(0, Math.min(activeIndex, totalSlides - 1));
+    if (clampedIndex !== activeIndex) {
+      setActiveIndex(clampedIndex);
     }
   }, [activeIndex, totalSlides]);
 
   const updateActiveIndexFromScroll = useCallback(
     (event: NativeSyntheticEvent<NativeScrollEvent>) => {
-      if (totalSlides === 0) {
+      if (
+        totalSlides === 0 ||
+        !Number.isFinite(screenWidth) ||
+        screenWidth <= 0
+      ) {
         return;
       }
 
       const nextIndex = Math.round(
         event.nativeEvent.contentOffset.x / screenWidth,
       );
+
+      if (!Number.isFinite(nextIndex)) {
+        return;
+      }
 
       const clampedIndex = Math.max(0, Math.min(nextIndex, totalSlides - 1));
 
