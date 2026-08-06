@@ -136,7 +136,7 @@ export default function OnboardingPage() {
                 description={slide.description}
                 isDesktop={isDesktop}
                 illustrationHeight={illustrationHeight}
-                imageSource={slide.imageSource}
+                imageSource={slide.imageUrl}
                 index={index}
                 screenWidth={screenWidth}
                 title={slide.title}
