@@ -94,6 +94,8 @@ export const RECIPES_MOBILE_COLUMN_COUNT = 2;
 export const RECIPES_ROUTE: Href = "/recipes";
 export const RECIPES_TEXT = "Recetas";
 
+export const RETRY_BUTTON_TEXT = "Reintentar";
+
 export const SEE_ALL_TEXT = "Ver todos";
 export const SEE_MORE_TEXT = "Ver mas";
 

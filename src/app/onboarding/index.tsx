@@ -4,6 +4,7 @@ import { Loading } from "@/components/Loading";
 import { OnboardingActions } from "@/components/OnboardingActions";
 import { OnboardingCard } from "@/components/OnboardingCard";
 import { PaginationDot } from "@/components/PaginationDot";
+import { Retry } from "@/components/Retry";
 import { Ionicons } from "@expo/vector-icons";
 import { useCallback, useEffect, useRef, useState } from "react";
 import {
@@ -12,7 +13,6 @@ import {
   Pressable,
   ScrollView,
   StyleSheet,
-  Text,
   useWindowDimensions,
   View,
 } from "react-native";
@@ -156,25 +156,11 @@ export default function OnboardingPage() {
 
         <View style={styles.sliderWrapper}>
           {isLoading ? <Loading /> : null}
-
           {isError ? (
-            <View style={styles.feedbackContainer}>
-              <Text style={styles.feedbackText}>
-                No se pudo cargar el onboarding.
-              </Text>
-              <Text style={styles.errorDescription}>{error.message}</Text>
-              <Pressable onPress={() => refetch()} style={styles.retryButton}>
-                <Text style={styles.retryButtonText}>Reintentar</Text>
-              </Pressable>
-            </View>
-          ) : null}
-
-          {!isLoading && !isError && totalSlides === 0 ? (
-            <View style={styles.feedbackContainer}>
-              <Text style={styles.feedbackText}>
-                No hay contenido disponible.
-              </Text>
-            </View>
+            <Retry
+              handleRetry={refetch}
+              title="Error al cargar el onboarding."
+            />
           ) : null}
 
           {!isLoading && !isError && totalSlides > 0 ? (
@@ -297,41 +283,9 @@ const styles = StyleSheet.create({
   carouselButtonRight: {
     right: 16,
   },
-  errorDescription: {
-    color: COLORS.secondaryColor,
-    fontFamily: "Poppins_400Regular",
-    fontSize: 13,
-    marginTop: 4,
-    textAlign: "center",
-  },
-  feedbackContainer: {
-    alignItems: "center",
-    flex: 1,
-    justifyContent: "center",
-    paddingHorizontal: 24,
-  },
-  feedbackText: {
-    color: COLORS.primaryColor,
-    fontFamily: "Poppins_700Bold",
-    fontSize: 16,
-    marginTop: 12,
-    textAlign: "center",
-  },
   safeArea: {
     backgroundColor: COLORS.defaultBackground,
     flex: 1,
-  },
-  retryButton: {
-    backgroundColor: COLORS.primaryColor,
-    borderRadius: 999,
-    marginTop: 16,
-    paddingHorizontal: 18,
-    paddingVertical: 10,
-  },
-  retryButtonText: {
-    color: COLORS.defaultBackground,
-    fontFamily: "Poppins_700Bold",
-    fontSize: 13,
   },
   slider: {
     flex: 1,
